@@ -10,7 +10,7 @@ namespace Library.Data
     {
         public string Name { get; set; }
         public string Author { get; set; }
-        public short YearOfPublishing { get; set; }
+        public DateTime YearOfPublishing { get; set; }
         public string Publisher { get; set; }
         
     }
