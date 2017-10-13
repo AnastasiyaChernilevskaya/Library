@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Librery
+namespace Library
 {
     public class FilterConfig
     {
