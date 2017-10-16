@@ -9,12 +9,6 @@ namespace Library.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult MyLibrary()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
         // создаем контекст данных
         Context _context = new Context();
 
