@@ -123,6 +123,9 @@ namespace Librery.Data.Repository
             _entities.Dispose();
         }
 
-
+        public Book One(Func<Book, bool> predicate)
+        {
+            return GetAll().FirstOrDefault(predicate);
+        }
     }
 }
