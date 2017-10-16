@@ -4,9 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Library.Services;
-using Library.Data.Repository;
-using Library.Data;
-
 
 namespace Library.Controllers
 {
@@ -23,13 +20,7 @@ namespace Library.Controllers
         {
             return View();
         }
-        protected override void Dispose(bool disposing)
-        {
-            _bookService.Dispose();
 
-            base.Dispose(disposing);
-        }
-        
         //public ActionResult books_Read([DataSourceRequest] DataSourceRequest request)
         //{
         //    return Json(_bookService.Read().ToDataSourceResult(request));

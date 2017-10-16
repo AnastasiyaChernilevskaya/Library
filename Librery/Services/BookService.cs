@@ -8,7 +8,7 @@ using Library.Data.Repository;
 
 namespace Library.Services
 {
-    public class BookService //IDisposable?
+    public class BookService 
     {
         private BookRepository _bookRepository;
         public BookService()
@@ -40,10 +40,5 @@ namespace Library.Services
         {
             _bookRepository.DestroyBook(book);
         }        
-
-        public void Dispose()
-        {
-            _bookRepository.Dispose();
-        }
     }
 }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Library.Data;
 
 namespace Library.Data.Repository
 {
-    public class BookRepository : IDisposable
+    public class BookRepository
     {
         private static bool _updateDatabase = false;
         private Context _entities;
@@ -112,11 +111,6 @@ namespace Library.Data.Repository
                 _entities.Books.Remove(entity);
                 _entities.SaveChanges();
             }
-        }
-
-        public void Dispose()
-        {
-            _entities.Dispose();
         }
 
         public Book One(Func<Book, bool> predicate)
