@@ -37,7 +37,7 @@ namespace Library.Controllers
         public JsonResult UpdateBook(Book book)
         {
             _bookService.UpdateBook(book);
-            return Json(true, JsonRequestBehavior.DenyGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         public JsonResult CreateBook(Book book)
         {

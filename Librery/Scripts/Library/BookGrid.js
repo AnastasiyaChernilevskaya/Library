@@ -2,14 +2,18 @@
     $("#grid").kendoGrid({
        
         height: 550,
-        editable: true,
+        editable: "inline",
         sortable: true,
+        toolbar: ["create"],
 
         pageable: {
-            refresh: true,
+            refresh: false,
             pageSizes: true
         },
         columns: [{
+            field: "Id",
+            hidden: true
+        }, {
             field: "Name",
             title: "Name"
         }, {
@@ -23,14 +27,25 @@
             field: "Publisher",
             title: "Publisher"
         }, {
-            command: "destroy",
-            width: 110
+            command: ["edit", "destroy"],
+            title: "&nbsp;",
+            width: "250px"
         }],
-        toolbar: ["create"],
         dataSource: {
             transport: {
-                read: function (e) {
+                read: function(e) {
                     getData(e);
+                },
+                update: function(e) {
+                    updateData(e);
+                },
+                destroy: {
+                    url: "/Products/Destroy",
+                    dataType: "jsonp"
+                },
+                create: {
+                    url: "/Products/Create",
+                    dataType: "jsonp"
                 }
             },
         }
@@ -40,9 +55,26 @@
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "MyLibrary/GetBooks",
+        url: "GetBooks",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
+        success: function (data) {
+            console.log(data);
+            e.success(data);
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
+}
+
+function updateData(e) {
+    $.ajax({
+        type: "POST",
+        url: "UpdateBook",
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        data: e.data,
         success: function (data) {
             console.log(data);
             e.success(data);
