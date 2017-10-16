@@ -9,106 +9,56 @@ namespace Library.Data.Repository
     public class BookRepository
     {
         private static bool _updateDatabase = false;
-        private Context _entities;
+        private Context _context;
         public BookRepository()
         {
-            _entities = new Context();
+            _context = new Context();
         }
 
         public IList<Book> GetBooks()
         {
             var result = new List<Book>();
 
-            result = _entities.Books.ToList();
+            result = _context.Books.ToList();
 
             return result;
         }
 
-        public IEnumerable<Book> Read()
+        public void CreateBook(Book book)
         {
-            return GetBooks();
-        }
+            var entity = new Book(); //ask Lesha!
 
-        public void Create(Book book)
-        {
-            if (!_updateDatabase)
-            {
-                var first = GetBooks().OrderByDescending(e => e.Id).FirstOrDefault();
-                var id = (first != null) ? first.Id : 0;
+            entity.Name = book.Name;
+            entity.Author = book.Author;
+            entity.YearOfPublishing = book.YearOfPublishing;
+            entity.Publisher = book.Publisher;
 
-                book.Id = id + 1;
-
-                GetBooks().Insert(0, book);
-            }
-            else
-            {
-                var entity = new Book(); //ask Lesha!
-
-                entity.Name = book.Name;
-                entity.Author = book.Author;
-                entity.YearOfPublishing = book.YearOfPublishing;
-                entity.Publisher = book.Publisher;
-
-                _entities.Books.Add(entity);
-                _entities.SaveChanges();
-
-                book.Id = entity.Id;
-            }
+            _context.Books.Add(entity);
+            _context.SaveChanges();
         }
 
         public void UpdateBook(Book book)
         {
-            if (!_updateDatabase)
-            {
-                var target = One(e => e.Id == book.Id);
+            var entity = new Book();
 
-                if (target != null)
-                {
-                    target.Name = book.Name;
-                    target.YearOfPublishing = book.YearOfPublishing;
-                    target.Publisher = book.Publisher;
-                    target.Publisher = book.Publisher;
-                }
-            }
-            else
-            {
-                var entity = new Book();
+            entity.Id = book.Id;
+            entity.Name = book.Name;
+            entity.YearOfPublishing = book.YearOfPublishing;
+            entity.Publisher = book.Publisher;
 
-                entity.Id = book.Id;
-                entity.Name = book.Name;
-                entity.YearOfPublishing = book.YearOfPublishing;
-                entity.Publisher = book.Publisher;
-
-                _entities.Books.Attach(entity);
-                //entities.Entry(entity).State = EntityState.Modified;
-                _entities.SaveChanges();
-            }
+            _context.Books.Attach(entity);
+            _context.SaveChanges();
         }
 
-        public void DestroyBook(Book book)
+        public void DestroyBook(int id)
         {
-            if (!_updateDatabase)
-            {
-                var target = GetBooks().FirstOrDefault(p => p.Id == book.Id);
-                if (target != null)
-                {
-                    GetBooks().Remove(target);
-                }
-            }
-            else
-            {
-                var entity = new Book();
-
-                entity.Id = book.Id;
-                _entities.Books.Attach(entity);
-                _entities.Books.Remove(entity);
-                _entities.SaveChanges();
-            }
+            _context.Books.Remove(GetBook(id));
+            _context.SaveChanges();
         }
 
-        public Book One(Func<Book, bool> predicate)
+        public Book GetBook(int id)
         {
-            return GetBooks().FirstOrDefault(predicate);
+            return GetBooks().FirstOrDefault(p => p.Id == id);
         }
     }
 }

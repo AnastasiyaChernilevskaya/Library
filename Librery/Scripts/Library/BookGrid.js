@@ -29,7 +29,9 @@
         toolbar: ["create"],
         dataSource: {
             transport: {
-                read: "/MyLibrary/GetBooks"
+                read: function (e) {
+                    getData(e);
+                }
             },
         }
         

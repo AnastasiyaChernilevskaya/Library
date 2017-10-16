@@ -20,15 +20,9 @@ namespace Library.Services
         {
             return _bookRepository.GetBooks();
         }
-
-        public IEnumerable<Book> Read()
+        public void CreateBook(Book book)
         {
-            return _bookRepository.Read();
-        }
-
-        public void Create(Book book)
-        {
-            _bookRepository.Create(book);
+            _bookRepository.CreateBook(book);
         }
 
         public void UpdateBook(Book book)
@@ -36,9 +30,13 @@ namespace Library.Services
             _bookRepository.UpdateBook(book);
         }
 
-        public void DestroyBook(Book book)
+        public void DestroyBook(int id)
         {
-            _bookRepository.DestroyBook(book);
-        }        
+            _bookRepository.DestroyBook(id);
+        }
+        public Book GetBook(int id)
+        {
+            return _bookRepository.GetBook(id);
+        }
     }
 }
