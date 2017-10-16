@@ -14,120 +14,120 @@ namespace Librery.Servises
 {
     public class BookService: IDisposable
     {
-        private static bool UpdateDatabase = false;
-        private Context entities;
+        //private static bool UpdateDatabase = false;
+        //private Context entities;
 
-        public BookService(Context entities)
-        {
-            this.entities = entities;
-        }
+        //public BookService(Context entities)
+        //{
+        //    this.entities = entities;
+        //}
 
-        public IList<BookViewModel> GetAll()
-        {
-            IList<BookViewModel> result = new List<BookViewModel>();
+        //public IList<BookViewModel> GetAll()
+        //{
+        //    IList<BookViewModel> result = new List<BookViewModel>();
 
-            result = entities.Books.Select(book => new BookViewModel
-            {
-                Id = book.Id,
-                Name = book.Name,
-                Author = book.Author,
-                YearOfPublishing = book.YearOfPublishing,
-                Publisher = book.Publisher,
-            }).ToList();
+        //    result = entities.Books.Select(book => new BookViewModel
+        //    {
+        //        Id = book.Id,
+        //        Name = book.Name,
+        //        Author = book.Author,
+        //        YearOfPublishing = book.YearOfPublishing,
+        //        Publisher = book.Publisher,
+        //    }).ToList();
 
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public IEnumerable<BookViewModel> Read()
-        {
-            return GetAll();
-        }
+        //public IEnumerable<BookViewModel> Read()
+        //{
+        //    return GetAll();
+        //}
 
-        public void Create(BookViewModel book)
-        {
-            if (!UpdateDatabase)
-            {
-                var first = GetAll().OrderByDescending(e => e.Id).FirstOrDefault();
-                var id = (first != null) ? first.Id : 0;
+        //public void Create(BookViewModel book)
+        //{
+        //    if (!UpdateDatabase)
+        //    {
+        //        var first = GetAll().OrderByDescending(e => e.Id).FirstOrDefault();
+        //        var id = (first != null) ? first.Id : 0;
 
-                book.Id = id + 1;
+        //        book.Id = id + 1;
 
-                GetAll().Insert(0, book);
-            }
-            else
-            {
-                var entity = new Book();
+        //        GetAll().Insert(0, book);
+        //    }
+        //    else
+        //    {
+        //        var entity = new Book();
 
-                entity.Name = book.Name;
-                entity.Author = book.Author;
-                entity.YearOfPublishing = book.YearOfPublishing;
-                entity.Publisher = book.Publisher;
+        //        entity.Name = book.Name;
+        //        entity.Author = book.Author;
+        //        entity.YearOfPublishing = book.YearOfPublishing;
+        //        entity.Publisher = book.Publisher;
 
-                entities.Books.Add(entity);
-                entities.SaveChanges();
+        //        entities.Books.Add(entity);
+        //        entities.SaveChanges();
 
-                book.Id = entity.Id;
-            }
-        }
+        //        book.Id = entity.Id;
+        //    }
+        //}
 
-        public void Update(BookViewModel book)
-        {
-            if (!UpdateDatabase)
-            {
-                var target = One(e => e.Id == book.Id);
+        //public void Update(BookViewModel book)
+        //{
+        //    if (!UpdateDatabase)
+        //    {
+        //        var target = One(e => e.Id == book.Id);
 
-                if (target != null)
-                {
-                    target.Name = book.Name;
-                    target.YearOfPublishing = book.YearOfPublishing;
-                    target.Publisher = book.Publisher;
-                    target.Publisher = book.Publisher;
-                }
-            }
-            else
-            {
-                var entity = new Book();
+        //        if (target != null)
+        //        {
+        //            target.Name = book.Name;
+        //            target.YearOfPublishing = book.YearOfPublishing;
+        //            target.Publisher = book.Publisher;
+        //            target.Publisher = book.Publisher;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var entity = new Book();
 
-                entity.Id = book.Id;
-                entity.Name = book.Name;
-                entity.YearOfPublishing = book.YearOfPublishing;
-                entity.Publisher = book.Publisher;
+        //        entity.Id = book.Id;
+        //        entity.Name = book.Name;
+        //        entity.YearOfPublishing = book.YearOfPublishing;
+        //        entity.Publisher = book.Publisher;
 
-                entities.Books.Attach(entity);
-                //entities.Entry(entity).State = EntityState.Modified;
-                entities.SaveChanges();
-            }
-        }
+        //        entities.Books.Attach(entity);
+        //        //entities.Entry(entity).State = EntityState.Modified;
+        //        entities.SaveChanges();
+        //    }
+        //}
 
-        public void Destroy(BookViewModel book)
-        {
-            if (!UpdateDatabase)
-            {
-                var target = GetAll().FirstOrDefault(p => p.Id == book.Id);
-                if (target != null)
-                {
-                    GetAll().Remove(target);
-                }
-            }
-            else
-            {
-                var entity = new Book();
+        //public void Destroy(BookViewModel book)
+        //{
+        //    if (!UpdateDatabase)
+        //    {
+        //        var target = GetAll().FirstOrDefault(p => p.Id == book.Id);
+        //        if (target != null)
+        //        {
+        //            GetAll().Remove(target);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var entity = new Book();
 
-                entity.Id = book.Id;
+        //        entity.Id = book.Id;
 
-                entities.Books.Attach(entity);
+        //        entities.Books.Attach(entity);
 
-                entities.Books.Remove(entity);
+        //        entities.Books.Remove(entity);
 
-                entities.SaveChanges();
-            }
-        }
+        //        entities.SaveChanges();
+        //    }
+        //}
 
-        public void Dispose()
-        {
-            entities.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    entities.Dispose();
+        //}
 
     }
 }
