@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Data;
 
-namespace Librery.Data.Repository
+namespace Library.Data.Repository
 {
-    class BookRepository
+    public class BookRepository : IDisposable
     {
         private static bool _updateDatabase = false;
         private Context _entities;
-
-        public BookRepository(Context entities)
+        public BookRepository()
         {
-            this._entities = entities;
+            _entities = new Context();
         }
 
         public IList<Book> GetBooks()
@@ -109,11 +108,8 @@ namespace Librery.Data.Repository
                 var entity = new Book();
 
                 entity.Id = book.Id;
-
                 _entities.Books.Attach(entity);
-
                 _entities.Books.Remove(entity);
-
                 _entities.SaveChanges();
             }
         }
@@ -125,7 +121,7 @@ namespace Librery.Data.Repository
 
         public Book One(Func<Book, bool> predicate)
         {
-            return GetAll().FirstOrDefault(predicate);
+            return GetBooks().FirstOrDefault(predicate);
         }
     }
 }

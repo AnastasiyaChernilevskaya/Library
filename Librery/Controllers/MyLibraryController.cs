@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Library.Services;
+using Library.Data.Repository;
+using Library.Data;
 
-namespace Librery.Controllers
+
+namespace Library.Controllers
 {
     public class MyLibraryController : Controller
     {
-        // GET: MyLibrary
-        //public ActionResult MyLibrary()
-        //{
-        //    return View();
-        //}
-
-        private BookService BookService;
+        private BookService _bookService;
 
         public MyLibraryController()
         {
-            BookService = new BookService(new Context());
+            _bookService = new BookService();
         }
 
+        public ActionResult MyLibrary()
+        {
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
-            BookService.Dispose();
+            _bookService.Dispose();
 
             base.Dispose(disposing);
         }
         
-        public ActionResult books_Read([DataSourceRequest] DataSourceRequest request)
-        {
-            return Json(BookService.Read().ToDataSourceResult(request));
-        }
+        //public ActionResult books_Read([DataSourceRequest] DataSourceRequest request)
+        //{
+        //    return Json(_bookService.Read().ToDataSourceResult(request));
+        //}
     }
 }

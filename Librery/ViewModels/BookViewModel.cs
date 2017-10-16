@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Librery.ViewModels
+namespace Library.ViewModels
 {
     public class BookViewModel
     {
