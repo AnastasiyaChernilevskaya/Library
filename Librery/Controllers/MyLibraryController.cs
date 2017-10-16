@@ -21,9 +21,10 @@ namespace Library.Controllers
             return View();
         }
 
-        //public ActionResult books_Read([DataSourceRequest] DataSourceRequest request)
-        //{
-        //    return Json(_bookService.Read().ToDataSourceResult(request));
-        //}
+        public JsonResult GetBooks()
+        {
+            var books = _bookService.GetBooks();
+            return Json(books, JsonRequestBehavior.AllowGet);
+        }
     }
 }

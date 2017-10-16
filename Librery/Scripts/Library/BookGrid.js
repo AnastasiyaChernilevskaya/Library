@@ -1,13 +1,13 @@
 ﻿$(document).ready(function () {
     $("#grid").kendoGrid({
-
-
+       
         height: 550,
+        editable: true,
         sortable: true,
+
         pageable: {
             refresh: true,
-            pageSizes: true,
-            buttonCount: 5
+            pageSizes: true
         },
         columns: [{
             field: "Name",
@@ -27,7 +27,26 @@
             width: 110
         }],
         toolbar: ["create"],
-        //dataSource:
-
+        dataSource: {
+            transport: {
+                read: "/MyLibrary/GetBooks"
+            },
+        }
+        
     });
 });
+function getData(e) {
+    $.ajax({
+        type: "GET",
+        url: "MyLibrary/GetBooks",
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        success: function (data) {
+            console.log(data);
+            e.success(data);
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
+}

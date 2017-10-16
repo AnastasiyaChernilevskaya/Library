@@ -17,16 +17,9 @@ namespace Library.Data.Repository
 
         public IList<Book> GetBooks()
         {
-            IList<Book> result = new List<Book>();
+            var result = new List<Book>();
 
-            result = _entities.Books.Select(book => new Book
-            {
-                Id = book.Id,
-                Name = book.Name,
-                Author = book.Author,
-                YearOfPublishing = book.YearOfPublishing,
-                Publisher = book.Publisher,
-            }).ToList();
+            result = _entities.Books.ToList();
 
             return result;
         }
