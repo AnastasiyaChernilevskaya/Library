@@ -8,7 +8,6 @@ namespace Library.Data.Repository
 {
     public class BookRepository
     {
-        private static bool _updateDatabase = false;
         private Context _context;
         public BookRepository()
         {
