@@ -44,8 +44,8 @@ namespace Library.Data.Repository
             entity.Name = book.Name;
             entity.YearOfPublishing = book.YearOfPublishing;
             entity.Publisher = book.Publisher;
-
-            _context.Books.Attach(entity);
+            entity.Author = book.Author;
+            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
         }
 

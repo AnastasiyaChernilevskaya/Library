@@ -22,53 +22,58 @@
 
         //},
             {
-            field: "Name",
-            title: "Name"
-        }, {
-            field: "Author", 
-            title: "Author"
-        }, {
-            field: "YearOfPublishing",
-            title: "Year of publishing",
-            width: 150
-        }, {
-            field: "Publisher",
-            title: "Publisher"
-        }, {
-            command: ["destroy"],
-            title: "&nbsp;",
-            width: "250px",
-            click: function (e) {
-                destroyData(e);
-            }
+                field: "Name",
+                title: "Name"
+            }, {
+                field: "Author",
+                title: "Author"
+            }, {
+                field: "YearOfPublishing",
+                title: "Year of publishing",
+                width: 150
+            }, {
+                field: "Publisher",
+                title: "Publisher"
+            }, {
+                command: [{
+                    name: "Delete",
+                    click: function (e) {
+                        deleteData(e);
+                    }
+                },
+                {
+                    name: "edit",
+                }],
+                width: "110px"
 
-        }],
+            }
+        ],
         dataSource: {
             //            autoSync: true,
             transport: {
                 read: function (e) {
                     getData(e);
-                //},
-                //update: {
-                //    url: "/MyLibrary/UpdateBook",
-                //    dataType: "jsonp"
-                //},
-                //destroy: {
-                //    url: "/MyLibrary/DestroyBook",
-                //    dataType: "jsonp"
-                //},
-                //create: {
-                //    url: "/MyLibrary/CreateBook",
-                //    dataType: "jsonp"
-                //},
-                //parameterMap: function (options, operation) {
-                //    if (operation !== "read" && options.models) {
-                //        return { models: kendo.stringify(options.models) };
-                //    }
+                },
+                update: function(options) {
+                    updateData(options);
+                    return true;
+                },
+            },
+            schema: {
+                model: {
+                    id: "Id",
+                    fields: {
+                        Id: { editable: false, nullable: true },
+                        Name: { type: "string" },
+                        Author: { type: "string" },
+                        YearOfPublishing: { type: "number" },
+                        Publisher: { type: "string" }
+                    }
                 }
             },
-        },
+            batch: true
 
+        }
     });
 });
 function getData(e) {
@@ -86,17 +91,16 @@ function getData(e) {
         }
     });
 }
-function updateData(e) {
-    console.log("kkk")
+function updateData(options) {
+
     $.ajax({
         type: "POST",
         url: "UpdateBook",
         contentType: "application/json; charset =utf-8",
-        data: data,
-        datatype: 'jsonp',
+        data: JSON.stringify(options.data.models[0]),
+        datatype: 'json',
         success: function (data) {
             console.log(data);
-            e.success(data);
             console.log("ss");
         },
         error: function (data) {
@@ -105,53 +109,59 @@ function updateData(e) {
         }
     });
 }
+function createData(e) {
+    $.ajax({
+        url: "CreateBook",
+        type: "POST",
+        contentType: "application/json; charset =utf-8",
+        dataType: 'json',
+        data: getBookModel(e),
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
+}
+function deleteData(e) {
 
-////function deleteData(e) {
-////    $.ajax({
-////        type: "GET",
-////        url: "DestroyBook",
-////        contentType: "application/json; charset =utf-8",
-////        datatype: 'json',
-////        success: function (data) {
-////            console.log(data);
-////            e.success(data);
-////        },
-////        error: function (data) {
-////            console.log(data)
-////        }
-////    });
-////}
-
-function destroyData(e) {
-    e.preventDefault();
-    console.log($(e.target).closest("tr"));
+    var id = getId(e);
+    $.ajax({
+        type: "GET",
+        url: "DestroyBook?id=" + id,
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
 }
 
-//$(.k-buttonk - button - icontext k- grid - delete).button.click(function (e) {
-//    deleteData(e);
-//});
-////function aa(e) {
-////    $(".k-button.k-button-icontext.k-primary.k-grid-update").click(function (e) {
-////        deleteData(e)
-////    })
-////}
-//$.extend(); var object = $.extend({}, object1, object2);
+function getId(e) {
+    return $(e.target).closest("tr")[0].childNodes[0].innerText;
+}
 
-//function updateData(e) {
-//    $.ajax({
-//        url: "UpdateBook",
-//        type: "POST",
-//        contentType: "application/json; charset =utf-8",
-//        dataType: 'json',
-//        data: e.data,
-//        success: function (data) {
-//            console.log(data);
-//            e.success(data);
-//        },
-//        error: function (data) {
-//            console.log(data)
-//        }
-//    });
-//<a role="button" class="k-button k-button-icontext k-grid-delete" href="#"><span class="k-icon k-i-close"></span>Delete</a>
+function setUpdate() {
+    $(".k-grid-update").click(function (e) {
+        //updateData(e);
+        var grid = $("#grid").getKendoGrid();
+        var item = grid.dataItem($(e.target).closest("tr"));
+        console.log(item);
+    })
+}
 
-//}<a role="button" class="k-button k-button-icontext k-primary k-grid-update" href="#"><span class="k-icon k-i-check"></span>Update</a>
+function getBookModel(e) {
+    var row = $(e.target).closest("tr")[0].childNodes;
+    var book = {
+        id: row[0].innerText,
+        name: row[1].innerText,
+        author: row[2].innerText,
+        yearOfPublishing: row[3].innerText,
+        publisher: row[4].innerText
+    }
+    return JSON.stringify(book);
+}
