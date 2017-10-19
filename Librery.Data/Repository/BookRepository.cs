@@ -53,7 +53,7 @@ namespace Library.Data.Repository
         public void DestroyBook(int id)
         {
             _context.Books.Remove(GetBook(id));
-            _context.SaveChanges();
+            _context.SaveChanges(); 
         }
 
         public Book GetBook(int id)
