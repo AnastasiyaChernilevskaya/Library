@@ -31,7 +31,7 @@ namespace Library.Controllers
         public JsonResult DestroyBook (int id)
         {
             _bookService.DestroyBook(id);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.DenyGet);
         }
 
         public JsonResult UpdateBook(Book book)
