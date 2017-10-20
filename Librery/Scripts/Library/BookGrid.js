@@ -4,11 +4,11 @@
 
         height: 550,
         editable: "inline",
+        
         sortable: true,
-        //groupable: true,
         toolbar: ["create"],
-        selectable: "multiple row",
-        persistSelection: false,
+        //selectable: "multiple row",
+        //persistSelection: false,
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -40,17 +40,19 @@
                 title: "Publisher"
             }, {
                 command: [{
-                    name: "destroy",                    
+                    name: "destroy"                    
                 },
                 {
-                    name: "edit",
-                }],
+                    name: "edit"
+                    }
+                ],
                 width: "200px",
-                title: "&nbsp;",
+                title: "&nbsp;"
             }
         ],
-        dataSource: {
 
+        dataSource: {
+            page: 1,
             pageSize: 7,
             autoSync: true,
             transport: {
@@ -68,8 +70,12 @@
                 destroy: function (options) {
                     deleteData(options);
                     return true;
+                },
+                parameterMap: function (options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return { models: kendo.stringify(options.models) };
+                    }
                 }
-
             },
             requestStart: function (e) {
                 if (e.type !== "read") {
@@ -83,17 +89,18 @@
             },
             schema: {
                 model: {
+                    type: "json",
                     id: "Id",
                     fields: {
-                        id: { editable: false, nullable: true },
-                        Name: { type: "string", validation: { required: true }},
-                        Author: { type: "string", validation: { required: true }},
-                        YearOfPublishing: { type: "number", validation: { required: true } },
-                        Publisher: { type: "string", validation: { required: true }}
+                        "Id": { editable: false, nullable: true, type: "number" },
+                        "Name": { type: "string", validation: { required: true }},
+                        "Author": { type: "string", validation: { required: true }},
+                        "YearOfPublishing": { type: "number", validation: { required: true } },
+                        "Publisher": { type: "string", validation: { required: true }}
                     }
                 }
-            },            
-        },
+            }            
+        }
 
     });
 });
@@ -147,7 +154,7 @@ function createData(options) {
             console.log("ssC" + JSON.stringify(options.data));//
         },
         error: function (data) {
-            console.log(data)
+            console.log(data);
             console.log("errC" + JSON.stringify(options.data));//
         }
     });
@@ -181,7 +188,7 @@ function deleteData(options) {
             console.log("ssD" /*+ JSON.stringify(options.data)*/);
         },
         error: function (data) {
-            console.log(data)
+            console.log(data);
             console.log("errD" /*+ JSON.stringify(options.data)*/);
         }
     });
