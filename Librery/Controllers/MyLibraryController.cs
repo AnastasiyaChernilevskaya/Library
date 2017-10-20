@@ -16,34 +16,41 @@ namespace Library.Controllers
         {
             _bookService = new BookService();
         }
-
+        [HttpGet]
         public ActionResult MyLibrary()
         {
             return View();
         }
 
+        [HttpGet]
         public JsonResult GetBooks()
         {
             var books = _bookService.GetBooks();
             return Json(books, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult DestroyBook (int id)
         {
             _bookService.DestroyBook(id);
-            return Json(true, JsonRequestBehavior.DenyGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult UpdateBook(Book book)
         {
             _bookService.UpdateBook(book);
             return Json(true, JsonRequestBehavior.DenyGet);
         }
+
+        [HttpGet]
         public JsonResult CreateBook(Book book)
         {
             _bookService.CreateBook(book);
             return Json(true, JsonRequestBehavior.DenyGet);
         }
+
+        [HttpGet]
         public JsonResult GetBooK(int id)
         {
             var book = _bookService.GetBook(id);
