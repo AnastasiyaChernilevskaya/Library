@@ -294,3 +294,12 @@ function deleteData(dataItem) {
 ////    }
 ////    return JSON.stringify(book);
 ////}
+
+
+//http://demos.telerik.com/kendo-ui/datasource/xml-data
+//https://docs.telerik.com/kendo-ui/framework/save-files/introduction
+//https://www.telerik.com/forums/how-to-export-data-from-context-menu-to-a-text-file
+//https://demos.telerik.com/kendo-ui/grid/editing-inline
+//https://demos.telerik.com/kendo-ui/grid/editing-popup
+//http://jsbin.com/EjUPiZoK/4/edit?html,output
+//

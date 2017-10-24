@@ -18,7 +18,7 @@ namespace Library.Controllers
         {
             _bookService = new BookService();
             _context = new Context();
-    }
+        }
 
 
         public ActionResult MyLibrary()
@@ -34,7 +34,7 @@ namespace Library.Controllers
         }
 
 
-        public JsonResult DestroyBook (int id)
+        public JsonResult DestroyBook(int id)
         {
             _bookService.DestroyBook(id);
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -85,29 +85,39 @@ namespace Library.Controllers
         //    return View(book);
         //}
 
-        [HttpPost]
-        public ActionResult AddBook(MyLibraryController book)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(book).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(book);
-        }
+        //[HttpPost]
+        //public ActionResult AddBook(MyLibraryController book)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(book).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(book);
+    }
 
-        [HttpPost]
-        public ActionResult EditBook(MyLibraryController book)
+    public ActionResult EditBook(int id = 0)
+    {
+        MyLibraryController book = _context.Books.Find(id);
+        if (book == null)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Entry(book).State = EntityState.Modified;
-                //db.Entry(book).State = EntityState.Modified;
-                //db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(book);
+            //return HttpNotFound();
         }
+        return View(book);
+    }
+
+
+    [HttpPost]
+    public ActionResult EditBook(MyLibraryController book)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Entry(book).State = EntityState.Modified;
+            //db.Entry(book).State = EntityState.Modified;
+            //db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View(); //book
     }
 }

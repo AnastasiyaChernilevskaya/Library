@@ -85,15 +85,15 @@ namespace Library.Data.Repositories
         //        return result == 1;
         //    }
         //}
-        public bool SaveBook(AddBookViewModel model)
-        {
-            CreateBook(model);
-            return true;
-        }
-        public bool EditPost(EditBookViewModel model)
-        {
-            UpdateBook(book);
-            return true;
+        //public bool SaveBook(AddBookViewModel model)
+        //{
+        //    CreateBook(model);
+        //    return true;
+        //}
+        //public bool EditPost(EditBookViewModel model)
+        //{
+        //    UpdateBook(book);
+        //    return true;
         }
     }
 }
