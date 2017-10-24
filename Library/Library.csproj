@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Librery</RootNamespace>
-    <AssemblyName>Librery</AssemblyName>
+    <RootNamespace>Library</RootNamespace>
+    <AssemblyName>Library</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -232,7 +232,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Librery.Data\Library.Data.csproj">
+    <ProjectReference Include="..\Library.Data\Library.Data.csproj">
       <Project>{3B42A76D-177C-45EC-B0BE-3E1BA14F81ED}</Project>
       <Name>Library.Data</Name>
     </ProjectReference>

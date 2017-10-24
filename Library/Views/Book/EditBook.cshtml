@@ -1,0 +1,32 @@
+﻿@model Library.ViewModels.EditBookViewModel
+@{
+    ViewBag.Title = "Edit Book";
+}
+S
+<h2>Edit book</h2>
+
+<form class="form-horizontal" action="@Url.Action("EditBook", "MyLibrary")" method="post">
+    <div class="control-group">
+        <label class="control-label">Name:</label>
+        <div class="controls">
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.ID })*@
+            <input type=hidden name="Id"/>  
+
+             Book name:<br>
+            <input type="text" name="BookName"><br>
+            Author:<br>
+            <input type="text" name="Author">
+            Publisher:<br>
+            <input type="text" name="Publisher"><br>
+            Year of publishing:<br>
+            <input type="text" name="YearOfPublishing">
+            Include to the Page:<br>
+            <input type="checkbox" name="IncludeToPage"><br>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-primary" value="Save changes" />
+        </div>
+    </div>
+</form>

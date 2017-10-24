@@ -5,15 +5,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
-using Library;
-using Library.ViewModels;
-using Librery.ViewModels;
 
 namespace Library.Data.Repositories
 {
     public class BookRepository : BaseRepository
     {
         private Context _context;
+
         public BookRepository()
         {
             _context = new Context();
@@ -60,7 +58,7 @@ namespace Library.Data.Repositories
         public void DestroyBook(int id)
         {
             _context.Books.Remove(GetBook(id));
-            _context.SaveChanges(); 
+            _context.SaveChanges();
         }
 
         public Book GetBook(int id)
@@ -94,20 +92,8 @@ namespace Library.Data.Repositories
         }
         public bool EditPost(EditBookViewModel model)
         {
-            UpdateBook(model);
-            //using (IDbConnection db = new SqlConnection(_connectionString))
-            //{
-            //    var query = "update Posts set Title = @Title, Context = @Context, Tags = @Tags, IncludeInHomePage = @IncludeInHomePage where Id = @Id";
-            //    var result = db.Execute(query, new
-            //    {
-            //        Id = model.Id,
-            //        Title = model.Title,
-            //        Context = model.Context,
-            //        Tags = model.Tags,
-            //        IncludeInHomePage = model.IncludeInHomePage
-            //    });
-                return result == 1;
-            }
+            UpdateBook(book);
+            return true;
         }
     }
 }
