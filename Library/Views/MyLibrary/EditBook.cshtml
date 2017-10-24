@@ -1,27 +1,27 @@
-﻿@model Library.ViewModels.EditBookViewModel
+﻿@model Library.Data.Book
 @{
     ViewBag.Title = "Edit Book";
 }
-S
+
 <h2>Edit book</h2>
 
 <form class="form-horizontal" action="@Url.Action("EditBook", "MyLibrary")" method="post">
     <div class="control-group">
-        <label class="control-label">Name:</label>
+        <label class="control-label">Update your book:</label>
         <div class="controls">
-            @*@Html.ActionLink("Edit", "Edit", new { id = item.ID })*@
-            <input type=hidden name="Id"/>  
+
+            <input type=hidden name="Id" value="@Model.Id"/>  
 
              Book name:<br>
-            <input type="text" name="BookName"><br>
+            <input type="text" name="Name" value="@Model.Name"><br>
             Author:<br>
-            <input type="text" name="Author">
+            <input type="text" name="Author" value="@Model.Author"><br>
             Publisher:<br>
-            <input type="text" name="Publisher"><br>
+            <input type="text" name="Publisher" value="@Model.Publisher"><br>
             Year of publishing:<br>
-            <input type="text" name="YearOfPublishing">
+            <input type="text" name="YearOfPublishing" value="@Model.YearOfPublishing"><br>
             Include to the Page:<br>
-            <input type="checkbox" name="IncludeToPage"><br>
+            <input type="checkbox" name="IncludeToPage" value="@Model.IncludeToPage?true:false"><br>
         </div>
     </div>
     <div class="control-group">

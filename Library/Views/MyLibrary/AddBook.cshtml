@@ -1,4 +1,4 @@
-﻿@model Library.ViewModels.AddBookViewModel
+﻿@model Library.Data.Book
 @{
     ViewBag.Title = "Add Book";
 }
@@ -6,16 +6,15 @@
 <h2>Add book</h2>
 <form class="form-horizontal" action="@Url.Action("AddBook", "MyLibrary")" method="post">
     <div class="control-group">
-        <label class="control-label">Name:</label>
         <div class="controls">
             Book name:<br>
-            <input type="text" name="BookName"><br>
+            <input type="text" name="Name"><br>
             Author:<br>
-            <input type="text" name="Author">
+            <input type="text" name="Author"><br />
             Publisher:<br>
             <input type="text" name="Publisher"><br>
             Year of publishing:<br>
-            <input type="text" name="YearOfPublishing">
+            <input type="text" name="YearOfPublishing"><br />
             Include to the Page:<br>
             <input type="checkbox" name="IncludeToPage"><br>
         </div>

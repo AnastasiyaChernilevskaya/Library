@@ -2,26 +2,12 @@
 
     var grid = $("#grid").kendoGrid({
 
-        height: 550,
-        //editable: "inline",
-        //editable: true,
-        //editable: {
-        //    create: true,
-        //    read: true,
-        //    update: true,
-        //},        
+        height: 550,      
         sortable: true,
         toolbar: [
-            //{
-            //    template: "<a class='saveButton k-button' onclick='return toolbarSave_click()'><span class='k-icon k-save'></span>Save changes</a>"
-            //}, {
-            //    template: "<a class='cancelButton k-button' onclick='return toolbarCancel_click()'><span class='k-icon k-cancel'></span>Cancel changes</a>"
-            //},
             {
-                template: "<a class='addButton k-button' onclick='return toolbarAdd_click()'><span class='k-icon k-add'></span>Add new record</a>"
+                template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             }],
-        //selectable: "multiple row",
-        //persistSelection: false,
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -29,9 +15,9 @@
         columns: [
             {
                 field: "IncludeToPage",
-                title: "Include To Page",
+                title: "Include",
                 type: "boolean",
-                template: '<input type="checkbox" #= Check ? \'checked="checked"\' : "" # class="chkbx" />',
+                template: '<input type="checkbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx" />',
                 width: "100px"
             },
             {
@@ -52,26 +38,16 @@
                 title: "Publisher",
                 width: "250px"
             },
-            //    {
-            //    command: [{
-            //        name: "Destroy",
-            //        click: function (options) {
-            //            deleteData(options);
-            //        },
-            //        width: "80px",
-            //        title: "&nbsp;"
-            //    }],
-               
-            //},
-            [{
+            {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
-                width: "100px"
-            },
-            {
-                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit book</a>"
+                width: "100px", 
+            },{
+                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+                title: "&nbsp;",
+                width: "100px",            
             }
-            ]
+            
         ],
 
         dataSource: {
@@ -82,23 +58,6 @@
                 read: function (e) {
                     getData(e);
                 }
-                //update: function (options) {                    
-                //    updateData(options);
-                //    return true;
-                //},
-                //create: function (options) {
-                //    createData(options);
-                //    return true;
-                //},
-                //destroy: function (options) {
-                //    deleteData(options);
-                //    return true;
-                //},
-                //parameterMap: function (options, operation) {
-                //    if (operation !== "read" && options.models) {
-                //        return { models: kendo.stringify(options.models) };
-                //    }
-                //}
             },
             requestStart: function (e) {
                 if (e.type !== "read") {
@@ -119,7 +78,8 @@
                         "Name": { type: "string", validation: { required: true }},
                         "Author": { type: "string", validation: { required: true }},
                         "YearOfPublishing": { type: "number", validation: { required: true } },
-                        "Publisher": { type: "string", validation: { required: true }}
+                        "Publisher": { type: "string", validation: { required: true } },
+                        "IncludeToPage": { type: "boolean" }
                     }
                 }
             }            
@@ -130,6 +90,7 @@
         var dataItem = grid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
+        refreshGrid();
     });    
 });
 
@@ -142,18 +103,18 @@
 //    console.log("Toolbar command cancel is clicked!");
 //    return false;
 //}
-function toolbarAdd_click() {
+function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
     addBook();
     return false;
 }
 
 function editBook(id) {
-    window.location.href = '/Book/EditBook/' + id;
+    window.location.href = 'EditBook/' + id;
 }
 
 function addBook() {
-    window.location.href = 'Book/AddBook';
+    window.location.href = 'AddBook';
 }
 
 function getData(e) {
@@ -184,12 +145,17 @@ function deleteData(dataItem) {
         success: function (data) {
             console.log(data);
             console.log("ssD");
+            
         },
         error: function (data) {
             console.log(data);
             console.log("errD" + id);
         }
     });
+}
+function refreshGrid() {
+    $('#grid').data('kendoGrid').dataSource.read();
+    $('#grid').data('kendoGrid').refresh();
 }
 
 //______________________________________________________________

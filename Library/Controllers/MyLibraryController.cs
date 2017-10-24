@@ -41,13 +41,11 @@ namespace Library.Controllers
         }
 
 
-
-
-        public JsonResult CreateBook(Book book)
-        {
-            _bookService.CreateBook(book);
-            return Json(true, JsonRequestBehavior.DenyGet);
-        }
+        //public JsonResult CreateBook(Book book)
+        //{
+        //    _bookService.CreateBook(book);
+        //    return Json(true, JsonRequestBehavior.DenyGet);
+        //}
 
 
         public JsonResult GetBooK(int id)
@@ -56,68 +54,44 @@ namespace Library.Controllers
             return Json(book, JsonRequestBehavior.AllowGet);
         }
 
-
-        //[HttpPost]
-        //public ActionResult EditBook(EditBookViewModel model)
-        //{
-        //    var result = _itemService.EditBook(model);
-        //    if (!result)
-        //    {
-        //        return View();
-        //    }
-        //    return RedirectToAction("Index", "Item");
-        //}
-
-
         public JsonResult UpdateBook(Book book)
         {
             _bookService.UpdateBook(book);
             return Json(true, JsonRequestBehavior.DenyGet);
         }
 
-        //public ActionResult EditBook(Book book)
-        //{
-        //    MyLibraryController book = ;
-        //    if (movie == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(book);
-        //}
-
-        //[HttpPost]
-        //public ActionResult AddBook(MyLibraryController book)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(book).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(book);
-    }
-
-    public ActionResult EditBook(int id = 0)
-    {
-        MyLibraryController book = _context.Books.Find(id);
-        if (book == null)
+        public ActionResult AddBook()
         {
-            //return HttpNotFound();
+            return View();
         }
-        return View(book);
-    }
 
-
-    [HttpPost]
-    public ActionResult EditBook(MyLibraryController book)
-    {
-        if (ModelState.IsValid)
+        [HttpPost]
+        public ActionResult AddBook(Book book)
         {
-            _context.Entry(book).State = EntityState.Modified;
-            //db.Entry(book).State = EntityState.Modified;
-            //db.SaveChanges();
-            return RedirectToAction("Index");
+            _bookService.CreateBook(book);
+            return RedirectToAction("MyLibrary");
         }
-        return View(); //book
+        public ActionResult EditBook(int id = 0)
+        {
+            Book book = _bookService.GetBook(id);
+            if (book == null)
+            {
+                return RedirectToAction("MyLibrary");
+            }
+            return View(book);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditBook(Book book)
+        {
+            if (book != null)
+            {
+                _bookService.UpdateBook(book);
+                return RedirectToAction("MyLibrary");
+            }
+            return View(book); //book
+        }
     }
+
 }
