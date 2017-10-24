@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using Library.Data;
-using Library.Data.Repository;
+using Library.Data.Repositories;
 
 namespace Library.Services
 {
@@ -38,5 +38,6 @@ namespace Library.Services
         {
             return _bookRepository.GetBook(id);
         }
+
     }
 }

@@ -8,7 +8,7 @@ namespace Library.ViewModels
     public class EditBookViewModel
     {
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }

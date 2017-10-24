@@ -501,8 +501,8 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-    tests['postmessage'] = function() {
-      return !!window.postMessage;
+    tests['Itemmessage'] = function() {
+      return !!window.ItemMessage;
     };
 
 

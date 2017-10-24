@@ -12,11 +12,12 @@
         //},        
         sortable: true,
         toolbar: [
+            //{
+            //    template: "<a class='saveButton k-button' onclick='return toolbarSave_click()'><span class='k-icon k-save'></span>Save changes</a>"
+            //}, {
+            //    template: "<a class='cancelButton k-button' onclick='return toolbarCancel_click()'><span class='k-icon k-cancel'></span>Cancel changes</a>"
+            //},
             {
-                template: "<a class='saveButton k-button' onclick='return toolbarSave_click()'><span class='k-icon k-save'></span>Save changes</a>"
-            }, {
-                template: "<a class='cancelButton k-button' onclick='return toolbarCancel_click()'><span class='k-icon k-cancel'></span>Cancel changes</a>"
-            }, {
                 template: "<a class='addButton k-button' onclick='return toolbarAdd_click()'><span class='k-icon k-add'></span>Add new record</a>"
             }],
         //selectable: "multiple row",
@@ -63,12 +64,14 @@
                
             //},
             [{
-                template: "<a class='DestroyButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-delete'></span>Delete</a>"
-            },{
-                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit book</a>",
+                template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
                 width: "100px"
-            }]
+            },
+            {
+                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit book</a>"
+            }
+            ]
         ],
 
         dataSource: {
@@ -127,7 +130,7 @@
         var dataItem = grid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
-    });
+    });    
 });
 
 //function toolbarSave_click() {
@@ -139,16 +142,17 @@
 //    console.log("Toolbar command cancel is clicked!");
 //    return false;
 //}
-//function toolbarAdd_click() {
-//    console.log("Toolbar command add is clicked!");
-//    return false;
-//}
+function toolbarAdd_click() {
+    console.log("Toolbar command add is clicked!");
+    addBook();
+    return false;
+}
 
 function editBook(id) {
     window.location.href = '/Book/EditBook/' + id;
 }
 
-function addPost() {
+function addBook() {
     window.location.href = 'Book/AddBook';
 }
 
