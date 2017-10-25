@@ -7,6 +7,8 @@
         toolbar: [
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
+            }, {
+                template: "<a class='getToXML k-button' onclick='return toolbarGetToXMLClick()'><span class='k-icon k-add'></span>Add book to file</a>"
             }],
         pageable: {
             refresh: true,
@@ -17,8 +19,8 @@
                 field: "IncludeToPage",
                 title: "Include",
                 type: "boolean",
-                template: '<input type="checkbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx" />',
-                width: "100px"
+                template: '<input type="checkbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx" id="Mycheckbox" />',
+                width: "100px"                
             },
             {
                 field: "Id",
@@ -86,11 +88,19 @@
         }
 
     }).data("kendoGrid");
+
     grid.element.on('click', '.DestroyButton', function () {
         var dataItem = grid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
-    });    
+    });
+
+    //grid.element.on('change', '#Mycheckbox', function (e) {
+    //    var dataItem = grid.dataItem(e.Item);
+    //    var check = DataItem.FindControl("Mycheckbox"); //accessing the checkbox
+    //    check.Checked = true;
+    //    alert(dataItem.id + ' was clicked!!!' + event);
+    //});
 });
 
 //function toolbarSave_click() {
@@ -98,10 +108,13 @@
 //    window.location.href = 
 //    return false;
 //}
-//function toolbarCancel_click() {
-//    console.log("Toolbar command cancel is clicked!");
-//    return false;
-//}
+function toolbarGetToXMLClick() {
+    console.log("Toolbar command XML clicked!");
+    addToFileXML();
+    return false;
+
+}
+
 function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
     addBook();
@@ -152,11 +165,59 @@ function deleteData(dataItem) {
         }
     });
 }
+
+function addToFileXML() {
+    $.ajax({
+        url: "GetSerializedBook",
+        type: "POST",
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        data: getDataById,
+        success: function (data) {
+            console.log(data);
+            console.log("ssAdd");
+            refreshGrid();
+        },
+        error: function (data) {
+            console.log(data);
+            console.log("erradd");
+        }
+    });
+}
+
+function getDataById() {
+    $.ajax({
+        url: "GetBook?id=3",
+        type: "GET",
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        success: function (data) {
+            console.log(data);
+            console.log("ss");
+            refreshGrid();
+        },
+        error: function (data) {
+            console.log(data);
+            console.log("err");
+        }
+    });
+}
+
 function refreshGrid() {
     $('#grid').data('kendoGrid').dataSource.read();
     $('#grid').data('kendoGrid').refresh();
 }
-
+//$("#Mycheckbox").change(function () {
+//    if ($(this).is('checked')) alert("checked");
+//    if ($(this).is('')) alert("Unchecked");
+//});
+//$(":checkbox").parent().click(function (evt) {
+//    if (evt.target.type !== 'checkbox') {
+//        var $checkbox = $(":checkbox", this);
+//        $checkbox.attr('checked', !$checkbox.attr('checked'));
+//        $checkbox.change();
+//    }
+//});
 //______________________________________________________________
 ////function deleteData(dataItem) {
 ////    var id = JSON.stringify(dataItem.id);

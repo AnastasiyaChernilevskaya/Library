@@ -12,6 +12,18 @@
 
             <input type=hidden name="Id" value="@Model.Id"/>  
 
+            @{ 
+                var check = "";
+                if (Model.IncludeToPage)
+                {
+                    check = "checked=\"checked\"";
+                    return;
+                }
+                {
+                    check = "";
+                }
+            }
+
              Book name:<br>
             <input type="text" name="Name" value="@Model.Name"><br>
             Author:<br>
@@ -21,7 +33,7 @@
             Year of publishing:<br>
             <input type="text" name="YearOfPublishing" value="@Model.YearOfPublishing"><br>
             Include to the Page:<br>
-            <input type="checkbox" name="IncludeToPage" value="@Model.IncludeToPage?true:false"><br>
+            <input type="checkbox" name="IncludeToPage" value="@Model.IncludeToPage" @check><br> 
         </div>
     </div>
     <div class="control-group">

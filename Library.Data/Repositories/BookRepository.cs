@@ -67,33 +67,8 @@ namespace Library.Data.Repositories
         }
 
 
-        //public bool SaveBook(AddBookViewModel model)
-        //{
-        //    var bookId = Guid.NewGuid().ToString();
-        //    using (IDbConnection db = new SqlConnection(_connectionString))
-        //    {
-        //        var query = "insert into Posts (Id, Name, YearOfPublishing, Publisher, Author, IncludeToPage) values (@Id, @Name, @YearOfPublishing, @Publisher, @Author, @IncludeToPage)";
-        //        var result = db.Execute(query, new
-        //        {
-        //            Id = bookId,
-        //            Name = model.Name,
-        //            YearOfPublishing = model.YearOfPublishing,
-        //            Publisher = model.Publisher,
-        //            Author = model.Author,
-        //            IncludeToPage = model.IncludeToPage,
-        //    });
-        //        return result == 1;
-        //    }
-        //}
-        //public bool SaveBook(AddBookViewModel model)
-        //{
-        //    CreateBook(model);
-        //    return true;
-        //}
-        //public bool EditPost(EditBookViewModel model)
-        //{
-        //    UpdateBook(book);
-        //    return true;
+
+
     }
 }
 
