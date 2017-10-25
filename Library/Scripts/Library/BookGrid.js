@@ -8,7 +8,7 @@
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             }, {
-                template: "<a class='getToXML k-button' onclick='return toolbarGetToXMLClick()'><span class='k-icon k-add'></span>Add book to file</a>"
+                template: "<a class='getToXML k-button' onclick='return getDataById()'><span class='k-icon k-add'></span>Add book to file</a>"
             }],
         pageable: {
             refresh: true,
@@ -166,13 +166,13 @@ function deleteData(dataItem) {
     });
 }
 
-function addToFileXML() {
+function addToFileXML(data) {
     $.ajax({
         url: "GetSerializedBook",
         type: "POST",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        data: getDataById,
+        data: JSON.stringify(data),
         success: function (data) {
             console.log(data);
             console.log("ssAdd");
@@ -192,7 +192,7 @@ function getDataById() {
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
-            console.log(data);
+            addToFileXML(data);
             console.log("ss");
             refreshGrid();
         },
@@ -201,6 +201,19 @@ function getDataById() {
             console.log("err");
         }
     });
+}
+
+function getChecked() {
+    var books = [];
+    $("input[type='checkbox']").each(function (index, element) {
+        if ($(element).prop("checked") != false) {
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(element).closest('tr'));
+            books.push(dataItem);
+        }
+    })
+    console.log(books);
+    addToFileXML(books);
 }
 
 function refreshGrid() {

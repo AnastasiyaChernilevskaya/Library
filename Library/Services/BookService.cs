@@ -41,66 +41,26 @@ namespace Library.Services
         {
             return _bookRepository.GetBook(id);
         }
-        public static void WriteToXML(Book book)
+        public static void WriteToXML(List<Book> books)
         {
             System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(Book));
+                new System.Xml.Serialization.XmlSerializer(typeof(List<Book>));
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationFile.xml";
             System.IO.FileStream file = System.IO.File.Create(path);
 
-            //writer.Serialize(file, book);
+            writer.Serialize(file, books);
             file.Close();
         }
 
 
-        public void GetSerializedBook(Book book)
+        public void GetSerializedBook(List<Book> books)
         {
-            WriteToXML(book);
-            string fileName = "//SerializationFile.xml";
-            SerializeObject<Book>(book, fileName);
+            WriteToXML(books);
         }
 
         //http://www.c-sharpcorner.com/UploadFile/75a48f/how-to-use-xml-file-to-store-data-and-retrieve-data-using-as/
         //https://stackoverflow.com/questions/6115721/how-to-save-restore-serializable-object-to-from-file
-
-        ///// <summary>
-        ///// Serializes an object.
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="serializableObject"></param>
-        ///// <param name="fileName"></param>
-        ///// 
-        public void SerializeObject<T>(T serializableObject, string fileName)
-        {
-            if (serializableObject == null) { return; }
-
-            try
-            {
-                XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(serializableObject.GetType());
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    serializer.Serialize(stream, serializableObject);
-                    stream.Position = 0;
-                    xmlDocument.Load(stream);
-                    xmlDocument.Save(fileName);
-                    stream.Close();
-                }
-            }
-            catch (Exception)
-            {
-                //Log exception here
-            }
-        }
-
-
-        ///// <summary>
-        ///// Deserializes an xml file into an object list
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="fileName"></param>
-        ///// <returns></returns>
 
         public T DeSerializeObject<T>(string fileName)
         {

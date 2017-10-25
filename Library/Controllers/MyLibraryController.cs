@@ -91,13 +91,7 @@ namespace Library.Controllers
             return View(book); //book
         }
 
-        public JsonResult WriteToXML(Book book)
-        {
-            BookService.WriteToXML(book);
-            return Json(true, JsonRequestBehavior.DenyGet);
-        }
-
-        public JsonResult GetSerializedBook(Book book)
+        public JsonResult GetSerializedBook(List<Book> book)
         {
             _bookService.GetSerializedBook(book);
             return Json(true, JsonRequestBehavior.DenyGet);
