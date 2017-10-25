@@ -90,7 +90,6 @@
         var dataItem = grid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
-        refreshGrid();
     });    
 });
 
@@ -145,7 +144,7 @@ function deleteData(dataItem) {
         success: function (data) {
             console.log(data);
             console.log("ssD");
-            
+            refreshGrid();
         },
         error: function (data) {
             console.log(data);

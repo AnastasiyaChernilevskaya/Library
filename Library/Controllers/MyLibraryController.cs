@@ -12,12 +12,10 @@ namespace Library.Controllers
     public class MyLibraryController : Controller
     {
         private BookService _bookService;
-        private Context _context;
 
         public MyLibraryController()
         {
             _bookService = new BookService();
-            _context = new Context();
         }
 
 
