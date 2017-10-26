@@ -1,13 +1,16 @@
 ﻿$(document).ready(function () {
 
-    var grid = $("#grid").kendoGrid({
+    var grid = $("#Mygrid").kendoGrid({
 
         height: 550,
         sortable: true,
         toolbar: [
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
+            }, {
+                template: "<a class='getToXML k-button' onclick='return getDataById()'><span class='k-icon k-add'></span>Add book to file XML</a>"
             }
+
         ],
         pageable: {
             refresh: true,

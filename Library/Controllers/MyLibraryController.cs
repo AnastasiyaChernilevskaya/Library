@@ -38,13 +38,11 @@ namespace Library.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-
         //public JsonResult CreateBook(Book book)
         //{
         //    _bookService.CreateBook(book);
         //    return Json(true, JsonRequestBehavior.DenyGet);
         //}
-
 
         public JsonResult GetBooK(int id)
         {

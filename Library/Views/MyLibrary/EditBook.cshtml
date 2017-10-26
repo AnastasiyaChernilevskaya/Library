@@ -2,6 +2,17 @@
 @{
     ViewBag.Title = "Edit Book";
 }
+@{
+    var check = "";
+    if (Model.IncludeToPage)
+    {
+        check = "checked=\"checked\"";
+    }
+    if (!Model.IncludeToPage)
+    {
+        check = "";
+    }
+}
 
 <h2>Edit book</h2>
 
@@ -10,30 +21,22 @@
         <label class="control-label">Update your book:</label>
         <div class="controls">
 
-            <input type=hidden name="Id" value="@Model.Id"/>  
+            <input type=hidden name="Id" value="@Model.Id" />
 
-            @{ 
-                var check = "";
-                if (Model.IncludeToPage)
-                {
-                    check = "checked=\"checked\"";
-                }
-                if(!Model.IncludeToPage)
-                {
-                    check = "";
-                }
-            }
-
-             Book name:<br>
+            Book name:<br>
             <input type="text" name="Name" value="@Model.Name"><br>
+
             Author:<br>
             <input type="text" name="Author" value="@Model.Author"><br>
+
             Publisher:<br>
             <input type="text" name="Publisher" value="@Model.Publisher"><br>
+
             Year of publishing:<br>
             <input type="text" name="YearOfPublishing" value="@Model.YearOfPublishing"><br>
+
             Include to the Page:<br>
-            <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check><br> 
+            <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check><br>
         </div>
     </div>
     <div class="control-group">
@@ -42,4 +45,4 @@
         </div>
     </div>
 </form>
-<script src="~/Scripts/Library/EditBook.js"></script>
+<script src="~/Scripts/Library/BookChanges.js"></script>

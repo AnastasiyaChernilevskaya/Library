@@ -88,7 +88,7 @@ namespace Library.Services
                     read.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //Log exception here
             }
