@@ -16,7 +16,7 @@
 
 <h2>Edit book</h2>
 
-<form id="editForm" class="form-horizontal" action="@Url.Action("EditBook", "MyLibrary")" method="post">
+<form id="editForm" name="editForm" class="form-horizontal" action="@Url.Action("EditBook", "MyLibrary")" method="post" onsubmit="return validateForm()">
     <div class="control-group">
         <label class="control-label">Update your book:</label>
         <div class="controls">
@@ -33,10 +33,10 @@
             <input type="text" name="Publisher" value="@Model.Publisher"><br>
 
             Year of publishing:<br>
-            <input type="text" name="YearOfPublishing" value="@Model.YearOfPublishing"><br>
+            <input type="date" name="YearOfPublishing" value="@Model.YearOfPublishing" min="1700-01-01" max="2017-12-31"><br>
 
             Include to the Page:<br>
-            <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check><br>
+            <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check ><br>
         </div>
     </div>
     <div class="control-group">

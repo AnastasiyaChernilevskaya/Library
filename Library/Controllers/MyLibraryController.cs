@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Library.Services;
 using Library.Data;
-using System.Data.Entity;
+using System.Xml;
+using System.IO;
 
 namespace Library.Controllers
 {
@@ -23,7 +22,6 @@ namespace Library.Controllers
         {
             return View();
         }
-
 
         public JsonResult GetBooks()
         {
@@ -94,5 +92,72 @@ namespace Library.Controllers
             _bookService.GetSerializedBook(book);
             return Json(true, JsonRequestBehavior.DenyGet);
         }
+        public FileResult GetXmlFile()
+        {
+            string xml = ""; //string presented xml
+            var stream = new MemoryStream();
+            var writer = XmlWriter.Create(stream);
+            writer.WriteRaw(xml);
+            stream.Position = 0;
+            var fileStreamResult = File(stream, "application/octet-stream", "xml1.xml");
+            return fileStreamResult;
+        }
+
+        public void ExportXML()
+        {
+            XmlDocument doc = new XmlDocument();
+
+            // XML declaration
+            XmlNode declaration = doc.CreateNode(XmlNodeType.XmlDeclaration, null, null);
+            doc.AppendChild(declaration);
+
+            // Root element: Catalog
+            XmlElement root = doc.CreateElement("Catalog");
+            doc.AppendChild(root);
+
+            // Sub-element: srsapiversion of root
+            XmlElement book = doc.CreateElement("book");
+            root.AppendChild(book);
+
+
+            // Sub-element: srsapiversion of root
+            XmlElement bookname = doc.CreateElement("bookname");
+            book.InnerText = "2 States";
+            root.AppendChild(bookname);
+
+            // Sub-element: id of root
+            XmlElement id = doc.CreateElement("id");
+            id.InnerText = "70-515";
+            root.AppendChild(id);
+
+            // Sub-element: author of root
+            XmlElement author = doc.CreateElement("author");
+            author.InnerText = "Chetan Bhagat";
+            //Attribute age of author
+            XmlAttribute age = doc.CreateAttribute("age");
+            age.Value = "43";
+            author.Attributes.Append(age);
+            root.AppendChild(author);
+
+            System.IO.MemoryStream stream = new System.IO.MemoryStream();
+            XmlTextWriter writer = new XmlTextWriter(stream, System.Text.Encoding.UTF8);
+
+            doc.WriteTo(writer);
+            writer.Flush();
+            Response.Clear();
+            byte[] byteArray = stream.ToArray();
+            Response.AppendHeader("Content-Disposition", "filename=Books.xml");
+            Response.AppendHeader("Content-Length", byteArray.Length.ToString());
+            Response.ContentType = "application/octet-stream";
+            Response.BinaryWrite(byteArray);
+            writer.Close();
+        }
+
+        public JsonResult WriteToXML()
+        {
+            WriteToXML();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

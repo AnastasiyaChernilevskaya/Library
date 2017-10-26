@@ -27,14 +27,15 @@
                 hidden: true
             }, {
                 field: "Name",
-                title: "Name"
+                title: "Name",
+                width: "250"
             }, {
                 field: "Author",
                 title: "Author"
             }, {
                 field: "YearOfPublishing",
                 title: "Year of publishing",
-                width: 150
+                width: "100px"
             }, {
                 field: "Publisher",
                 title: "Publisher",
@@ -53,7 +54,7 @@
 
         dataSource: {
             page: 1,
-            pageSize: 7,
+            pageSize: 12,
             autoSync: true,
             transport: {
                 read: function (e) {
@@ -87,7 +88,7 @@
     grid.element.on('click',".chkbx", function (e) {
         var dataItem = grid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
-        $(e.target).prop("checked") == true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false
+        $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
     })
 });
@@ -127,6 +128,40 @@ function getData(e) {
         error: function (data) {
             console.log(data);
             console.log("errget");
+        }
+    });
+}
+
+function Test() {
+    $.ajax({
+        type: "GET",
+        url: "GetXmlFile",
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        success: function (data) {
+            console.log(data);
+            console.log("ss");
+        },
+        error: function (data) {
+            console.log(data);
+            console.log("err");
+        }
+    });
+}
+
+function Test1() {
+    $.ajax({
+        type: "GET",
+        url: "",
+        contentType: "application/json; charset =utf-8",
+        datatype: 'json',
+        success: function (data) {
+            console.log(data);
+            console.log("ss");
+        },
+        error: function (data) {
+            console.log(data);
+            console.log("err");
         }
     });
 }
@@ -172,7 +207,7 @@ function addToFileXML(data) {
 function getChecked() {
     var books = [];
     $("input[type='checkbox']").each(function (index, element) {
-        if ($(element).prop("checked") != false) {
+        if ($(element).prop("checked") !== false) {
             var grid = $("#grid").data("kendoGrid");
             var dataItem = grid.dataItem($(element).closest('tr'));
             books.push(dataItem);

@@ -65,10 +65,6 @@ namespace Library.Data.Repositories
         {
             return GetBooks().FirstOrDefault(p => p.Id == id);
         }
-
-
-
-
     }
 }
 

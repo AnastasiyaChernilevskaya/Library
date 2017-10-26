@@ -41,18 +41,17 @@ namespace Library.Services
         {
             return _bookRepository.GetBook(id);
         }
+
         public static void WriteToXML(List<Book> books)
-        {
-            System.Xml.Serialization.XmlSerializer writer =
-                new System.Xml.Serialization.XmlSerializer(typeof(List<Book>));
+        {            
+            XmlSerializer writer = new XmlSerializer(typeof(List<Book>));
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationFile.xml";
-            System.IO.FileStream file = System.IO.File.Create(path);
+            FileStream file = File.Create(path);
 
             writer.Serialize(file, books);
             file.Close();
         }
-
 
         public void GetSerializedBook(List<Book> books)
         {
@@ -98,3 +97,30 @@ namespace Library.Services
 
     }
 }
+
+//// Create a writer that outputs to the console.
+//XmlTextWriter writer = new XmlTextWriter(Console.Out);
+//writer.Formatting = Formatting.Indented;
+
+//            // Write the root element.
+//            writer.WriteStartElement("Items");
+
+//            // Write a string using WriteRaw. Note that the special
+//            // characters are not escaped.
+//            writer.WriteStartElement("Item");
+//            writer.WriteString("Write unescaped text:  ");
+//            writer.WriteRaw("this & that");
+//            writer.WriteEndElement();
+
+//            // Write the same string using WriteString. Note that the 
+//            // special characters are escaped.
+//            writer.WriteStartElement("Item");
+//            writer.WriteString("Write the same string using WriteString:  ");
+//            writer.WriteString("this & that");
+//            writer.WriteEndElement();
+
+//            // Write the close tag for the root element.
+//            writer.WriteEndElement();
+
+//            // Write the XML to file and close the writer.
+//            writer.Close();
