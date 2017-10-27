@@ -5,6 +5,8 @@ using Library.Services;
 using Library.Data;
 using System.Xml;
 using System.IO;
+using System.Xml.Serialization;
+using System.Text;
 
 namespace Library.Controllers
 {
@@ -86,34 +88,53 @@ namespace Library.Controllers
             }
             return View(book); //book
         }
+        //public JsonResult WriteToXML()
+        //{
+        //    WriteToXML();
+        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //}
 
-        public JsonResult GetSerializedBook(List<Book> book)
-        {
-            _bookService.GetSerializedBook(book);
-            return Json(true, JsonRequestBehavior.DenyGet);
-        }
-        public FileResult GetXmlFile(List<Book> books)
-        {
+        //public JsonResult GetSerializedBook(List<Book> book)
+        //{
+        //    _bookService.GetSerializedBook(book);
+        //    return Json(true, JsonRequestBehavior.DenyGet);
+        //}
 
-            string xml = _bookService.SerializeToXml(books); //string presented xml
-            var stream = new MemoryStream();
-            //var writer = XmlWriter.Create(stream);
-            //writer.WriteRaw(xml);
+        [HttpGet]
+        public FileContentResult GetXmlFile()
+        {
+            var books = new List<Book>();
+            books = _bookService.GetCheckedBooks();
+            
+            var byteArray = _bookService.SerializeToXml(books);      //string presented xml
+            
+            //var stream = new MemoryStream();
+
+            ////var writer = XmlWriter.Create(stream);
+            //StreamWriter writer = new StreamWriter(stream);
+
+            ////writer.WriteRaw(xml);
+            //writer.Write(xml);
+
+            ////stream.Position = 0;
+            ////MemoryStream stream = new MemoryStream();
+            //writer.Flush();
             //stream.Position = 0;
-            //MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(xml);
-            writer.Flush();
-            stream.Position = 0;
-            var fileStreamResult = File(stream, "application/octet-stream", "xml.xml");
-            return fileStreamResult;
+            var fileContentResult = File(byteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "xml.xml");
+            return fileContentResult;
         }
-
-        public JsonResult WriteToXML()
-        {
-            WriteToXML();
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
+        
+        //public void a()
+        //{
+        //    if (fileStream.Length == 0)
+        //    {
+        //        tempString =
+        //            lastRecordText + recordNumber.ToString();
+        //        fileStream.Write(uniEncoding.GetBytes(tempString),
+        //            0, uniEncoding.GetByteCount(tempString));
+        //    }
+        //}
 
     }
+
 }

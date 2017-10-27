@@ -7,9 +7,11 @@
         toolbar: [
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            }, {
-                template: "<a class='getToXML k-button' onclick='return getChecked()'><span class='k-icon k-add'></span>Add book to XML file</a>"
-            }],
+            },
+            //{
+            //    template: "<a class='getToXML k-button' onclick='return getChecked()'><span class='k-icon k-add'></span>Add book to XML file</a>"
+            //}
+        ],
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -149,12 +151,14 @@ function Test() {
     });
 }
 
-function Test1() {
+function Test1(data) {
     $.ajax({
-        type: "GET",
-        url: "",
+        type: "POST",
+        url: "GetXmlFile",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
+        data: JSON.stringify(data),
+        enctype: "multipart/form-data",
         success: function (data) {
             console.log(data);
             console.log("ss");
@@ -210,11 +214,11 @@ function getChecked() {
         if ($(element).prop("checked") !== false) {
             var grid = $("#grid").data("kendoGrid");
             var dataItem = grid.dataItem($(element).closest('tr'));
-            books.push(dataItem);
+            books.push(dataItem.id);
         }
     })
     console.log(books);
-    addToFileXML(books);
+    Test(books);
 }
 
 function refreshGrid() {
@@ -241,4 +245,5 @@ function updateData(data) {
             console.log("errU");
         }
     });
+
 }

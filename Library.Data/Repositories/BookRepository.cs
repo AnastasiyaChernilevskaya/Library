@@ -65,6 +65,18 @@ namespace Library.Data.Repositories
         {
             return GetBooks().FirstOrDefault(p => p.Id == id);
         }
+        public List<Book> GetCheckedBooks()
+        {
+            var result = new List<Book>();
+            foreach (Book book in GetBooks())
+            {
+                if (book.IncludeToPage)
+                {
+                     result.Add(book);
+                }              
+            }
+            return result;
+        }
     }
 }
 

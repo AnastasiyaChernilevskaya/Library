@@ -8,6 +8,7 @@ using Library.Data.Repositories;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Text;
 
 namespace Library.Services
 {
@@ -40,39 +41,22 @@ namespace Library.Services
         public Book GetBook(int id)
         {
             return _bookRepository.GetBook(id);
-        }
+        }        
 
-        public static void WriteToXML(List<Book> books)
-        {            
-            XmlSerializer writer = new XmlSerializer(typeof(List<Book>));
+        //public void GetSerializedBook(List<Book> books)
+        //{
+        //    WriteToXML(books);
+        //}
+        //public static void WriteToXML(List<Book> books)
+        //{
+        //    XmlSerializer writer = new XmlSerializer(typeof(List<Book>));
 
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationFile.xml";
-            FileStream file = File.Create(path);
+        //    var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationFile.xml";
+        //    FileStream file = File.Create(path);
 
-            writer.Serialize(file, books);
-            file.Close();
-        }
-
-        public string SerializeToXml(object input)
-        {
-            XmlSerializer ser = new XmlSerializer(input.GetType());
-            string result = string.Empty;
-
-            using (MemoryStream memStm = new MemoryStream())
-            {
-                ser.Serialize(memStm, input);
-
-                memStm.Position = 0;
-                result = new StreamReader(memStm).ReadToEnd();
-            }
-
-            return result;
-        }
-
-        public void GetSerializedBook(List<Book> books)
-        {
-            WriteToXML(books);
-        }
+        //    writer.Serialize(file, books);
+        //    file.Close();
+        //}
 
         //http://www.c-sharpcorner.com/UploadFile/75a48f/how-to-use-xml-file-to-store-data-and-retrieve-data-using-as/
         //https://stackoverflow.com/questions/6115721/how-to-save-restore-serializable-object-to-from-file
@@ -109,6 +93,27 @@ namespace Library.Services
             }
 
             return objectOut;
+        }
+
+        public Byte[] SerializeToXml(List<Book> books)
+        {
+            XmlSerializer ser = new XmlSerializer(books.GetType());
+            string result = string.Empty;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                ser.Serialize(memStream, books);
+
+                memStream.Position = 0;
+                result = new StreamReader(memStream).ReadToEnd();
+            }
+            return Encoding.UTF8.GetBytes(result);
+            
+        }
+
+        public List<Book> GetCheckedBooks()
+        {
+            return _bookRepository.GetCheckedBooks();
         }
 
     }

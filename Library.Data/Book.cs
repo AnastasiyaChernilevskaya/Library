@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data
 {
+    [Serializable]
     public class Book : BaseEntity
     {
         public string Name { get; set; }
@@ -13,6 +14,5 @@ namespace Library.Data
         public short YearOfPublishing { get; set; }
         public string Publisher { get; set; }
         public bool IncludeToPage { get; set; }
-
     }
 }
