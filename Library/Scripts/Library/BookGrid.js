@@ -8,9 +8,9 @@
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             },
-            //{
-            //    template: "<a class='getToXML k-button' onclick='return getChecked()'><span class='k-icon k-add'></span>Add book to XML file</a>"
-            //}
+            {
+                template: "<a class='getToXML k-button' onclick='return WriteToXML()'><span class='k-icon k-add'></span>Add book to XML file</a>"
+            }
         ],
         pageable: {
             refresh: true,
@@ -96,11 +96,17 @@
 });
 
 
-//function toolbarGetToTXTClick() {
-//    console.log("Toolbar command save is clicked!");
-//    window.location.href = 
-//    return false;
-//}
+function WriteToXML() {
+    console.log("Toolbar command save is clicked!");
+    var txt = prompt("Please enter xml file-name :", "FileXML.xml");
+    if (txt == null || txt == "") {
+        alert('File will not be create');
+        return false;
+    }
+    Test1(txt);   
+} 
+
+WriteToXML
 
 function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
@@ -151,14 +157,12 @@ function Test() {
     });
 }
 
-function Test1(data) {
+function Test1(options) {
     $.ajax({
-        type: "POST",
-        url: "GetXmlFile",
+        type: "GET",
+        url: "WriteToXML?fileName=" + options,
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        data: JSON.stringify(data),
-        enctype: "multipart/form-data",
         success: function (data) {
             console.log(data);
             console.log("ss");

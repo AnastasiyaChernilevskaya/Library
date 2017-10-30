@@ -41,13 +41,13 @@ namespace Library.Services
         public Book GetBook(int id)
         {
             return _bookRepository.GetBook(id);
-        }        
+        }
 
         //public void GetSerializedBook(List<Book> books)
         //{
         //    WriteToXML(books);
         //}
-        //public static void WriteToXML(List<Book> books)
+        //public void WriteToXML(List<Book> books)
         //{
         //    XmlSerializer writer = new XmlSerializer(typeof(List<Book>));
 
@@ -95,7 +95,7 @@ namespace Library.Services
             return objectOut;
         }
 
-        public Byte[] SerializeToXml(List<Book> books)
+        public string SerializeToXml(List<Book> books)
         {
             XmlSerializer ser = new XmlSerializer(books.GetType());
             string result = string.Empty;
@@ -107,8 +107,7 @@ namespace Library.Services
                 memStream.Position = 0;
                 result = new StreamReader(memStream).ReadToEnd();
             }
-            return Encoding.UTF8.GetBytes(result);
-            
+            return result;
         }
 
         public List<Book> GetCheckedBooks()
