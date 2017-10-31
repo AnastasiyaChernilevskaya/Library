@@ -148,7 +148,7 @@ function deleteData(dataItem) {
 
 function addToFile(format) {
 
-    location.href = '/MyLibrary/GetXmlFile?format=' + format;
+    location.href = '/MyLibrary/GetFile?format=' + format;
 }
 
 $(document).ready(function () {

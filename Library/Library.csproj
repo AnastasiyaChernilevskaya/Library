@@ -204,6 +204,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\MyLibrary\EditBook.cshtml" />
     <Content Include="Views\MyLibrary\AddBook.cshtml" />
+    <Content Include="Views\MyLibrary\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

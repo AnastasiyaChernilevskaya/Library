@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Library.Controllers
 {
@@ -87,15 +88,15 @@ namespace Library.Controllers
                 _bookService.UpdateBook(book);
                 return RedirectToAction("MyLibrary");
             }
-            return View(book); //book
+            return View(book);
         }
 
-        public void GetXmlFile(string format)
+        public void GetFile(string format)
         {
             var books = new List<Book>();
             books = _bookService.GetCheckedBooks();
 
-            var booksString = _bookService.SerializeToXml(books); // 
+            var booksString = _bookService.SerializeToXml(books);
 
             MemoryStream memoryStream = new MemoryStream();
             TextWriter textWriter = new StreamWriter(memoryStream);
@@ -114,24 +115,49 @@ namespace Library.Controllers
             Response.End();
         }
 
-        //
-        //public JsonResult WriteToXML(string fileName)
+        //[HttpPost]
+        //public ActionResult Index(HttpPostedFileBase file)
         //{
-        //    string fileN = fileName.Replace("\"", "");
-        //    var books = new List<Book>();
-        //    books = _bookService.GetCheckedBooks();
-        //    byte[] byteArray = Encoding.UTF8.GetBytes(_bookService.SerializeToXml(books));
-        //    Stream file = new MemoryStream(byteArray);
-        //    if (file != null && file.CanRead)
+        //    if (file != null && file.ContentLength > 0)
+        //        try
+        //        {
+        //            string path = Path.Combine(Server.MapPath("~/Images"),
+        //                                       Path.GetFileName(file.FileName));
+        //            file.SaveAs(path);
+        //            ViewBag.Message = "File uploaded successfully";
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ViewBag.Message = "ERROR:" + ex.Message.ToString();
+        //        }
+        //    else
         //    {
-        //        Response.AddHeader("Content-Disposition", "attachment; filename=\"" + fileN + "\"");
-        //        Response.ContentType = "application/octet-stream";
-        //        Response.ClearContent();
-        //        file.CopyTo(Response.OutputStream);
+        //        ViewBag.Message = "You have not specified a file.";
         //    }
-        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //    return View();
         //}
+        public ActionResult Index()
+        {
+            return View();
+        }
+        //https://stackoverflow.com/questions/5193842/file-upload-asp-net-mvc-3-0
+        //https://www.aurigma.com/upload-suite/developers/aspnet-mvc/how-to-upload-files-in-aspnet-mvc
 
+        // This action handles the form POST and the upload
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the filename
+                var fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                var path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
+                file.SaveAs(path);
+            }
+            // redirect back to the index action to show the form once again
+            return RedirectToAction("Index");
+        }
     }
-
 }

@@ -43,21 +43,6 @@ namespace Library.Services
             return _bookRepository.GetBook(id);
         }
 
-        //public void GetSerializedBook(List<Book> books)
-        //{
-        //    WriteToXML(books);
-        //}
-        //public void WriteToXML(List<Book> books)
-        //{
-        //    XmlSerializer writer = new XmlSerializer(typeof(List<Book>));
-
-        //    var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationFile.xml";
-        //    FileStream file = File.Create(path);
-
-        //    writer.Serialize(file, books);
-        //    file.Close();
-        //}
-
         //http://www.c-sharpcorner.com/UploadFile/75a48f/how-to-use-xml-file-to-store-data-and-retrieve-data-using-as/
         //https://stackoverflow.com/questions/6115721/how-to-save-restore-serializable-object-to-from-file
 
@@ -114,6 +99,5 @@ namespace Library.Services
         {
             return _bookRepository.GetCheckedBooks();
         }
-
     }
 }
