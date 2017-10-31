@@ -8,7 +8,7 @@
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             }, {
-                template: "<a class='getToXML k-button' onclick='return getChecked()'><span class='k-icon k-add'></span>Add book to XML file</a>"
+                template: "<a class='getToXML k-button' onclick='return getChecked()'><span class='k-icon k-add'></span>Add books to XML file</a>"
             }
 
         ],

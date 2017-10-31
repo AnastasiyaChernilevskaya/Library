@@ -2,16 +2,16 @@
 
     var grid = $("#grid").kendoGrid({
 
-        height: 550,      
+        height: 550,
         sortable: true,
         toolbar: [
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             },
             {
-                template: "<a class='getToXML k-button' onclick='return WriteToXML()'><span class='k-icon k-add'></span>Add book to XML file</a>"
+                template: "<a class='fileButton k-button' href='\\#' onclick='return addToFile()'><span class='k-icon k-add'></span>Add book to XML file</a>"
             }
-        ],
+        ], 
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -95,19 +95,6 @@
     })
 });
 
-
-function WriteToXML() {
-    console.log("Toolbar command save is clicked!");
-    var txt = prompt("Please enter xml file-name :", "FileXML.xml");
-    if (txt == null || txt == "") {
-        alert('File will not be create');
-        return false;
-    }
-    Test1(txt);   
-} 
-
-WriteToXML
-
 function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
     addBook();
@@ -140,40 +127,6 @@ function getData(e) {
     });
 }
 
-function Test() {
-    $.ajax({
-        type: "GET",
-        url: "GetXmlFile",
-        contentType: "application/json; charset =utf-8",
-        datatype: 'json',
-        success: function (data) {
-            console.log(data);
-            console.log("ss");
-        },
-        error: function (data) {
-            console.log(data);
-            console.log("err");
-        }
-    });
-}
-
-function Test1(options) {
-    $.ajax({
-        type: "GET",
-        url: "WriteToXML?fileName=" + options,
-        contentType: "application/json; charset =utf-8",
-        datatype: 'json',
-        success: function (data) {
-            console.log(data);
-            console.log("ss");
-        },
-        error: function (data) {
-            console.log(data);
-            console.log("err");
-        }
-    });
-}
-
 function deleteData(dataItem) {
 
     $.ajax({
@@ -193,37 +146,24 @@ function deleteData(dataItem) {
     });
 }
 
-function addToFileXML(data) {
-    $.ajax({
-        url: "GetSerializedBook",
-        type: "POST",
-        contentType: "application/json; charset =utf-8",
-        datatype: 'json',
-        data: JSON.stringify(data),
-        success: function (data) {
-            console.log(data);
-            console.log("ssAdd");
-            refreshGrid();
-        },
-        error: function (data) {
-            console.log(data);
-            console.log("erradd");
-        }
-    });
+function addToFileXML() {
+
+    var format = "xml";
+    location.href = '/MyLibrary/GetXmlFile?format=' + format;    
 }
 
-function getChecked() {
-    var books = [];
-    $("input[type='checkbox']").each(function (index, element) {
-        if ($(element).prop("checked") !== false) {
-            var grid = $("#grid").data("kendoGrid");
-            var dataItem = grid.dataItem($(element).closest('tr'));
-            books.push(dataItem.id);
-        }
-    })
-    console.log(books);
-    Test(books);
-}
+//function getChecked() {
+//    var books = [];
+//    $("input[type='checkbox']").each(function (index, element) {
+//        if ($(element).prop("checked") !== false) {
+//            var grid = $("#grid").data("kendoGrid");
+//            var dataItem = grid.dataItem($(element).closest('tr'));
+//            books.push(dataItem.id);
+//        }
+//    })
+//    console.log(books);
+//    Test(books);
+//}
 
 function refreshGrid() {
     $('#grid').data('kendoGrid').dataSource.read();
