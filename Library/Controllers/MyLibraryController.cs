@@ -114,31 +114,6 @@ namespace Library.Controllers
             Response.End();
         }
 
-        public void GetTxtFile()
-        {
-            var books = new List<Book>();
-            books = _bookService.GetCheckedBooks();
-
-            var booksString = _bookService.SerializeToXml(books);
-
-            MemoryStream memoryStream = new MemoryStream();
-            TextWriter textWriter = new StreamWriter(memoryStream);
-            textWriter.WriteLine(booksString);
-            textWriter.Flush();
-
-            byte[] bytesInStream = memoryStream.ToArray();
-            memoryStream.Close();
-
-            Response.Clear();
-            Response.ContentType = "application/txt";
-            Response.AddHeader("Content-Disposition", "attachment; filename=file.txt");
-            Response.BinaryWrite(bytesInStream);
-            Response.Flush();
-            Response.Close();
-            Response.End();
-        }
-
-
         //
         public JsonResult WriteToXML(string fileName)
         {

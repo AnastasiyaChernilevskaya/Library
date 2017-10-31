@@ -2,4 +2,23 @@
 </script>
 <script src="~/Scripts/Library/BookGrid.js"></script>
 <div id="grid"></div>
-<a href="/MyLibrary/GetXmlFile">click</a>
+
+
+<div data-role="popup" id="myPopup">
+    <form id="typeForm">
+        <p>Please select your preferred file type:</p>
+        <div>
+            <input type="radio" id="XMLFile"
+                   name="filetype" value="xml" checked>
+            <label for="XMLFile">File.xml</label>
+
+            <input type="radio" id="TXTFile"
+                   name="filetype" value="txt">
+            <label for="TXTFile">File.txt</label>
+
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>

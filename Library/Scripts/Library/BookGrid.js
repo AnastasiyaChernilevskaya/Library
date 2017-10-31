@@ -9,9 +9,9 @@
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             },
             {
-                template: "<a class='fileButton k-button' href='\\#' onclick='return addToFile()'><span class='k-icon k-add'></span>Add book to XML file</a>"
+                template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
             }
-        ], 
+        ],
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -22,7 +22,7 @@
                 title: "Include",
                 type: "boolean",
                 template: '<input type="checkbox"  id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx"/>',
-                width: "100px"                
+                width: "100px"
             },
             {
                 field: "Id",
@@ -46,12 +46,12 @@
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
-                width: "100px", 
-            },{
+                width: "100px",
+            }, {
                 template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
                 title: "&nbsp;",
-                width: "100px",            
-            }            
+                width: "100px",
+            }
         ],
 
         dataSource: {
@@ -69,14 +69,14 @@
                     id: "Id",
                     fields: {
                         "Id": { editable: false, nullable: true, type: "number" },
-                        "Name": { type: "string",},
+                        "Name": { type: "string", },
                         "Author": { type: "string", },
-                        "YearOfPublishing": { type: "number",  },
-                        "Publisher": { type: "string",  },
+                        "YearOfPublishing": { type: "number", },
+                        "Publisher": { type: "string", },
                         "IncludeToPage": { type: "boolean" }
                     }
                 }
-            }            
+            }
         }
 
     }).data("kendoGrid");
@@ -87,7 +87,7 @@
         deleteData(dataItem);
     });
 
-    grid.element.on('click',".chkbx", function (e) {
+    grid.element.on('click', ".chkbx", function (e) {
         var dataItem = grid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
@@ -146,11 +146,20 @@ function deleteData(dataItem) {
     });
 }
 
-function addToFileXML() {
+function addToFile(format) {
 
-    var format = "xml";
-    location.href = '/MyLibrary/GetXmlFile?format=' + format;    
+    location.href = '/MyLibrary/GetXmlFile?format=' + format;
 }
+
+$("#typeForm").submit(function (event) {
+    if (filetype === xml){
+        formar = "xml";
+    }
+    if (filetype === txt) {
+        format = "txt";
+    }
+    addToFile(format);
+})
 
 //function getChecked() {
 //    var books = [];
