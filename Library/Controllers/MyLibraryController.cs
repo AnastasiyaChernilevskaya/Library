@@ -106,34 +106,35 @@ namespace Library.Controllers
         {
             var books = new List<Book>();
             books = _bookService.GetCheckedBooks();
-            //var booksString = _bookService.SerializeToXml(books);
+            var booksString = _bookService.SerializeToXml(books);
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationFile.xml";
+            MemoryStream memoryStream = new MemoryStream();
+            TextWriter textWriter = new StreamWriter(memoryStream);
+            textWriter.WriteLine(booksString);
+            textWriter.Flush(); // added this line
 
-            //MemoryStream memoryStream = new MemoryStream();
-            //TextWriter textWriter = new StreamWriter(memoryStream);
-            //textWriter.WriteLine(booksString);
-            //textWriter.Flush(); // added this line
+            byte[] bytesInStream = memoryStream.ToArray(); // simpler way of converting to array
+            memoryStream.Close();
 
-            //byte[] bytesInStream = memoryStream.ToArray(); // simpler way of converting to array
-            //memoryStream.Close();
+            Response.Clear();
+            Response.ContentType = "application/xml";
+            Response.AddHeader("Content-Disposition", "attachment; filename=file.xml");
+            Response.BinaryWrite(bytesInStream);
+            Response.Flush();
+            Response.Close();
 
-            //Response.Clear();
-            //Response.ContentType = "application/xml";
-            //Response.AddHeader("content-disposition", "attachment;    filename=file.xls");
-            //Response.BinaryWrite(bytesInStream);
-            //Response.Flush();
-            //Response.Close();
+            Response.End();
 
-            //Response.End();
-            byte[] byteArray = Encoding.UTF8.GetBytes(_bookService.SerializeToXml(books));
-            Stream file = new MemoryStream(byteArray);
-            var filename = "file.xls";
-            if (file != null && file.CanRead)
-            {
-                Response.AddHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-                Response.ContentType = "application/octet-stream";
-                Response.ClearContent();
-                file.CopyTo(Response.OutputStream);
-            }
+            //byte[] byteArray = Encoding.UTF8.GetBytes(_bookService.SerializeToXml(books));
+            //Stream file = new MemoryStream(byteArray);
+            //var filename = "file.xls";
+            //if (file != null && file.CanRead)
+            //{
+            //    Response.AddHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            //    Response.ContentType = "application/xml";
+            //    Response.ClearContent();
+            //    file.CopyTo(Response.OutputStream);
+            //}
 
         }
 
