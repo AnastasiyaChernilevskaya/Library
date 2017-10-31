@@ -115,23 +115,22 @@ namespace Library.Controllers
         }
 
         //
-        public JsonResult WriteToXML(string fileName)
-        {
-            string fileN = fileName.Replace("\"", "");
-            var books = new List<Book>();
-            books = _bookService.GetCheckedBooks();
-            byte[] byteArray = Encoding.UTF8.GetBytes(_bookService.SerializeToXml(books));
-            Stream file = new MemoryStream(byteArray);
-            if (file != null && file.CanRead)
-            {
-                Response.AddHeader("Content-Disposition", "attachment; filename=\"" + fileN + "\"");
-                Response.ContentType = "application/octet-stream";
-                Response.ClearContent();
-                file.CopyTo(Response.OutputStream);
-            }
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
-
+        //public JsonResult WriteToXML(string fileName)
+        //{
+        //    string fileN = fileName.Replace("\"", "");
+        //    var books = new List<Book>();
+        //    books = _bookService.GetCheckedBooks();
+        //    byte[] byteArray = Encoding.UTF8.GetBytes(_bookService.SerializeToXml(books));
+        //    Stream file = new MemoryStream(byteArray);
+        //    if (file != null && file.CanRead)
+        //    {
+        //        Response.AddHeader("Content-Disposition", "attachment; filename=\"" + fileN + "\"");
+        //        Response.ContentType = "application/octet-stream";
+        //        Response.ClearContent();
+        //        file.CopyTo(Response.OutputStream);
+        //    }
+        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //}
 
     }
 

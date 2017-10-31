@@ -1,24 +1,28 @@
-﻿<script id="template" type="text/x-kendo-template">  
+﻿<script id="template" type="text/x-kendo-template">
 </script>
 <script src="~/Scripts/Library/BookGrid.js"></script>
+<link href="~/Content/Library/MainPage.css" rel="stylesheet" />
+
 <div id="grid"></div>
 
 
-<div data-role="popup" id="myPopup">
-    <form id="typeForm">
-        <p>Please select your preferred file type:</p>
-        <div>
+<form id="typeForm">
+    <fieldset>
+        <legend>Please select your preferred file type:</legend>
+        <div class="round">
+
             <input type="radio" id="XMLFile"
                    name="filetype" value="xml" checked>
             <label for="XMLFile">File.xml</label>
-
+            <br />
             <input type="radio" id="TXTFile"
                    name="filetype" value="txt">
             <label for="TXTFile">File.txt</label>
 
+
         </div>
         <div>
-            <button type="submit">Submit</button>
+            <button id="submitButton" class="submitButton" type="submit">Save file</button>
         </div>
-    </form>
-</div>
+    </fieldset>
+</form>

@@ -7,10 +7,10 @@
         toolbar: [
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            },
-            {
-                template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
             }
+            //{
+            //    template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
+            //}
         ],
         pageable: {
             refresh: true,
@@ -151,14 +151,18 @@ function addToFile(format) {
     location.href = '/MyLibrary/GetXmlFile?format=' + format;
 }
 
-$("#typeForm").submit(function (event) {
-    if (filetype === xml){
-        formar = "xml";
-    }
-    if (filetype === txt) {
-        format = "txt";
-    }
-    addToFile(format);
+$(document).ready(function () {
+    $("#typeForm").submit(function (event) {
+        event.preventDefault();
+        var filetype = $('input[name=filetype]:checked').val();
+        if (filetype === "xml") {
+            format = "xml";
+        }
+        if (filetype === "txt") {
+            format = "txt";
+        }
+        addToFile(format);
+    })
 })
 
 //function getChecked() {
