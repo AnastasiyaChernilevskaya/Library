@@ -112,7 +112,7 @@ function addBook() {
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "GetBooks",
+        url: "GetLibrary",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -130,7 +130,7 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "DestroyBook?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyLibraryItem?id=" + JSON.stringify(dataItem.id),
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
@@ -187,7 +187,7 @@ function updateData(data) {
 
     $.ajax({
         type: "POST",
-        url: "UpdateBook",
+        url: "UpdateLibrary",
         contentType: "application/json; charset =utf-8",
         data: JSON.stringify(data),
         datatype: 'json',

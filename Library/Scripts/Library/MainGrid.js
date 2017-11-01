@@ -5,9 +5,9 @@
         height: 550,
         sortable: true,
         toolbar: [
-            {
-                template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            }
+            //{
+            //    template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
+            //}
             //{
             //    template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
             //}
@@ -96,11 +96,11 @@
     })
 });
 
-function toolbarAddClick() {
-    console.log("Toolbar command add is clicked!");
-    addBook();
-    return false;
-}
+//function toolbarAddClick() {
+//    console.log("Toolbar command add is clicked!");
+//    addBook();
+//    return false;
+//}
 
 function editBook(id) {
     window.location.href = 'MyLibrary/EditBook/' + id;
