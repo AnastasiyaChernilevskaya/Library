@@ -1,6 +1,6 @@
 ﻿namespace Library.Data
 {
-    public enum Type
+    public enum LibraryType
     {
         Book = 0,
         Newspaper = 1,

@@ -40,23 +40,17 @@ namespace Library.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult CreateBook(Book book)
+        //public JsonResult GetBooK(int id)
         //{
-        //    _bookService.CreateBook(book);
-        //    return Json(true, JsonRequestBehavior.DenyGet);
+        //    var book = _bookService.GetBook(id);
+        //    return Json(book, JsonRequestBehavior.AllowGet);
         //}
 
-        public JsonResult GetBooK(int id)
-        {
-            var book = _bookService.GetBook(id);
-            return Json(book, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult UpdateBook(Book book)
-        {
-            _bookService.UpdateBook(book);
-            return Json(true, JsonRequestBehavior.DenyGet);
-        }
+        //public JsonResult UpdateBook(Book book)
+        //{
+        //    _bookService.UpdateBook(book);
+        //    return Json(true, JsonRequestBehavior.DenyGet);
+        //}
 
         public ActionResult AddBook()
         {
@@ -107,7 +101,7 @@ namespace Library.Controllers
             memoryStream.Close();
 
             Response.Clear();
-            Response.ContentType = "application/"+ format;
+            Response.ContentType = "application/" + format;
             Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
             Response.BinaryWrite(bytesInStream);
             Response.Flush();
@@ -121,19 +115,26 @@ namespace Library.Controllers
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    string path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
-                    file.SaveAs(path);
+                    //string path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
+                    //file.SaveAs(path);
+                    List<Book> books = new List<Book>();
+                    books = _bookService.DeSerializeObject<List<Book>>(file.FileName);
+
+                    foreach (var book in books)
+                    {
+                        _bookService.CreateBook(book);
+                    }
+
                     ViewBag.Message = "File uploaded successfully";
+                    return RedirectToAction("MyLibrary");
                 }
                 catch (Exception ex)
                 {
                     ViewBag.Message = "ERROR:" + ex.Message.ToString();
                 }
-            else
-            {
-                ViewBag.Message = "You have not specified a file.";
-            }
-            return RedirectToAction("MyLibrary");
+
+            ViewBag.Message = "You have not specified a file.";
+            return View();
         }
 
         //https://stackoverflow.com/questions/5193842/file-upload-asp-net-mvc-3-0
@@ -144,23 +145,5 @@ namespace Library.Controllers
         {
             return View();
         }
-
-        //// This action handles the form POST and the upload
-        //[HttpPost]
-        //public ActionResult Upload(HttpPostedFileBase file)
-        //{
-        //    // Verify that the user selected a file
-        //    if (file != null && file.ContentLength > 0)
-        //    {
-        //        // extract only the filename
-        //        var fileName = Path.GetFileName(file.FileName);
-
-        //        // store the file inside ~/App_Data/uploads folder
-        //        var path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
-        //        file.SaveAs(path);
-        //    }
-        //    // redirect back to the index action to show the form once again
-        //    return RedirectToAction("Upload");
-        //}
     }
 }

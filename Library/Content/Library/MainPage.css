@@ -1,24 +1,15 @@
 ﻿.round {
     border: 2px solid lightgrey;
     border-radius: 8px;
-    margin-left: 50px;
+    margin-left: 10px;
     clear: both;
     float: left;
     padding: 15px;
 }
 .submitButton {
     margin-top: 10px;
-    margin-left: 10px;
 }
-/*.ridge {
-    border-style: ridge;
-    border-color: grey;
-    margin-top: 10px;
-    margin: auto;
-    width: 50%;
-}*/
 fieldset {
-
     margin-left: 2px;
     margin-right: 2px;
     padding-top: 0.35em;
@@ -26,11 +17,22 @@ fieldset {
     padding-left: 0.75em;
     padding-right: 0.75em;
     border: 2px groove;
-    width:50%;
+    width: 50%;
 }
+
 legend {
     display: block;
     padding-left: 2px;
     padding-right: 2px;
     border: none;
+    float: left;
+}
+.uploadButton {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.ridge {
+
+    margin-top: 10px;
+    margin-left:15px;
 }

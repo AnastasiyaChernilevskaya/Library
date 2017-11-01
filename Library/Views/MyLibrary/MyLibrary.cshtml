@@ -5,10 +5,12 @@
 
 <div id="grid"></div>
 
+<fieldset>
+    <legend> Whoud like to upload/download file?</legend>
 
-<form id="typeForm">
-    <fieldset>
-        <legend>Please select your preferred file type:</legend>
+    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","MyLibrary")'">Upload file</button>
+
+    <form id="typeForm" class="ridge">        
         <div class="round">
 
             <input type="radio" id="XMLFile"
@@ -18,12 +20,9 @@
             <input type="radio" id="TXTFile"
                    name="filetype" value="txt">
             <label for="TXTFile">File.txt</label>
-
-
-        </div>
-        <p>
-            <button id="submitButton" class="submitButton" type="submit">Save file</button>
-        </p>
-        <button id="uploadButton">Upload file</button>
-    </fieldset>
-</form>
+            <p>
+                <button id="submitButton" class="submitButton" type="submit">Save file</button>
+            </p>
+        </div>        
+    </form>
+</fieldset>
