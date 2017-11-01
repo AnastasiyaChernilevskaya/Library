@@ -62,6 +62,7 @@ namespace Library.Controllers
             _bookService.CreateBook(book);
             return RedirectToAction("MyLibrary");
         }
+
         public ActionResult EditBook(int id = 0)
         {
             Book book = _bookService.GetBook(id);
@@ -71,7 +72,6 @@ namespace Library.Controllers
             }
             return View(book);
         }
-
 
         [HttpPost]
         public ActionResult EditBook(Book book)
@@ -144,5 +144,9 @@ namespace Library.Controllers
         {
             return View();
         }
+
+        //________________________________________________________
+        
+
     }
 }

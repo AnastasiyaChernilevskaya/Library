@@ -208,9 +208,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\MyLibrary\MyLibrary.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\MyLibrary\EditBook.cshtml" />
-    <Content Include="Views\MyLibrary\AddBook.cshtml" />
-    <Content Include="Views\MyLibrary\Upload.cshtml" />
+    <Content Include="Views\Book\EditBook.cshtml" />
+    <Content Include="Views\Book\AddBook.cshtml" />
+    <Content Include="Views\Book\Upload.cshtml" />
     <Content Include="Views\Book\Book.cshtml" />
     <Content Include="Views\Newspaper\Newspaper.cshtml" />
     <Content Include="Views\Periodical\Periodical.cshtml" />

@@ -1,28 +1,5 @@
-﻿<script id="template" type="text/x-kendo-template">
-</script>
+﻿<script id="template" type="text/x-kendo-template"></script>
 <script src="~/Scripts/Library/MainGrid.js"></script>
 <link href="~/Content/Library/MainPage.css" rel="stylesheet" />
 
 <div id="grid"></div>
-
-<fieldset>
-    <legend> Whoud like to upload/download file?</legend>
-
-    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","MyLibrary")'">Upload file</button>
-
-    <form id="typeForm" class="ridge">        
-        <div class="round">
-
-            <input type="radio" id="XMLFile"
-                   name="filetype" value="xml" checked>
-            <label for="XMLFile">File.xml</label>
-            <br />
-            <input type="radio" id="TXTFile"
-                   name="filetype" value="txt">
-            <label for="TXTFile">File.txt</label>
-            <p>
-                <button id="submitButton" class="submitButton" type="submit">Save file</button>
-            </p>
-        </div>        
-    </form>
-</fieldset>
