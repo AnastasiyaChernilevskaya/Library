@@ -11,10 +11,11 @@ namespace Library.Data
     {
         [Key]
         public int Id { get; set; }
+
         public bool IncludeToPage { get; set; }
         public string Name { get; set; }
         public string Publisher { get; set; }
 
-        public LibraryType Type { get; set; }
+        public string LibraryType { get; set; }
     }
 }

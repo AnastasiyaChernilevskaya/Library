@@ -10,6 +10,7 @@ namespace Library.Data
     public class Book : BaseEntity
     {
         public string Author { get; set; }
-        public short YearOfPublishing { get; set; }
+        public DateTime YearOfPublishing { get; set; }
+        public DateTime YearOfWriting { get; set; }
     }
 }

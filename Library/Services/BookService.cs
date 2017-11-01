@@ -60,7 +60,7 @@ namespace Library.Services
 
                 using (StringReader read = new StringReader(xmlString))
                 {
-                    Type outType = typeof(T);//
+                    System.Type outType = typeof(T);//
 
                     XmlSerializer serializer = new XmlSerializer(outType);
                     using (XmlReader reader = new XmlTextReader(read))

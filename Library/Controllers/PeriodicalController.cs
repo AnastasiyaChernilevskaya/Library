@@ -9,7 +9,7 @@ namespace Library.Controllers
     public class PeriodicalController : Controller
     {
         // GET: Periodical
-        public ActionResult Index()
+        public ActionResult Periodical()
         {
             return View();
         }

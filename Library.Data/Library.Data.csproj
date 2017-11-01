@@ -60,6 +60,9 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
     <Compile Include="Models\Enums\Type.cs" />
+    <Compile Include="Repositories\LibraryRepository.cs" />
+    <Compile Include="Repositories\NewspaperRepository.cs" />
+    <Compile Include="Repositories\PeriodicalRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

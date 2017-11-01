@@ -10,12 +10,12 @@ namespace Library.Data
     {
         protected override void Seed(Context db)
         {
-            db.Books.Add(new Book { Name = "Война и мир", Author = "Л. Толстой", YearOfPublishing  = 2017, Publisher = "veselka", IncludeToPage = true });
-            db.Books.Add(new Book { Name = "Отцы и дети", Author = "И. Тургенев", YearOfPublishing = 2017, Publisher = "veselka", IncludeToPage = false });
-            db.Books.Add(new Book { Name = "Чайка", Author = "А. Чехов", YearOfPublishing = 2017, Publisher = "veselka", IncludeToPage = false });
-            db.Books.Add(new Book { Name = "Война и мир1", Author = "Л. Толстой1", YearOfPublishing = 2016, Publisher = "veselkas", IncludeToPage = true });
-            db.Books.Add(new Book { Name = "Отцы и дети1", Author = "И. Тургенев1", YearOfPublishing = 2016, Publisher = "veselkas", IncludeToPage = false });
-            db.Books.Add(new Book { Name = "Чайка1", Author = "А. Чехов1", YearOfPublishing = 2016, Publisher = "veselkas", IncludeToPage = true });
+            db.Books.Add(new Book { Name = "Война и мир", Author = "Л. Толстой",  Publisher = "veselka", IncludeToPage = true });
+            db.Books.Add(new Book { Name = "Отцы и дети", Author = "И. Тургенев",  Publisher = "veselka", IncludeToPage = false });
+            db.Books.Add(new Book { Name = "Чайка", Author = "А. Чехов",  Publisher = "veselka", IncludeToPage = false });
+            db.Books.Add(new Book { Name = "Война и мир1", Author = "Л. Толстой1",  Publisher = "veselkas", IncludeToPage = true });
+            db.Books.Add(new Book { Name = "Отцы и дети1", Author = "И. Тургенев1",  Publisher = "veselkas", IncludeToPage = false });
+            db.Books.Add(new Book { Name = "Чайка1", Author = "А. Чехов1", Publisher = "veselkas", IncludeToPage = true });
 
             base.Seed(db);
         }

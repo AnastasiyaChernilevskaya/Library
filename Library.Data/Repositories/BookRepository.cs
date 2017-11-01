@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Library.Data.Repositories
 {
-    public class BookRepository : BaseRepository
+    public class BookRepository : LibraryRepository
     {
         private Context _context;
 
@@ -20,7 +16,6 @@ namespace Library.Data.Repositories
         public IList<Book> GetBooks()
         {
             var result = new List<Book>();
-
             result = _context.Books.ToList();
 
             return result;
@@ -28,13 +23,16 @@ namespace Library.Data.Repositories
 
         public void CreateBook(Book book)
         {
-            var entity = new Book(); //ask Lesha!
+            var entity = new Book();
 
+            entity.IncludeToPage = book.IncludeToPage;
             entity.Name = book.Name;
+            entity.Publisher = book.Publisher;
+
+            entity.LibraryType = Type.Book.ToString();
+
             entity.Author = book.Author;
             entity.YearOfPublishing = book.YearOfPublishing;
-            entity.Publisher = book.Publisher;
-            entity.IncludeToPage = book.IncludeToPage;
 
             _context.Books.Add(entity);
             _context.SaveChanges();
@@ -44,12 +42,13 @@ namespace Library.Data.Repositories
         {
             var entity = new Book();
 
-            entity.Id = book.Id;
-            entity.Name = book.Name;
-            entity.YearOfPublishing = book.YearOfPublishing;
-            entity.Publisher = book.Publisher;
-            entity.Author = book.Author;
             entity.IncludeToPage = book.IncludeToPage;
+            entity.Name = book.Name;
+            entity.Publisher = book.Publisher;
+
+            entity.Author = book.Author;
+            entity.YearOfPublishing = book.YearOfPublishing;
+            entity.YearOfWriting = book.YearOfWriting;
 
             _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    var grid = $("#grid").kendoGrid({
+    var booksGrid = $("#BooksGrid").kendoGrid({
 
         height: 550,
         sortable: true,
@@ -20,7 +20,7 @@
             {
                 field: "Id",
                 hidden: true
-            }, 
+            },
             {
                 field: "IncludeToPage",
                 title: "Include",
@@ -38,12 +38,16 @@
                 field: "Publisher",
                 title: "Publisher",
                 width: "250px"
+            }, {
+                field: "Author",
+                title: "Author",
+                width: "250px"
             },
-            //{
-            //    field: "YearOfPublishing",
-            //    title: "Date",
-            //    width: "100px"
-            //},
+            {
+                field: "YearOfPublishing",
+                title: "Date",
+                width: "100px"
+            },
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
@@ -74,22 +78,21 @@
                         "Name": { type: "string", },
                         "Publisher": { type: "string", },
                         "LibraryType": { type: "string", },
-                        //"YearOfPublishing": { type: "date", },                       
+                        "YearOfPublishing": { type: "date", },                       
                     }
                 }
             }
         }
-
     }).data("kendoGrid");
 
-    grid.element.on('click', '.DestroyButton', function () {
-        var dataItem = grid.dataItem($(this).closest('tr'));
+    booksGrid.element.on('click', '.DestroyButton', function () {
+        var dataItem = booksGrid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
     });
 
-    grid.element.on('click', ".chkbx", function (e) {
-        var dataItem = grid.dataItem($(e.target).closest("tr"));
+    booksGrid.element.on('click', ".chkbx", function (e) {
+        var dataItem = booksGrid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
@@ -103,17 +106,17 @@ function toolbarAddClick() {
 }
 
 function editBook(id) {
-    window.location.href = 'MyLibrary/EditBook/' + id;
+    window.location.href = 'BookController/EditBook/' + id;
 }
 
 function addBook() {
-    window.location.href = 'MyLibrary/AddBook';
+    window.location.href = 'BookController/AddBook';
 }
 
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "MyLibrary/GetBooks",
+        url: "GetBooks",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -131,7 +134,7 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "MyLibrary/DestroyBook?id=" + JSON.stringify(dataItem.id),
+        url: "BookController/DestroyBook?id=" + JSON.stringify(dataItem.id),
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
@@ -149,7 +152,7 @@ function deleteData(dataItem) {
 
 function addToFile(format) {
 
-    location.href = '/MyLibrary/GetFile?format=' + format;
+    location.href = '/BookController/GetFile?format=' + format;
 }
 
 $(document).ready(function () {
@@ -180,15 +183,15 @@ $(document).ready(function () {
 //}
 
 function refreshGrid() {
-    $('#grid').data('kendoGrid').dataSource.read();
-    $('#grid').data('kendoGrid').refresh();
+    $('#BooksGrid').data('kendoGrid').dataSource.read();
+    $('#BooksGrid').data('kendoGrid').refresh();
 }
 
 function updateData(data) {
 
     $.ajax({
         type: "POST",
-        url: "MyLibrary/UpdateBook",
+        url: "BookController/UpdateBook",
         contentType: "application/json; charset =utf-8",
         data: JSON.stringify(data),
         datatype: 'json',
@@ -203,5 +206,4 @@ function updateData(data) {
             console.log("errU");
         }
     });
-
 }

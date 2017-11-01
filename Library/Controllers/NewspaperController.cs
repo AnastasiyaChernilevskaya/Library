@@ -9,7 +9,7 @@ namespace Library.Controllers
     public class NewspaperController : Controller
     {
         // GET: Newspaper
-        public ActionResult Index()
+        public ActionResult Newspaper()
         {
             return View();
         }

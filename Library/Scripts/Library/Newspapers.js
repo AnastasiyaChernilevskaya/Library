@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    var grid = $("#grid").kendoGrid({
+    var newspapersGrid = $("#NewspapersGrid").kendoGrid({
 
         height: 550,
         sortable: true,
@@ -18,32 +18,31 @@
         },
         columns: [
             {
-                field: "Id",
-                hidden: true
-            }, 
-            {
                 field: "IncludeToPage",
                 title: "Include",
                 type: "boolean",
                 template: '<input type="checkbox"  id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx"/>',
                 width: "100px"
-            }, {
-                field: "LibraryType",
-                title: "Library Type"
+            },
+            {
+                field: "Id",
+                hidden: true
             }, {
                 field: "Name",
                 title: "Name",
                 width: "250"
             }, {
+                field: "Author",
+                title: "Author"
+            }, {
+                field: "YearOfPublishing",
+                title: "Year of publishing",
+                width: "100px"
+            }, {
                 field: "Publisher",
                 title: "Publisher",
                 width: "250px"
             },
-            //{
-            //    field: "YearOfPublishing",
-            //    title: "Date",
-            //    width: "100px"
-            //},
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
@@ -70,11 +69,11 @@
                     id: "Id",
                     fields: {
                         "Id": { editable: false, nullable: true, type: "number" },
-                        "IncludeToPage": { type: "boolean" },
                         "Name": { type: "string", },
+                        "Author": { type: "string", },
+                        "YearOfPublishing": { type: "number", },
                         "Publisher": { type: "string", },
-                        "LibraryType": { type: "string", },
-                        //"YearOfPublishing": { type: "date", },                       
+                        "IncludeToPage": { type: "boolean" }
                     }
                 }
             }
@@ -82,14 +81,14 @@
 
     }).data("kendoGrid");
 
-    grid.element.on('click', '.DestroyButton', function () {
-        var dataItem = grid.dataItem($(this).closest('tr'));
+    newspapersGrid.element.on('click', '.DestroyButton', function () {
+        var dataItem = newspapersGrid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
     });
 
-    grid.element.on('click', ".chkbx", function (e) {
-        var dataItem = grid.dataItem($(e.target).closest("tr"));
+    newspapersGrid.element.on('click', ".chkbx", function (e) {
+        var dataItem = newspapersGrid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
@@ -103,17 +102,17 @@ function toolbarAddClick() {
 }
 
 function editBook(id) {
-    window.location.href = 'MyLibrary/EditBook/' + id;
+    window.location.href = 'EditBook/' + id;
 }
 
 function addBook() {
-    window.location.href = 'MyLibrary/AddBook';
+    window.location.href = 'AddBook';
 }
 
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "MyLibrary/GetBooks",
+        url: "GetBooks",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -131,7 +130,7 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "MyLibrary/DestroyBook?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyBook?id=" + JSON.stringify(dataItem.id),
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
@@ -180,15 +179,15 @@ $(document).ready(function () {
 //}
 
 function refreshGrid() {
-    $('#grid').data('kendoGrid').dataSource.read();
-    $('#grid').data('kendoGrid').refresh();
+    $('#NewspapersGrid').data('kendoGrid').dataSource.read();
+    $('#NewspapersGrid').data('kendoGrid').refresh();
 }
 
 function updateData(data) {
 
     $.ajax({
         type: "POST",
-        url: "MyLibrary/UpdateBook",
+        url: "UpdateBook",
         contentType: "application/json; charset =utf-8",
         data: JSON.stringify(data),
         datatype: 'json',
@@ -203,5 +202,4 @@ function updateData(data) {
             console.log("errU");
         }
     });
-
 }
