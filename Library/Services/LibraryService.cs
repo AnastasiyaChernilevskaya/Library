@@ -21,25 +21,20 @@ namespace Library.Services
             return _libraryRepository.GetEntitys();
         }
 
-        public void CreateLibrary(BaseEntity baseEntity)
+        public void UpdateLibrary(int id, Data.Type entityType)
         {
-            _libraryRepository.CreateEntity(baseEntity);
+            _libraryRepository.UpdateEntityChack(id, entityType);
         }
 
-        public void UpdateLibrary(BaseEntity baseEntity)
+        public void DestroyLibraryItem(int id, Data.Type entityType)
         {
-            _libraryRepository.UpdateEntity(baseEntity);
+            _libraryRepository.DestroyEntity(id, entityType);
         }
 
-        public void DestroyLibraryItem(int id)
-        {
-            _libraryRepository.DestroyEntity(id);
-        }
-
-        public BaseEntity GetLibrary(int id)
-        {
-            return _libraryRepository.GetEntity(id);
-        }
+        //public BaseEntity GetLibrary(int id)
+        //{
+        //    return _libraryRepository.GetEntity(id);
+        //}
 
         //__________________________________________________________
     }

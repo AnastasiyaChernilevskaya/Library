@@ -29,7 +29,9 @@
                 width: "100px"
             }, {
                 field: "LibraryType",
-                title: "Library Type"
+                title: "Library Type",
+                //template: '<span  #= LibraryType ==0 ? \'value="Book"\' : ( LibraryType == 1? \'value="Newspaper"\':  \'value="Periodical"\')  # ></span>',
+                template: '<span  > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>',
             }, {
                 field: "Name",
                 title: "Name",
@@ -48,11 +50,12 @@
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
                 width: "100px",
-            }, {
-                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-                title: "&nbsp;",
-                width: "100px",
             }
+            //{
+            //    template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+            //    title: "&nbsp;",
+            //    width: "100px",
+            //}
         ],
 
         dataSource: {
@@ -102,18 +105,11 @@
 //    return false;
 //}
 
-function editBook(id) {
-    window.location.href = 'MyLibrary/EditBook/' + id;
-}
-
-function addBook() {
-    window.location.href = 'MyLibrary/AddBook';
-}
 
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "MyLibrary/GetBooks",
+        url: "MyLibrary/GetLibrary",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -131,7 +127,7 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "MyLibrary/DestroyBook?id=" + JSON.stringify(dataItem.id),
+        url: "MyLibrary/DestroyLibraryItem?id=" + JSON.stringify(dataItem.id) + "&entityType=" + dataItem.LibraryType,
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
@@ -147,24 +143,24 @@ function deleteData(dataItem) {
     });
 }
 
-function addToFile(format) {
+//function addToFile(format) {
 
-    location.href = '/MyLibrary/GetFile?format=' + format;
-}
+//    location.href = '/MyLibrary/GetFile?format=' + format;
+//}
 
-$(document).ready(function () {
-    $("#typeForm").submit(function (event) {
-        event.preventDefault();
-        var filetype = $('input[name=filetype]:checked').val();
-        if (filetype === "xml") {
-            format = "xml";
-        }
-        if (filetype === "txt") {
-            format = "txt";
-        }
-        addToFile(format);
-    })
-})
+//$(document).ready(function () {
+//    $("#typeForm").submit(function (event) {
+//        event.preventDefault();
+//        var filetype = $('input[name=filetype]:checked').val();
+//        if (filetype === "xml") {
+//            format = "xml";
+//        }
+//        if (filetype === "txt") {
+//            format = "txt";
+//        }
+//        addToFile(format);
+//    })
+//})
 
 //function getChecked() {
 //    var books = [];
@@ -184,22 +180,22 @@ function refreshGrid() {
     $('#grid').data('kendoGrid').refresh();
 }
 
-function updateData(data) {
+function updateData(dataItem) {
 
     $.ajax({
         type: "POST",
-        url: "MyLibrary/UpdateBook",
+        url: "MyLibrary/UpdateLibrary?id=" + JSON.stringify(dataItem.id) + "&entityType=" + dataItem.LibraryType,
         contentType: "application/json; charset =utf-8",
-        data: JSON.stringify(data),
+        data: JSON.stringify(dataItem),
         datatype: 'json',
         success: function (data) {
             console.log(data);
-            console.log(JSON.stringify(data));
+            console.log(JSON.stringify(dataItem));
             console.log("ssU");
         },
-        error: function (data) {
-            console.log(data);
-            console.log(JSON.stringify(data));
+        error: function (dataItem) {
+            console.log(dataItem);
+            console.log(JSON.stringify(dataItem));
             console.log("errU");
         }
     });

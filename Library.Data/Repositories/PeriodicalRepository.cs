@@ -28,7 +28,7 @@ namespace Library.Data.Repositories
             entity.Name = periodical.Name;
             entity.Publisher = periodical.Publisher;
 
-            entity.LibraryType = Type.Periodical.ToString();
+            entity.LibraryType = Type.Periodical;
 
             entity.YearOfPublishing = periodical.YearOfPublishing;
 
@@ -38,7 +38,7 @@ namespace Library.Data.Repositories
 
         public void UpdatePeriodical(Periodical periodical)
         {
-            var entity = new Periodical();
+            var entity = GetPeriodical(periodical.Id);
 
             entity.IncludeToPage = periodical.IncludeToPage;
             entity.Name = periodical.Name;
@@ -46,7 +46,6 @@ namespace Library.Data.Repositories
 
             entity.YearOfPublishing = periodical.YearOfPublishing;
 
-            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
         }
 

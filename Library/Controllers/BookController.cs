@@ -45,11 +45,11 @@ namespace Library.Controllers
         //    return Json(book, JsonRequestBehavior.AllowGet);
         //}
 
-        //public JsonResult UpdateBook(Book book)
-        //{
-        //    _bookService.UpdateBook(book);
-        //    return Json(true, JsonRequestBehavior.DenyGet);
-        //}
+        public JsonResult UpdateBook(Book book)
+        {
+            _bookService.UpdateBook(book);
+            return Json(true, JsonRequestBehavior.DenyGet);
+        }
 
         public ActionResult AddBook()
         {

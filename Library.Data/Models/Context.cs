@@ -17,6 +17,6 @@ namespace Library.Data
         public DbSet<Periodical> Periodicals { get; set; }
         public DbSet<Newspaper> Newspapers { get; set; }
 
-        public DbSet<BaseEntity> LibraryEntitys { get; set; }
+       // public DbSet<BaseEntity> LibraryEntitys { get; set; }
     }
 }

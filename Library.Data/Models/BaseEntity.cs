@@ -16,6 +16,6 @@ namespace Library.Data
         public string Name { get; set; }
         public string Publisher { get; set; }
 
-        public string LibraryType { get; set; }
+        public Type LibraryType { get; set; }
     }
 }

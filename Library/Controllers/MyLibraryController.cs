@@ -32,10 +32,16 @@ namespace Library.Controllers
             return Json(books, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DestroyLibraryItem(int id)
+        public JsonResult DestroyLibraryItem(int id, Data.Type entityType)
         {
-            _libraryService.DestroyLibraryItem(id);
+            _libraryService.DestroyLibraryItem(id, entityType);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateLibrary(int id, Data.Type entityType)
+        {
+            _libraryService.UpdateLibrary(id, entityType);
+            return Json(true, JsonRequestBehavior.DenyGet);
         }
     }
 }

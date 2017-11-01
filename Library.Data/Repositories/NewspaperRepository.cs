@@ -32,7 +32,7 @@ namespace Library.Data.Repositories
             entity.Name = newspaper.Name;
             entity.Publisher = newspaper.Publisher;
 
-            entity.LibraryType = Type.Newspaper.ToString();
+            entity.LibraryType = Type.Newspaper;
 
             entity.YearOfPublishing = newspaper.YearOfPublishing;
 
@@ -42,7 +42,7 @@ namespace Library.Data.Repositories
 
         public void UpdateNewspaper(Newspaper newspaper)
         {
-            var entity = new Newspaper();
+            var entity = GetNewspaper(newspaper.Id);
 
             entity.IncludeToPage = newspaper.IncludeToPage;
             entity.Name = newspaper.Name;
@@ -50,7 +50,6 @@ namespace Library.Data.Repositories
 
             entity.YearOfPublishing = newspaper.YearOfPublishing;
 
-            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
         }
 

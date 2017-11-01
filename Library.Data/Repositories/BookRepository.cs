@@ -29,7 +29,7 @@ namespace Library.Data.Repositories
             entity.Name = book.Name;
             entity.Publisher = book.Publisher;
 
-            entity.LibraryType = Type.Book.ToString();
+            entity.LibraryType = Type.Book;
 
             entity.Author = book.Author;
             entity.YearOfPublishing = book.YearOfPublishing;
@@ -40,8 +40,7 @@ namespace Library.Data.Repositories
 
         public void UpdateBook(Book book)
         {
-            var entity = new Book();
-
+            var entity = GetBook(book.Id);
             entity.IncludeToPage = book.IncludeToPage;
             entity.Name = book.Name;
             entity.Publisher = book.Publisher;
@@ -50,7 +49,7 @@ namespace Library.Data.Repositories
             entity.YearOfPublishing = book.YearOfPublishing;
             entity.YearOfWriting = book.YearOfWriting;
 
-            _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            //_context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
         }
 
