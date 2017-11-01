@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ArrayOfBook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Book>
+    <Id>1</Id>
+    <Name>Война и мир</Name>
+    <Author>Л. Толстой</Author>
+    <YearOfPublishing>2017</YearOfPublishing>
+    <Publisher>veselka</Publisher>
+    <IncludeToPage>true</IncludeToPage>
+  </Book>
+  <Book>
+    <Id>4</Id>
+    <Name>Война и мир1</Name>
+    <Author>Л. Толстой1</Author>
+    <YearOfPublishing>2016</YearOfPublishing>
+    <Publisher>veselkas</Publisher>
+    <IncludeToPage>true</IncludeToPage>
+  </Book>
+  <Book>
+    <Id>6</Id>
+    <Name>Чайка1</Name>
+    <Author>А. Чехов1</Author>
+    <YearOfPublishing>2016</YearOfPublishing>
+    <Publisher>veselkas</Publisher>
+    <IncludeToPage>true</IncludeToPage>
+  </Book>
+</ArrayOfBook>

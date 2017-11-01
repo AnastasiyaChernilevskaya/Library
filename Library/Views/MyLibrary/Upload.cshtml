@@ -1,19 +1,19 @@
-﻿
-
-@*<h2>Upload</h2>
+﻿<h2>Upload</h2>
 
 <h2>Basic File Upload</h2>
-@using (Html.BeginForm("Index", "MyLibrary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@*@using (Html.BeginForm("Upload", "MyLibrary", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <label for="file">Upload Image:</label>
+    <label for="file">Upload file:</label>
     <input type="file" name="file" id="file" /><br><br>
     <input type="submit" value="Upload file" />
     <br><br>
     @ViewBag.Message
 }*@
 
-@using (Html.BeginForm("Index", "MyLibrary", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <input type="file" name="file" />
-    <input type="submit" value="OK" />
-}
+<p>
+    @using (Html.BeginForm("Upload", "MyLibrary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" />
+                    <input type="submit" value="Upload file" />
+    }
+</p>

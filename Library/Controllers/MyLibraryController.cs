@@ -115,49 +115,52 @@ namespace Library.Controllers
             Response.End();
         }
 
-        //[HttpPost]
-        //public ActionResult Index(HttpPostedFileBase file)
-        //{
-        //    if (file != null && file.ContentLength > 0)
-        //        try
-        //        {
-        //            string path = Path.Combine(Server.MapPath("~/Images"),
-        //                                       Path.GetFileName(file.FileName));
-        //            file.SaveAs(path);
-        //            ViewBag.Message = "File uploaded successfully";
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            ViewBag.Message = "ERROR:" + ex.Message.ToString();
-        //        }
-        //    else
-        //    {
-        //        ViewBag.Message = "You have not specified a file.";
-        //    }
-        //    return View();
-        //}
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file)
         {
-            return View();
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return RedirectToAction("MyLibrary");
         }
+
         //https://stackoverflow.com/questions/5193842/file-upload-asp-net-mvc-3-0
         //https://www.aurigma.com/upload-suite/developers/aspnet-mvc/how-to-upload-files-in-aspnet-mvc
 
-        // This action handles the form POST and the upload
-        [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
+
+        public ActionResult Upload()
         {
-            // Verify that the user selected a file
-            if (file != null && file.ContentLength > 0)
-            {
-                // extract only the filename
-                var fileName = Path.GetFileName(file.FileName);
-                // store the file inside ~/App_Data/uploads folder
-                var path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
-                file.SaveAs(path);
-            }
-            // redirect back to the index action to show the form once again
-            return RedirectToAction("Index");
+            return View();
         }
+
+        //// This action handles the form POST and the upload
+        //[HttpPost]
+        //public ActionResult Upload(HttpPostedFileBase file)
+        //{
+        //    // Verify that the user selected a file
+        //    if (file != null && file.ContentLength > 0)
+        //    {
+        //        // extract only the filename
+        //        var fileName = Path.GetFileName(file.FileName);
+
+        //        // store the file inside ~/App_Data/uploads folder
+        //        var path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
+        //        file.SaveAs(path);
+        //    }
+        //    // redirect back to the index action to show the form once again
+        //    return RedirectToAction("Upload");
+        //}
     }
 }

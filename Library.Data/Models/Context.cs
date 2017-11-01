@@ -14,5 +14,7 @@ namespace Library.Data
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Periodical> Periodicals { get; set; }
+        public DbSet<Newspaper> Newspapers { get; set; }
     }
 }
