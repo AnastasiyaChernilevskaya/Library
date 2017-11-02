@@ -5,6 +5,8 @@ using System.Web;
 using System.Data;
 using Library.Data;
 using Library.Data.Repositories;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Library.Services
 {
@@ -44,6 +46,21 @@ namespace Library.Services
         public List<Newspaper> GetCheckedNewspapers()
         {
             return _newspaperRepository.GetCheckedNewspapers();
+        }
+
+        public string SerializeToXml(List<Newspaper> newspapers)
+        {
+            XmlSerializer ser = new XmlSerializer(newspapers.GetType());
+            string result = string.Empty;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                ser.Serialize(memStream, newspapers);
+
+                memStream.Position = 0;
+                result = new StreamReader(memStream).ReadToEnd();
+            }
+            return result;
         }
     }
 }

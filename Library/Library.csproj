@@ -168,7 +168,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphs\WebComponentsIcons.svg" />
     <Content Include="Content\kendo.common.min.css" />
-    <Content Include="Content\Library\MainPage.css" />
+    <Content Include="Content\Book\Book.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -185,8 +185,9 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\kendo.all.min.js" />
+    <Content Include="Scripts\Library\AddFormValidator.js" />
     <Content Include="Scripts\Library\MainGrid.js" />
-    <Content Include="Scripts\Library\BookChanges.js" />
+    <Content Include="Scripts\Library\EditFormValidator.js" />
     <Content Include="Scripts\Library\Books.js" />
     <Content Include="Scripts\Library\Newspapers.js" />
     <Content Include="Scripts\Library\Periodical.js" />
@@ -214,11 +215,15 @@
     <Content Include="Views\Book\Book.cshtml" />
     <Content Include="Views\Newspaper\Newspaper.cshtml" />
     <Content Include="Views\Periodical\Periodical.cshtml" />
+    <Content Include="Views\Newspaper\AddNewspaper.cshtml" />
+    <Content Include="Views\Newspaper\EditNewspaper.cshtml" />
+    <Content Include="Views\Periodical\AddPeriodical.cshtml" />
+    <Content Include="Views\Periodical\EditPeriodical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Library\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\NewspaperService\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

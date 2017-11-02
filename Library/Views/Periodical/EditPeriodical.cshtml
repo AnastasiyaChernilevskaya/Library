@@ -1,6 +1,6 @@
-﻿@model Library.Data.Book
+﻿@model Library.Data.Periodical
 @{
-    ViewBag.Title = "Edit Book";
+    ViewBag.Title = "Edit Periodical";
 }
 @{
     var check = "";
@@ -14,30 +14,27 @@
     }
 }
 
-<h2>Edit book</h2>
+<h2>Edit Periodical</h2>
 
-<form id="editForm" name="editForm" class="form-horizontal" action="@Url.Action("EditBook", "Book")" method="post" onsubmit="return validateBookEditForm()">
+<form id="editForm" name="editForm" class="form-horizontal" action="@Url.Action("EditPeriodical", "Periodical")" method="post" onsubmit="return validateEditForm()">
     <div class="control-group">
-        <label class="control-label">Update your book:</label>
+        <label class="control-label">Update your periodical:</label>
         <div class="controls">
 
             <input type=hidden name="Id" value="@Model.Id" />
             <input type=hidden name="LibraryType" value="@Model.LibraryType" />
 
-            Book name:<br>
+            Periodical name:<br>
             <input type="text" name="Name" value="@Model.Name"><br>
-
-            Author:<br>
-            <input type="text" name="Author" value="@Model.Author"><br>
 
             Publisher:<br>
             <input type="text" name="Publisher" value="@Model.Publisher"><br>
 
-            Year of publishing:<br>
-            <input type="date" name="YearOfPublishing" value="@Model.YearOfPublishing.GetDateTimeFormats()" min="1700-01-01" max="2017-11-02" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
+            Date of publishing:<br>
+            <input type="date" name="YearOfPublishing" value="@Model.YearOfPublishing" min="1700-01-01" max="2017-11-02" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
 
             Include to the Page:<br>
-            <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check ><br>
+            <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check><br>
         </div>
     </div>
     <div class="control-group">

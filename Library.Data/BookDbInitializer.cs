@@ -10,12 +10,12 @@ namespace Library.Data
     {
         protected override void Seed(Context db)
         {
-            db.Books.Add(new Book { Name = "Война и мир", Author = "Л. Толстой", Publisher = "veselka", IncludeToPage = true, YearOfPublishing = DateTime.Now, YearOfWriting = DateTime.Now, LibraryType = Type.Book });
-            db.Books.Add(new Book { Name = "Отцы и дети", Author = "И. Тургенев", Publisher = "veselka", IncludeToPage = false, YearOfPublishing = DateTime.Now, YearOfWriting = DateTime.Now, LibraryType = Type.Book });
-            db.Books.Add(new Book { Name = "Чайка", Author = "А. Чехов", Publisher = "veselka", IncludeToPage = false, YearOfPublishing = DateTime.Now, YearOfWriting = DateTime.Now, LibraryType = Type.Book });
-            db.Books.Add(new Book { Name = "Война и мир1", Author = "Л. Толстой1", Publisher = "veselkas", IncludeToPage = true, YearOfPublishing = DateTime.Now, YearOfWriting = DateTime.Now, LibraryType = Type.Book });
-            db.Books.Add(new Book { Name = "Отцы и дети1", Author = "И. Тургенев1", Publisher = "veselkas", IncludeToPage = false, YearOfPublishing = DateTime.Now, YearOfWriting = DateTime.Now, LibraryType = Type.Book });
-            db.Books.Add(new Book { Name = "Чайка1", Author = "А. Чехов1", Publisher = "veselkas", IncludeToPage = true, YearOfPublishing = DateTime.Now, YearOfWriting = DateTime.Now, LibraryType = Type.Book });
+            db.Books.Add(new Book { Name = "Война и мир", Author = "Л. Толстой", Publisher = "veselka", IncludeToPage = true, YearOfPublishing = DateTime.Now,  LibraryType = Type.Book });
+            db.Books.Add(new Book { Name = "Отцы и дети", Author = "И. Тургенев", Publisher = "veselka", IncludeToPage = false, YearOfPublishing = DateTime.Now, LibraryType = Type.Book });
+            db.Books.Add(new Book { Name = "Чайка", Author = "А. Чехов", Publisher = "veselka", IncludeToPage = false, YearOfPublishing = DateTime.Now, LibraryType = Type.Book });
+            db.Books.Add(new Book { Name = "Война и мир1", Author = "Л. Толстой1", Publisher = "veselkas", IncludeToPage = true, YearOfPublishing = DateTime.Now,  LibraryType = Type.Book });
+            db.Books.Add(new Book { Name = "Отцы и дети1", Author = "И. Тургенев1", Publisher = "veselkas", IncludeToPage = false, YearOfPublishing = DateTime.Now, LibraryType = Type.Book });
+            db.Books.Add(new Book { Name = "Чайка1", Author = "А. Чехов1", Publisher = "veselkas", IncludeToPage = true, YearOfPublishing = DateTime.Now, LibraryType = Type.Book });
 
             db.Newspapers.Add(new Newspaper { Name = "1sdfg", Publisher = "aerg", IncludeToPage = true, YearOfPublishing = DateTime.Now, LibraryType = Type.Newspaper });
             db.Newspapers.Add(new Newspaper { Name = "2sdfg", Publisher = "aerg", IncludeToPage = false, YearOfPublishing = DateTime.Now, LibraryType = Type.Newspaper });

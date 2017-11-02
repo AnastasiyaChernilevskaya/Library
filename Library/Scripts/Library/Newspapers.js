@@ -17,7 +17,11 @@
             buttonCount: 5
         },
         columns: [
+            
             {
+                field: "Id",
+                hidden: true
+            }, {
                 field: "IncludeToPage",
                 title: "Include",
                 type: "boolean",
@@ -25,32 +29,36 @@
                 width: "100px"
             },
             {
-                field: "Id",
-                hidden: true
-            }, {
+                field: "LibraryType",
+                title: "Library Type",
+                template: '<span  > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>'
+
+            },
+            {
                 field: "Name",
                 title: "Name",
                 width: "250"
-            }, {
-                field: "Author",
-                title: "Author"
-            }, {
-                field: "YearOfPublishing",
-                title: "Year of publishing",
-                width: "100px"
-            }, {
+            },
+            {
                 field: "Publisher",
                 title: "Publisher",
                 width: "250px"
             },
             {
+                field: "YearOfPublishing",
+                title: "Date of publishing",
+                width: "100px",
+                template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
+            },          
+            
+            {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
-                width: "100px",
+                width: "100px"
             }, {
-                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+                template: "<a class='EditButton k-button' onclick=\"editNewspaper('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
                 title: "&nbsp;",
-                width: "100px",
+                width: "100px"
             }
         ],
 
@@ -69,11 +77,11 @@
                     id: "Id",
                     fields: {
                         "Id": { editable: false, nullable: true, type: "number" },
-                        "Name": { type: "string", },
-                        "Author": { type: "string", },
-                        "YearOfPublishing": { type: "number", },
-                        "Publisher": { type: "string", },
-                        "IncludeToPage": { type: "boolean" }
+                        "IncludeToPage": { type: "boolean" },
+                        "Name": { type: "string" },
+                        "Publisher": { type: "string" },
+                        "LibraryType": { type: "string" },
+                        "YearOfPublishing": { type: "date" }
                     }
                 }
             }
@@ -83,7 +91,6 @@
 
     newspapersGrid.element.on('click', '.DestroyButton', function () {
         var dataItem = newspapersGrid.dataItem($(this).closest('tr'));
-        alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
     });
 
@@ -92,27 +99,27 @@
         console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
-    })
+    });
 });
 
 function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
-    addBook();
+    addNewspaper();
     return false;
 }
 
-function editBook(id) {
-    window.location.href = 'EditBook/' + id;
+function editNewspaper(id) {
+    window.location.href = 'EditNewspaper/' + id;
 }
 
-function addBook() {
-    window.location.href = 'AddBook';
+function addNewspaper() {
+    window.location.href = 'AddNewspaper';
 }
 
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "GetBooks",
+        url: "GetNewspapers",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -130,12 +137,13 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "DestroyBook?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyNewspaper?id=" + JSON.stringify(dataItem.id),
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        success: function (data) {
-            console.log(data);
+        success: function (dataItem) {
+            console.log(dataItem);
+            alert(dataItem.id + ' was Delited!!!');
             console.log("ssD");
             refreshGrid();
         },
@@ -148,7 +156,7 @@ function deleteData(dataItem) {
 
 function addToFile(format) {
 
-    location.href = '/MyLibrary/GetFile?format=' + format;
+    location.href = 'GetFile?format=' + format;
 }
 
 $(document).ready(function () {
@@ -162,21 +170,8 @@ $(document).ready(function () {
             format = "txt";
         }
         addToFile(format);
-    })
-})
-
-//function getChecked() {
-//    var books = [];
-//    $("input[type='checkbox']").each(function (index, element) {
-//        if ($(element).prop("checked") !== false) {
-//            var grid = $("#grid").data("kendoGrid");
-//            var dataItem = grid.dataItem($(element).closest('tr'));
-//            books.push(dataItem.id);
-//        }
-//    })
-//    console.log(books);
-//    Test(books);
-//}
+    });
+});
 
 function refreshGrid() {
     $('#NewspapersGrid').data('kendoGrid').dataSource.read();
@@ -187,7 +182,7 @@ function updateData(data) {
 
     $.ajax({
         type: "POST",
-        url: "UpdateBook",
+        url: "UpdateNewspaper",
         contentType: "application/json; charset =utf-8",
         data: JSON.stringify(data),
         datatype: 'json',

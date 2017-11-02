@@ -21,10 +21,6 @@ namespace Library.Controllers
         {
             return View();
         }
-        public ActionResult MyLibrary()
-        {
-            return View();
-        }
 
         public JsonResult GetBooks()
         {
@@ -60,7 +56,7 @@ namespace Library.Controllers
         public ActionResult AddBook(Book book)
         {
             _bookService.CreateBook(book);
-            return RedirectToAction("MyLibrary");
+            return RedirectToAction("Book");
         }
 
         public ActionResult EditBook(int id = 0)
@@ -68,7 +64,7 @@ namespace Library.Controllers
             Book book = _bookService.GetBook(id);
             if (book == null)
             {
-                return RedirectToAction("MyLibrary");
+                return RedirectToAction("Book");
             }
             return View(book);
         }
@@ -79,7 +75,7 @@ namespace Library.Controllers
             if (book != null)
             {
                 _bookService.UpdateBook(book);
-                return RedirectToAction("MyLibrary");
+                return RedirectToAction("Book" );
             }
             return View(book);
         }

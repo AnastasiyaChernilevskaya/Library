@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Library.Data.Repositories;
 using Library.Data;
-
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Library.Services
 {
@@ -41,6 +42,21 @@ namespace Library.Services
         public List<Periodical> GetCheckedPeriodical()
         {
             return _periodicalRepository.GetCheckedPeriodicals();
+        }
+
+        public string SerializeToXml(List<Periodical> periodical)
+        {
+            XmlSerializer ser = new XmlSerializer(periodical.GetType());
+            string result = string.Empty;
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                ser.Serialize(memStream, periodical);
+
+                memStream.Position = 0;
+                result = new StreamReader(memStream).ReadToEnd();
+            }
+            return result;
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿<script id="template" type="text/x-kendo-template"></script>
 <script src="~/Scripts/Library/Books.js"></script>
-
 <div id="BooksGrid"></div>
-
+<link href="~/Content/Book/Book.css" rel="stylesheet" />
 <fieldset>
     <legend> Whoud like to upload/download file?</legend>
 
-    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Book")'">Upload file</button>
+    @*<button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Book")'">Upload file</button>*@
 
     <form id="typeForm" class="ridge">
         <div class="round">

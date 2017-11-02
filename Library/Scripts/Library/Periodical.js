@@ -8,9 +8,6 @@
             {
                 template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
             }
-            //{
-            //    template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
-            //}
         ],
         pageable: {
             refresh: true,
@@ -23,6 +20,11 @@
                 type: "boolean",
                 template: '<input type="checkbox"  id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx"/>',
                 width: "100px"
+            }, {
+                field: "LibraryType",
+                title: "Library Type",
+                template: '<span  > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>'
+
             },
             {
                 field: "Id",
@@ -32,12 +34,10 @@
                 title: "Name",
                 width: "250"
             }, {
-                field: "Author",
-                title: "Author"
-            }, {
                 field: "YearOfPublishing",
-                title: "Year of publishing",
-                width: "100px"
+                title: "Date of publishing",
+                width: "100px",
+                template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             }, {
                 field: "Publisher",
                 title: "Publisher",
@@ -46,11 +46,11 @@
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
-                width: "100px",
+                width: "100px"
             }, {
-                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+                template: "<a class='EditButton k-button' onclick=\"editPeriodical('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
                 title: "&nbsp;",
-                width: "100px",
+                width: "100px"
             }
         ],
 
@@ -69,11 +69,11 @@
                     id: "Id",
                     fields: {
                         "Id": { editable: false, nullable: true, type: "number" },
-                        "Name": { type: "string", },
-                        "Author": { type: "string", },
-                        "YearOfPublishing": { type: "number", },
-                        "Publisher": { type: "string", },
-                        "IncludeToPage": { type: "boolean" }
+                        "IncludeToPage": { type: "boolean" },
+                        "Publisher": { type: "string" },
+                        "LibraryType": { type: "string" },
+                        "Name": { type: "string" },
+                        "YearOfPublishing": { type: "date" }
                     }
                 }
             }
@@ -82,7 +82,7 @@
     }).data("kendoGrid");
 
     periodicalsGrid.element.on('click', '.DestroyButton', function () {
-        var dataItem = grid.dataItem($(this).closest('tr'));
+        var dataItem = periodicalsGrid.dataItem($(this).closest('tr'));
         alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
     });
@@ -92,27 +92,27 @@
         console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
-    })
+    });
 });
 
 function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
-    addBook();
+    addPeriodical();
     return false;
 }
 
-function editBook(id) {
-    window.location.href = 'EditBook/' + id;
+function editPeriodical(id) {
+    window.location.href = 'EditPeriodical/' + id;
 }
 
-function addBook() {
-    window.location.href = 'AddBook';
+function addPeriodical() {
+    window.location.href = 'AddPeriodical';
 }
 
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "GetLibrary",
+        url: "GetPeriodicals",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -130,17 +130,18 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "DestroyLibraryItem?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyPeriodical?id=" + JSON.stringify(dataItem.id),
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        success: function (data) {
-            console.log(data);
+        success: function (dataItem) {
+            console.log(dataItem);
+            alert(dataItem.id + ' was Delited!!!');
             console.log("ssD");
             refreshGrid();
         },
-        error: function (data) {
-            console.log(data);
+        error: function (dataItem) {
+            console.log(dataItem);
             console.log("errD" + id);
         }
     });
@@ -148,7 +149,7 @@ function deleteData(dataItem) {
 
 function addToFile(format) {
 
-    location.href = '/MyLibrary/GetFile?format=' + format;
+    location.href = 'GetFile?format=' + format;
 }
 
 $(document).ready(function () {
@@ -162,21 +163,8 @@ $(document).ready(function () {
             format = "txt";
         }
         addToFile(format);
-    })
-})
-
-//function getChecked() {
-//    var books = [];
-//    $("input[type='checkbox']").each(function (index, element) {
-//        if ($(element).prop("checked") !== false) {
-//            var grid = $("#grid").data("kendoGrid");
-//            var dataItem = grid.dataItem($(element).closest('tr'));
-//            books.push(dataItem.id);
-//        }
-//    })
-//    console.log(books);
-//    Test(books);
-//}
+    });
+});
 
 function refreshGrid() {
     $('#PeriodicalsGrid').data('kendoGrid').dataSource.read();
@@ -187,7 +175,7 @@ function updateData(data) {
 
     $.ajax({
         type: "POST",
-        url: "UpdateLibrary",
+        url: "UpdatePeriodical",
         contentType: "application/json; charset =utf-8",
         data: JSON.stringify(data),
         datatype: 'json',

@@ -47,7 +47,7 @@ namespace Library.Data.Repositories
 
             entity.Author = book.Author;
             entity.YearOfPublishing = book.YearOfPublishing;
-            entity.YearOfWriting = book.YearOfWriting;
+            //entity.YearOfWriting = book.YearOfWriting;
 
             //_context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();

@@ -44,7 +44,8 @@
             //{
             //    field: "YearOfPublishing",
             //    title: "Date",
-            //    width: "100px"
+            //    width: "100px",
+            //template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             //},
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
@@ -76,8 +77,7 @@
                         "IncludeToPage": { type: "boolean" },
                         "Name": { type: "string", },
                         "Publisher": { type: "string", },
-                        "LibraryType": { type: "string", },
-                        //"YearOfPublishing": { type: "date", },                       
+                        "LibraryType": { type: "string", },                    
                     }
                 }
             }
