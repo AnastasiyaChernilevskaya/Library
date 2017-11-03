@@ -13,9 +13,9 @@ namespace Library.Data.Repositories
             _context = new Context();
         }
 
-        public List<BaseEntity> GetEntitys()
+        public List<T> GetEntitys()
         {
-            var result = new List<BaseEntity>();
+            var result = new List<T>();
 
             result.AddRange(_context.Books);
             result.AddRange(_context.Newspapers);
@@ -114,9 +114,9 @@ namespace Library.Data.Repositories
             return null;
         }
 
-        public List<BaseEntity> GetCheckedEntitys()
+        public List<T> GetCheckedEntitys()
         {
-            var result = new List<BaseEntity>();
+            var result = new List<T>();
             foreach (BaseEntity entity in GetEntitys())
             {
                 if (entity.IncludeToPage)

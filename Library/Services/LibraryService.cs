@@ -30,19 +30,19 @@ namespace Library.Services
         {
             _libraryRepository.DestroyEntity(id, entityType);
         }
-        public List<BaseEntity> GetChacked()
+        public List<T> GetChacked<T>()
         {
             return _libraryRepository.GetCheckedEntitys();
         }
 
-        public string SerializeToXml<T>(List<T> books)
+        public string SerializeToXml<T>(List<T> entitys)
         {
-            XmlSerializer ser = new XmlSerializer(books.GetType());
+            XmlSerializer ser = new XmlSerializer(entitys.GetType());
             string result = string.Empty;
 
             using (MemoryStream memStream = new MemoryStream())
             {
-                ser.Serialize(memStream, books);
+                ser.Serialize(memStream, entitys);
 
                 memStream.Position = 0;
                 result = new StreamReader(memStream).ReadToEnd();
