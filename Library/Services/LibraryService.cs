@@ -30,12 +30,25 @@ namespace Library.Services
         {
             _libraryRepository.DestroyEntity(id, entityType);
         }
+        public List<BaseEntity> GetChacked()
+        {
+            return _libraryRepository.GetCheckedEntitys();
+        }
 
-        //public BaseEntity GetLibrary(int id)
-        //{
-        //    return _libraryRepository.GetEntity(id);
-        //}
+        public string SerializeToXml<T>(List<T> books)
+        {
+            XmlSerializer ser = new XmlSerializer(books.GetType());
+            string result = string.Empty;
 
-        //__________________________________________________________
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                ser.Serialize(memStream, books);
+
+                memStream.Position = 0;
+                result = new StreamReader(memStream).ReadToEnd();
+            }
+            return result;
+        }
+
     }
 }

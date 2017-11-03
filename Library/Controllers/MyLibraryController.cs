@@ -43,5 +43,36 @@ namespace Library.Controllers
             _libraryService.UpdateLibrary(id, entityType);
             return Json(true, JsonRequestBehavior.DenyGet);
         }
+
+        //public void GetFile(string format)
+        //{
+        //    var books = new List<Book>(); 
+        //    //books = _bookService.GetCheckedBooks();
+
+        //    //var booksString = _bookService.SerializeToXml(books);
+
+        //    MemoryStream memoryStream = new MemoryStream();
+        //    TextWriter textWriter = new StreamWriter(memoryStream);
+        //    textWriter.WriteLine(booksString);
+        //    textWriter.Flush();
+
+        //    byte[] bytesInStream = memoryStream.ToArray();
+        //    memoryStream.Close();
+
+        //    Response.Clear();
+        //    Response.ContentType = "application/" + format;
+        //    Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
+        //    Response.BinaryWrite(bytesInStream);
+        //    Response.Flush();
+        //    Response.Close();
+        //    Response.End();
+        //}
+
+        
+
+        //public List<T> GetChecked<T>()
+        //{
+        //    return _libraryService.GetChacked();
+        //}
     }
 }

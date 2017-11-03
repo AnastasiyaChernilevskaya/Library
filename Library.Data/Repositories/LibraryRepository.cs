@@ -94,37 +94,37 @@ namespace Library.Data.Repositories
             }
         }
 
-        //public BaseEntity GetEntity(int id, Type entityType)
-        //{
-        //    if (entityType == Type.Book)
-        //    {
-        //        BookRepository _repository = new BookRepository();
-        //        return _repository.GetBook(id);                
-        //    }
-        //    if (entityType == Type.Newspaper)
-        //    {
-        //        NewspaperRepository _repository = new NewspaperRepository();
-        //        return _repository.GetNewspaper(id);
-        //    }
-        //    if (entityType == Type.Periodical)
-        //    {
-        //        PeriodicalRepository _repository = new PeriodicalRepository();
-        //         return _repository.GetPeriodical(id);
-        //    }
-        //    return null;           
-        //}
+        public BaseEntity GetEntity(int id, Type entityType)
+        {
+            if (entityType == Type.Book)
+            {
+                BookRepository _repository = new BookRepository();
+                return _repository.GetBook(id);
+            }
+            if (entityType == Type.Newspaper)
+            {
+                NewspaperRepository _repository = new NewspaperRepository();
+                return _repository.GetNewspaper(id);
+            }
+            if (entityType == Type.Periodical)
+            {
+                PeriodicalRepository _repository = new PeriodicalRepository();
+                return _repository.GetPeriodical(id);
+            }
+            return null;
+        }
 
-        //public List<BaseEntity> GetCheckedEntitys()
-        //{
-        //    var result = new List<BaseEntity>();
-        //    foreach (BaseEntity entity in GetEntitys())
-        //    {
-        //        if (entity.IncludeToPage)
-        //        {
-        //            result.Add(entity);
-        //        }
-        //    }
-        //    return result;
-        //}
+        public List<BaseEntity> GetCheckedEntitys()
+        {
+            var result = new List<BaseEntity>();
+            foreach (BaseEntity entity in GetEntitys())
+            {
+                if (entity.IncludeToPage)
+                {
+                    result.Add(entity);
+                }
+            }
+            return result;
+        }
     }
 }

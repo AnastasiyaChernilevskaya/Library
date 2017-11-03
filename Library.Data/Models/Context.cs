@@ -17,6 +17,15 @@ namespace Library.Data
         public DbSet<Periodical> Periodicals { get; set; }
         public DbSet<Newspaper> Newspapers { get; set; }
 
-       // public DbSet<BaseEntity> LibraryEntitys { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<Context>(null);
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public static Context Create()
+        {
+            return new Context();
+        }
     }
 }
