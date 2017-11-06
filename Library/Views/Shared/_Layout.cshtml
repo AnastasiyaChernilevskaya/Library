@@ -19,19 +19,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Library", "MyLibrary", "MyLibrary", new { area = "" }, new { @class = "navbar-brand" })
-                
+                @Html.ActionLink("Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Book Library", "Book", "Book")</li>
+
+                    @if (Request.IsAuthenticated && User.Identity.Name == "admin@blog.com")
+                    {
+                        <li>@Html.ActionLink("Library", "MyLibrary", "MyLibrary", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Newspaper Library", "Newspaper", "Newspaper")</li>
+
+                    @if (Request.IsAuthenticated && User.Identity.Name == "admin@blog.com")
+                    {
+                        <li>@Html.ActionLink("Book Library", "Book", "Book")</li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Periodical Library", "Periodical", "Periodical")</li>
+                    @if (Request.IsAuthenticated && User.Identity.Name == "admin@blog.com")
+                    {
+                        <li>@Html.ActionLink("Newspaper Library", "Newspaper", "Newspaper")</li>
+                    }
                 </ul>
+                <ul class="nav navbar-nav">
+                    @if (Request.IsAuthenticated && User.Identity.Name == "admin@blog.com")
+                    {
+                        <li>@Html.ActionLink("Periodical Library", "Periodical", "Periodical")</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
@@ -44,9 +62,10 @@
     </div>
 
 
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @*@Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/vendor")
+    @RenderSection("scripts", required: false)
 
     <script src="~/Scripts/kendo.all.min.js"></script>
     <link href="~/Content/kendo.common.min.css" rel="stylesheet" />

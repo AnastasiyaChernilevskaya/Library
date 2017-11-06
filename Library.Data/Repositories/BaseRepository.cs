@@ -13,7 +13,7 @@ namespace Library.Data.Repositories
 
         public BaseRepository()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["Context"].ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
     }
 }

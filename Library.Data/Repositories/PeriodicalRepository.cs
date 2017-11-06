@@ -5,11 +5,11 @@ namespace Library.Data.Repositories
 {
     public class PeriodicalRepository : LibraryRepository
     {
-        private Context _context;
+        private ApplicationDbContext _context;
 
         public PeriodicalRepository()
         {
-            _context = new Context();
+            _context = new ApplicationDbContext();
         }
 
         public List<Periodical> GetPeriodicals()

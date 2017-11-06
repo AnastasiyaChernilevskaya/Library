@@ -84,15 +84,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="BookDbInitializer.cs" />
-    <Compile Include="Models\Context.cs" />
+    <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Enums\UserRole.cs" />
     <Compile Include="Models\Newspaper.cs" />
     <Compile Include="Models\Periodical.cs" />
-    <Compile Include="Models\LibraryUser.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Repositories\LibraryRepository.cs" />
     <Compile Include="Repositories\NewspaperRepository.cs" />
     <Compile Include="Repositories\PeriodicalRepository.cs" />
-    <Compile Include="LibraryUserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

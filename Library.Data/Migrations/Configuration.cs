@@ -5,10 +5,11 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using Library;
 
 namespace Library.Data.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -16,15 +17,15 @@ namespace Library.Data.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(Context context)
+        protected override void Seed(ApplicationDbContext context)
         {
             UpdateAdmin(context);
             base.Seed(context);
         }
 
-        private void UpdateAdmin(Context context)
+        private void UpdateAdmin(ApplicationDbContext context)
         {
-            var userManager = new LibraryUserManager(new UserStore<LibraryUser>(context));
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
@@ -48,15 +49,15 @@ namespace Library.Data.Migrations
             }
         }
 
-        private void AddAdmin(Context context)
+        private void AddAdmin(ApplicationDbContext context)
         {
-            var userManager = new LibraryUserManager(new UserStore<LibraryUser>(context));
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             var roles = roleManager.Roles.ToList();
 
-            var admin = new LibraryUser { Email = "UserAdmin@test.com", UserName = "UserAdmin" };
+            var admin = new ApplicationUser { Email = "UserAdmin@test.com", UserName = "UserAdmin" };
 
             var password = "Test1admin";
             if (userManager.Users.Any(x => x.Email == admin.Email))

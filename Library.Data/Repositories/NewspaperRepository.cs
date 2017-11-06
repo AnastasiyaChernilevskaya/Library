@@ -9,11 +9,11 @@ namespace Library.Data.Repositories
 {
     public class NewspaperRepository : LibraryRepository
     {
-        private Context _context;
+        private ApplicationDbContext _context;
 
         public NewspaperRepository()
         {
-            _context = new Context();
+            _context = new ApplicationDbContext();
         }
 
         public List<Newspaper> GetNewspapers()

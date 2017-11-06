@@ -6,11 +6,11 @@ namespace Library.Data.Repositories
 {
     public class LibraryRepository : BaseRepository
     {
-        private Context _context;
+        private ApplicationDbContext _context;
 
         public LibraryRepository()
         {
-            _context = new Context();
+            _context = new ApplicationDbContext();
         }
 
         public List<BaseEntity> GetEntitys()

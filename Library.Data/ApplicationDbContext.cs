@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Library.Data
 {
-    public class Context: DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public Context() : base()
+        public ApplicationDbContext() : base("DefaultConnection", false)
         {            
         }
 
@@ -19,13 +15,13 @@ namespace Library.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<Context>(null);
+            Database.SetInitializer<ApplicationDbContext>(null);
             base.OnModelCreating(modelBuilder);
         }
 
-        public static Context Create()
+        public static ApplicationDbContext Create()
         {
-            return new Context();
+            return new ApplicationDbContext();
         }
     }
 }

@@ -9,12 +9,12 @@ using Microsoft.AspNet.Identity;
 
 namespace Library.Data
 {
-    public class LibraryUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<LibraryUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             return userIdentity;
         }
-    }
+    }   
 }

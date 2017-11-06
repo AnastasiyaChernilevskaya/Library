@@ -6,11 +6,11 @@ namespace Library.Data.Repositories
 {
     public class BookRepository : LibraryRepository
     {
-        private Context _context;
+        private ApplicationDbContext _context;
 
         public BookRepository()
         {
-            _context = new Context();
+            _context = new ApplicationDbContext();
         }
 
         public IList<Book> GetBooks()
