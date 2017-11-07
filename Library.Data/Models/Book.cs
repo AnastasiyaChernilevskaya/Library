@@ -11,6 +11,5 @@ namespace Library.Data
     {
         public string Author { get; set; }
         public DateTime YearOfPublishing { get; set; }
-        //public DateTime YearOfWriting { get; set; }
     }
 }

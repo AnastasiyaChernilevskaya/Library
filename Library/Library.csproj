@@ -193,6 +193,7 @@
     <Compile Include="Controllers\MyLibraryController.cs" />
     <Compile Include="Controllers\NewspaperController.cs" />
     <Compile Include="Controllers\PeriodicalController.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -6,7 +6,8 @@ namespace Library.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base("DefaultConnection", false)
-        {            
+        {
+            //Database.SetInitializer(new EntityDbInitializer());
         }
 
         public DbSet<Book> Books { get; set; }

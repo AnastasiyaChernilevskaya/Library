@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Library.Data
 {
-    public class BookDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class EntityDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -28,27 +28,7 @@ namespace Library.Data
             context.Periodicals.Add(new Periodical { Name = "3sstrjdfg", Publisher = "aersrtjg", IncludeToPage = true, YearOfPublishing = DateTime.Now, LibraryType = Type.Periodical });
             context.Periodicals.Add(new Periodical { Name = "4sdstrjfg", Publisher = "aesrtjrg", IncludeToPage = false, YearOfPublishing = DateTime.Now, LibraryType = Type.Periodical });
             context.Periodicals.Add(new Periodical { Name = "5sstrjdfg", Publisher = "aaherahg", IncludeToPage = true, YearOfPublishing = DateTime.Now, LibraryType = Type.Periodical });
-
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            var role1 = new IdentityRole { Name = "admin" };
-            var role2 = new IdentityRole { Name = "user" };
-
-            roleManager.Create(role1);
-            roleManager.Create(role2);
-
-            var admin = new ApplicationUser { Email = "admin@test.com", UserName = "admin" };
-            string password = "Admin1!";
-            var result = userManager.Create(admin, password);
-
-            if (result.Succeeded)
-            {
-                userManager.AddToRole(admin.Id, role1.Name);
-                userManager.AddToRole(admin.Id, role2.Name);
-            }
-
+                     
             base.Seed(context);
         }
     }

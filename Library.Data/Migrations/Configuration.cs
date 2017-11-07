@@ -19,7 +19,7 @@ namespace Library.Data.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
-            UpdateAdmin(context);
+            //UpdateAdmin(context);
             base.Seed(context);
         }
 
@@ -47,33 +47,6 @@ namespace Library.Data.Migrations
                     userManager.AddToRole(admin.Id, role.Name);
                 }
             }
-        }
-
-        private void AddAdmin(ApplicationDbContext context)
-        {
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            var roles = roleManager.Roles.ToList();
-
-            var admin = new ApplicationUser { Email = "UserAdmin@test.com", UserName = "UserAdmin" };
-
-            var password = "Test1admin";
-            if (userManager.Users.Any(x => x.Email == admin.Email))
-            {
-                return;
-            }
-
-            var result = userManager.Create(admin, password);
-            if (result.Succeeded)
-            {
-                foreach (var role in roles)
-                {
-                    userManager.AddToRole(admin.Id, role.Name);
-                    userManager.AddToRole(admin.Id, role.Name);
-                }
-            }
-        }
+        }            
     }
 }

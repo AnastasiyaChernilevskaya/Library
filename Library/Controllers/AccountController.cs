@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -77,13 +74,13 @@ namespace Library.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
-                case SignInStatus.Success:
+                case (SignInStatus.Success):
                     return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
+                case (SignInStatus.LockedOut):
                     return View("Lockout");
-                case SignInStatus.RequiresVerification:
+                case (SignInStatus.RequiresVerification):
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
+                case (SignInStatus.Failure):
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);

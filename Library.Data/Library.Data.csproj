@@ -87,7 +87,7 @@
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Book.cs" />
-    <Compile Include="BookDbInitializer.cs" />
+    <Compile Include="EntityDbInitializer.cs" />
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Enums\UserRole.cs" />

@@ -14,7 +14,7 @@ namespace Library
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new BookDbInitializer());
+            Database.SetInitializer(new EntityDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

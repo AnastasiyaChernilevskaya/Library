@@ -10,7 +10,7 @@ namespace Library.Controllers
     public class HomeController : Controller
     {
         // создаем контекст данных
-        Data.ApplicationDbContext _context = new Data.ApplicationDbContext();
+        ApplicationDbContext _context = new ApplicationDbContext();
 
         public ActionResult Index()
         {
