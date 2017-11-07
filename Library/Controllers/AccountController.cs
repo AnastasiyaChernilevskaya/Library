@@ -149,13 +149,13 @@ namespace Library.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("MyLibrary", "MyLibrary");
                 }
                 AddErrors(result);
             }
             return View(model);
         }
-
+        //https://code.msdn.microsoft.com/ASPNET-MVC-5-Security-And-44cbdb97
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

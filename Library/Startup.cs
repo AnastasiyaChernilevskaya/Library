@@ -18,25 +18,23 @@ namespace Library
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            CreateRolesandUsers();
+            CreateRolesAndUsers();
         }
-        private void CreateRolesandUsers()
+        private void CreateRolesAndUsers()
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            //if (!roleManager.RoleExists("Admin"))
-            //{
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            if (!roleManager.RoleExists("Admin"))
+            {
+            var role = new IdentityRole();
                 role.Name = "Admin";
+
                 roleManager.Create(role);
 
-                var user = new ApplicationUser();
-                user.UserName = "UserAdmin";
-                user.Email = "admin1@test.com";
-
+                var user = new ApplicationUser { UserName = "UserAdmin", Email = "admin1@test.com" };
                 string userPWD = "Test1admin";
 
                 var chkUser = UserManager.Create(user, userPWD);
@@ -45,7 +43,7 @@ namespace Library
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
                 }
-            //}
+            }
         }
     }
 }
