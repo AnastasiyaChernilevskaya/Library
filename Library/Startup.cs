@@ -61,9 +61,9 @@ namespace Library
                 }
             }
 
-            if (!roleManager.RoleExists("user"))
+            if (!roleManager.RoleExists("User"))
             {
-                var role2 = new IdentityRole { Name = "user" };
+                var role2 = new IdentityRole { Name = "User" };
                 roleManager.Create(role2);
 
                 var user = new ApplicationUser { Email = "1user@test.com", UserName = "1user@test.com" };

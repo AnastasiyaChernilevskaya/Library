@@ -18,15 +18,18 @@
                 type: "boolean",
                 template: '<input type="checkbox" # class="chkbx" id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" />',
                 width: "100px"
-            }, {
+            },
+            {
                 field: "LibraryType",
                 title: "Library Type",
                 template: '<span > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>'
-            }, {
+            },
+            {
                 field: "Name",
                 title: "Name",
                 width: "250"
-            }, {
+            },
+            {
                 field: "Publisher",
                 title: "Publisher",
                 width: "250px"
@@ -62,7 +65,7 @@
             }
         }
 
-    });
+    }).data("kendoGrid");
 
     grid.element.on('click', '.DestroyButton', function () {
         var dataItem = grid.dataItem($(this).closest('tr'));
@@ -80,7 +83,7 @@
 function getData(e) {
     $.ajax({
         type: "GET",
-        url: "MyLibrary/GetLibrary",
+        url: "GetLibrary",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
@@ -98,7 +101,7 @@ function getData(e) {
 function deleteData(dataItem) {
 
     $.ajax({
-        url: "MyLibrary/DestroyLibraryItem?id=" + JSON.stringify(dataItem.id) + "&entityType=" + dataItem.LibraryType,
+        url: "DestroyLibraryItem?id=" + JSON.stringify(dataItem.id) + "&entityType=" + dataItem.LibraryType,
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
@@ -155,7 +158,7 @@ function updateData(dataItem) {
 
     $.ajax({
         type: "POST",
-        url: "MyLibrary/UpdateLibrary?id=" + JSON.stringify(dataItem.id) + "&entityType=" + dataItem.LibraryType,
+        url: "UpdateLibrary?id=" + JSON.stringify(dataItem.id) + "&entityType=" + dataItem.LibraryType,
         contentType: "application/json; charset =utf-8",
         data: JSON.stringify(dataItem),
         datatype: 'json',
