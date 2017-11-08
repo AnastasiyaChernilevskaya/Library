@@ -23,30 +23,30 @@ namespace Library.Data.Migrations
             base.Seed(context);
         }
 
-        private void UpdateAdmin(ApplicationDbContext context)
-        {
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+        //private void UpdateAdmin(ApplicationDbContext context)
+        //{
+        //    var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+        //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            var roles = new List<IdentityRole>();
-            roles.Add(new IdentityRole { Name = UserRole.Admin.ToString() });
-            roles.Add(new IdentityRole { Name = UserRole.User.ToString() });
+        //    var roles = new List<IdentityRole>();
+        //    roles.Add(new IdentityRole { Name = UserRole.Admin.ToString() });
+        //    roles.Add(new IdentityRole { Name = UserRole.User.ToString() });
 
-            foreach (var role in roles)
-            {
-                roleManager.Create(role);
-            }
+        //    foreach (var role in roles)
+        //    {
+        //        roleManager.Create(role);
+        //    }
 
-            var admin = userManager.Users.FirstOrDefault(x => x.Email == "UserAdmin@test.com");
-            if (admin != null)
-            {
-                foreach (var role in roles)
-                {
-                    userManager.AddToRole(admin.Id, role.Name);
-                    userManager.AddToRole(admin.Id, role.Name);
-                }
-            }
-        }            
+        //    var Admin = userManager.Users.FirstOrDefault(x => x.Email == "UserAdmin@test.com");
+        //    if (Admin != null)
+        //    {
+        //        foreach (var role in roles)
+        //        {
+        //            userManager.AddToRole(Admin.Id, role.Name);
+        //            userManager.AddToRole(Admin.Id, role.Name);
+        //        }
+        //    }
+        //}            
     }
 }

@@ -188,6 +188,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CommonLibraryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyLibraryController.cs" />
@@ -213,6 +214,7 @@
     <Content Include="Content\fonts\glyphs\WebComponentsIcons.svg" />
     <Content Include="Content\kendo.common.min.css" />
     <Content Include="Content\Book\Book.css" />
+    <Content Include="Content\kendo.silver.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -230,6 +232,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\kendo.all.min.js" />
     <Content Include="Scripts\Library\AddFormValidator.js" />
+    <Content Include="Scripts\Library\CommonGrid.js" />
     <Content Include="Scripts\Library\MainGrid.js" />
     <Content Include="Scripts\Library\EditFormValidator.js" />
     <Content Include="Scripts\Library\Books.js" />
@@ -283,6 +286,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\CommonLibrary\CommonLibrary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

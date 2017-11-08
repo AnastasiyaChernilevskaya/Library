@@ -21,25 +21,38 @@ namespace Library.Controllers
             _libraryService = new LibraryService();
         }
 
+        [HttpGet]
         public ActionResult MyLibrary()
         {
-            return View();
+            if (/*!Request.IsAuthenticated || */!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("CommonLibrary", "CommonLibrary");
+            }
+                return View();
         }
 
         public JsonResult GetLibrary()
         {
-            var books = _libraryService.GetLibrary();
-            return Json(books, JsonRequestBehavior.AllowGet);
+            var entitys = _libraryService.GetLibrary();
+            return Json(entitys, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DestroyLibraryItem(int id, Data.Type entityType)
         {
+            if (!Request.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                RedirectToAction("CommonLibrary", "CommonLibrary");
+            }
             _libraryService.DestroyLibraryItem(id, entityType);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult UpdateLibrary(int id, Data.Type entityType)
         {
+            if (!Request.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                RedirectToAction("CommonLibrary", "CommonLibrary");
+            }
             _libraryService.UpdateLibrary(id, entityType);
             return Json(true, JsonRequestBehavior.DenyGet);
         }

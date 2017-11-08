@@ -24,26 +24,58 @@ namespace Library
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
+            ////if (!roleManager.RoleExists("Admin"))
+            ////{
+            ////var role = new IdentityRole();
+            ////    role.Name = "Admin";
+
+            ////    roleManager.Create(role);
+
+            //    var user = new ApplicationUser { UserName = "UserAdmin", Email = "Admin1@test.com" };
+            //    string userPWD = "Test1Admin";
+
+            //    var chkUser = UserManager.Create(user, userPWD);
+
+            //    if (chkUser.Succeeded)
+            //    {
+            //        var result1 = UserManager.AddToRole(user.Id, "Admin");
+            //    }
+            ////}
             if (!roleManager.RoleExists("Admin"))
             {
-            var role = new IdentityRole();
-                role.Name = "Admin";
+                var role1 = new IdentityRole { Name = "Admin" };
+                roleManager.Create(role1);
 
-                roleManager.Create(role);
+                var Admin = new ApplicationUser { Email = "1Admin@test.com", UserName = "1Admin@test.com" };
+                string password = "Test1user!";
+                var result = userManager.Create(Admin, password);
 
-                var user = new ApplicationUser { UserName = "UserAdmin", Email = "admin1@test.com" };
-                string userPWD = "Test1admin";
 
-                var chkUser = UserManager.Create(user, userPWD);
-
-                if (chkUser.Succeeded)
+                if (result.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+                    userManager.AddToRole(Admin.Id, role1.Name);
+
                 }
             }
+
+            if (!roleManager.RoleExists("user"))
+            {
+                var role2 = new IdentityRole { Name = "user" };
+                roleManager.Create(role2);
+
+                var user = new ApplicationUser { Email = "1user@test.com", UserName = "1user@test.com" };
+                string password = "Test1user!";
+                var result = userManager.Create(user, password);
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, role2.Name);
+                }
+
+            }           
         }
     }
 }

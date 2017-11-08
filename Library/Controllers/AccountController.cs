@@ -363,7 +363,7 @@ namespace Library.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CommonLibrary", "CommonLibrary");
         }
 
         //
@@ -420,7 +420,7 @@ namespace Library.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CommonLibrary", "CommonLibrary");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

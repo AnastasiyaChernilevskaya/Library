@@ -1,17 +1,8 @@
 ﻿$(document).ready(function () {
 
     var grid = $("#grid").kendoGrid({
-
         height: 550,
         sortable: true,
-        toolbar: [
-            //{
-            //    template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            //}
-            //{
-            //    template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
-            //}
-        ],
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -25,13 +16,12 @@
                 field: "IncludeToPage",
                 title: "Include",
                 type: "boolean",
-                template: '<input type="checkbox"  id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" # class="chkbx"/>',
+                template: '<input type="checkbox" # class="chkbx" id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" />',
                 width: "100px"
             }, {
                 field: "LibraryType",
                 title: "Library Type",
-                //template: '<span  #= LibraryType ==0 ? \'value="Book"\' : ( LibraryType == 1? \'value="Newspaper"\':  \'value="Periodical"\')  # ></span>',
-                template: '<span  > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>',
+                template: '<span > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>'
             }, {
                 field: "Name",
                 title: "Name",
@@ -41,22 +31,11 @@
                 title: "Publisher",
                 width: "250px"
             },
-            //{
-            //    field: "YearOfPublishing",
-            //    title: "Date",
-            //    width: "100px",
-            //template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
-            //},
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
                 title: "&nbsp;",
-                width: "100px",
+                width: "100px"
             }
-            //{
-            //    template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-            //    title: "&nbsp;",
-            //    width: "100px",
-            //}
         ],
 
         dataSource: {
@@ -75,19 +54,18 @@
                     fields: {
                         "Id": { editable: false, nullable: true, type: "number" },
                         "IncludeToPage": { type: "boolean" },
-                        "Name": { type: "string", },
-                        "Publisher": { type: "string", },
-                        "LibraryType": { type: "string", },                    
+                        "Name": { type: "string" },
+                        "Publisher": { type: "string" },
+                        "LibraryType": { type: "string" }                    
                     }
                 }
             }
         }
 
-    }).data("kendoGrid");
+    });
 
     grid.element.on('click', '.DestroyButton', function () {
         var dataItem = grid.dataItem($(this).closest('tr'));
-        alert(dataItem.id + ' was clicked!!!');
         deleteData(dataItem);
     });
 
@@ -96,15 +74,8 @@
         console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
-    })
+    });
 });
-
-//function toolbarAddClick() {
-//    console.log("Toolbar command add is clicked!");
-//    addBook();
-//    return false;
-//}
-
 
 function getData(e) {
     $.ajax({
