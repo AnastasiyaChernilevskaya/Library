@@ -1,33 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.Script.Serialization;
 
-namespace Library.FileManager
+namespace Library
 {
-    public class FileManager
+    public static class FileManager
     {
-        public static class JsonSerializeHelper
+        public static byte[] ToByteArray<T>(T obj)
         {
-            public static string Serialize<T>(T model)
+            if (obj == null)
+                return null;
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream())
             {
-                if (model == null)
-                {
-                    return string.Empty;
-                }
-                var result = new JavaScriptSerializer().Serialize(model);
-                return result;
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
             }
+        }
 
-            public static T Serialize<T>(string json)
+        public static T FromByteArray<T>(byte[] data)
+        {
+            if (data == null)
+                return default(T);
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream(data))
             {
-                if (string.IsNullOrEmpty(json))
-                {
-                    return default(T);
-                }
-                var result = new JavaScriptSerializer().Deserialize<T>(json);
-                return result;
+                object obj = bf.Deserialize(ms);
+                return (T)obj;
             }
         }
     }

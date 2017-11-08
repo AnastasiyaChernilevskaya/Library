@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Library.Data;
 using Library.Services;
 using System.IO;
+using Library.ViewModels.Book;
 
 namespace Library.Controllers
 {
@@ -110,18 +111,14 @@ namespace Library.Controllers
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    //string path = Path.Combine(Server.MapPath("~/App_Data/"), Path.GetFileName(file.FileName));
-                    //file.SaveAs(path);
-                    List<Book> books = new List<Book>();
-                    books = _bookService.DeSerializeObject<List<Book>>(file.FileName);
-
-                    foreach (var book in books)
+                    file.InputStream.Position = 0;
+                    var books = new List<Book>();
+                    //books = FileManager.FromFile<List<Book>>(file);
+                    var model = new UploadedBooksViewModel
                     {
-                        _bookService.CreateBook(book);
-                    }
-
-                    ViewBag.Message = "File uploaded successfully";
-                    return RedirectToAction("MyLibrary");
+                        Books = Json(books)
+                    };
+                    return RedirectToAction("UploadedBooks", new { model = model });
                 }
                 catch (Exception ex)
                 {
@@ -132,15 +129,15 @@ namespace Library.Controllers
             return View();
         }
 
-        //https://stackoverflow.com/questions/5193842/file-upload-asp-net-mvc-3-0
-        //https://www.aurigma.com/upload-suite/developers/aspnet-mvc/how-to-upload-files-in-aspnet-mvc
-
-
         public ActionResult Upload()
         {
             return View();
         }
 
+        public ActionResult UploadedBooks(UploadedBooksViewModel model)
+        {
+            return View(model);
+        }
         //________________________________________________________
         
 

@@ -16,7 +16,7 @@
                 field: "IncludeToPage",
                 title: "Include",
                 type: "boolean",
-                template: '<input type="checkbox" # class="chkbx" id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" />',
+                template: '<input type="checkbox" class="chkbx" id="Mycheckbox" #= IncludeToPage ? \'checked="checked"\' : "" # />',
                 width: "100px"
             },
             {
