@@ -14,6 +14,7 @@ using System.Web.Script.Serialization;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class MyLibraryController : Controller
     {
         private LibraryService _libraryService;
@@ -33,15 +34,17 @@ namespace Library.Controllers
                 return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public JsonResult GetLibrary()
         {
             var entitys = _libraryService.GetLibrary();
             return Json(entitys, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public JsonResult DestroyLibraryItem(int id, Data.Type entityType)
         {
-            if (!Request.IsAuthenticated || !User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin"))
             {
                 RedirectToAction("CommonLibrary", "CommonLibrary");
             }
@@ -49,6 +52,7 @@ namespace Library.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
         public JsonResult UpdateLibrary(int id, Data.Type entityType)
         {
             if (!Request.IsAuthenticated || !User.IsInRole("Admin"))
@@ -59,6 +63,7 @@ namespace Library.Controllers
             return Json(true, JsonRequestBehavior.DenyGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public void GetFile(string data, string format)
         {
             var obj = new JavaScriptSerializer().DeserializeObject(data);

@@ -1,29 +1,29 @@
 ﻿<script id="template" type="text/x-kendo-template">
     <div id="details-container">
         <h2>#= Name # #= Publisher #</h2>
-        <em>#= LibraryType ==0 ? Author : "" #</em>  
+        <em>#= LibraryType ==0 ? Author : "" #</em>
         <dl>
             <dt>Library Type: #= LibraryType ==0 ? "Book" : ( LibraryType == 1? "Newspaper" :  "Periodical")  # </dt>
             <dt>Year: #= kendo.toString(YearOfPublishing, "MM/dd/yyyy") #</dt>
         </dl>
-        <input type="button" id="destroyButton" value="Delete" >
-        <input type="button" id="editButton" value="Edit">
+        <input type="button" id="destroyButton" name="Delete">
     </div>
 </script>
 
-
-
-<script src="~/Scripts/LibraryAdmin/Books.js"></script>
+@*<script src="~/Scripts/LibraryAdmin/Books.js"></script>*@
 
 <div id="details"></div>
 <div id="BooksGrid"></div>
 
 <link href="~/Content/Book/Book.css" rel="stylesheet" />
 
+
+
+
 <fieldset>
     <legend>To upload/download file:</legend>
 
-    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Book")'">Upload file</button>
+    @*<button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Book")'">Upload file</button>*@
 
     <form id="typeForm" class="ridge">
         <div class="round">

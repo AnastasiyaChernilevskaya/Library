@@ -10,6 +10,7 @@ using Library.ViewModels.Book;
 
 namespace Library.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BookController : Controller
     {
         private BookService _bookService;

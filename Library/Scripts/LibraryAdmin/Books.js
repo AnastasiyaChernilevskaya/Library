@@ -56,12 +56,10 @@ $(document).ready(function () {
             },
             {
                 template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
-                title: "&nbsp;",
-                width: "100px"
+                title: "&nbsp;"
             }, {
                 template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-                title: "&nbsp;",
-                width: "100px"
+                title: "&nbsp;"
             },
             {
                 command: { text: "View Details", click: showDetails },
@@ -110,16 +108,13 @@ $(document).ready(function () {
 
     wnd = $("#details")
         .kendoWindow({
-            actions: ["Custom", "Close"],
+            actions: ["Close"],
             title: "Details",
             modal: false,
             visible: false,
             resizable: false,
             width: 300
-        }).data("kendoWindow").wrapper.find(".k-i-custom").click(function (e) {
-            alert("Custom action button clicked");
-            e.preventDefault();
-        });
+        }).data("kendoWindow");
 
     detailsTemplate = kendo.template($("#template").html());
 
@@ -131,6 +126,21 @@ function showDetails(e) {
     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
     wnd.content(detailsTemplate(dataItem));
     wnd.center().open();
+
+}
+//function GetElement() {
+
+//    return 
+//}
+//function deleteRowIfAdmin() {
+//    wnd.content.on('click', '#destroyButton', function (e) {
+
+//    })
+//}
+
+function destroyLibrary() {
+    var element1 = wnd.content.dataItem;
+    alert(element1 + ' was Delited!!!');
 }
 
 function toolbarAddClick() {

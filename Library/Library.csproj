@@ -289,6 +289,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\CommonLibrary\CommonLibrary.cshtml" />
     <Content Include="Views\Book\UploadedBooks.cshtml" />
+    <Content Include="Views\CommonGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
