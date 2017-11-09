@@ -1,9 +1,26 @@
-﻿<script id="template" type="text/x-kendo-template"></script>
-<script src="~/Scripts/Library/Books.js"></script>
+﻿<script id="template" type="text/x-kendo-template">
+    <div id="details-container">
+        <h2>#= Name # #= Publisher #</h2>
+        <em>#= Author #</em>
+        <dl>
+            <dt>Library Type: #= LibraryType ==0 ? "Book" : ( LibraryType == 1? "Newspaper" :  "Periodical")  # </dt>
+            <dt>Year: #= kendo.toString(YearOfPublishing, "MM/dd/yyyy") #</dt>
+        </dl>
+    </div>
+</script>
+
+<script src="~/Scripts/LibraryAdmin/Books.js"></script>
+
+<div id="details"></div>
 <div id="BooksGrid"></div>
+
 <link href="~/Content/Book/Book.css" rel="stylesheet" />
+
+
+
+
 <fieldset>
-    <legend> Would you like to upload/download file?</legend>
+    <legend>To upload/download file:</legend>
 
     <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Book")'">Upload file</button>
 

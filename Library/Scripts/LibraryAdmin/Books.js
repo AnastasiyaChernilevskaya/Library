@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿var wnd,
+    detailsTemplate;
+
+$(document).ready(function () {
 
     var booksGrid = $("#BooksGrid").kendoGrid({
 
@@ -59,6 +62,11 @@
                 template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
                 title: "&nbsp;",
                 width: "100px"
+            },
+            {
+                command: { text: "View Details", click: showDetails },
+                title: "&nbsp;",
+                width: "180px"
             }
         ],
 
@@ -79,9 +87,9 @@
                         "Id": { editable: false, nullable: true, type: "number" },
                         "IncludeToPage": { type: "boolean" },
                         "Name": { type: "string" },
-                        "Publisher": { type: "string"},
+                        "Publisher": { type: "string" },
                         "LibraryType": { type: "string" },
-                        "YearOfPublishing": { type: "date" }                       
+                        "YearOfPublishing": { type: "date" }
                     }
                 }
             }
@@ -99,7 +107,31 @@
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
     });
+
+    wnd = $("#details")
+        .kendoWindow({
+            actions: ["Custom", "Close"],
+            title: "Details",
+            modal: false,
+            visible: false,
+            resizable: false,
+            width: 300
+        }).data("kendoWindow").wrapper.find(".k-i-custom").click(function (e) {
+            alert("Custom action button clicked");
+            e.preventDefault();
+        });
+
+    detailsTemplate = kendo.template($("#template").html());
+
 });
+
+function showDetails(e) {
+    e.preventDefault();
+
+    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    wnd.content(detailsTemplate(dataItem));
+    wnd.center().open();
+}
 
 function toolbarAddClick() {
     console.log("Toolbar command add is clicked!");
@@ -144,7 +176,7 @@ function deleteData(dataItem) {
             console.log(dataItem.id);
             alert(dataItem.id + ' was Delited!!!');
             console.log("ssD");
-            refreshGrid();            
+            refreshGrid();
         },
         error: function (data) {
             console.log(data);

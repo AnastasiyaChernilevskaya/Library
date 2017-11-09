@@ -26,7 +26,7 @@ namespace Library.Controllers
         [HttpGet]
         public ActionResult MyLibrary()
         {
-            if (/*!Request.IsAuthenticated || */!User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin"))
             {
                 return RedirectToAction("CommonLibrary", "CommonLibrary");
             }
