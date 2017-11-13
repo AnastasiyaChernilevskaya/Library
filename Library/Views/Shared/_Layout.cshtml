@@ -27,19 +27,19 @@
 
                 <ul class="nav navbar-nav">
 
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Book Library", "Book", "Book")</li>
                     }
                 </ul>
                 <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Newspaper Library", "Newspaper", "Newspaper")</li>
                     }
                 </ul>
                 <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Periodical Library", "Periodical", "Periodical")</li>
                     }

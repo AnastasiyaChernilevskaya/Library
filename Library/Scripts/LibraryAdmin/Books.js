@@ -7,14 +7,8 @@ $(document).ready(function () {
 
         height: 550,
         sortable: true,
-        toolbar: [
-            {
-                template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            }
-            //{
-            //    template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
-            //}
-        ],
+        columnResizeHandleWidth: 20,
+        resizable: true,
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -38,15 +32,15 @@ $(document).ready(function () {
             }, {
                 field: "Name",
                 title: "Name",
-                width: "250"
+                width: "150"
             }, {
                 field: "Publisher",
                 title: "Publisher",
-                width: "250px"
+                width: "150px"
             }, {
                 field: "Author",
                 title: "Author",
-                width: "250px"
+                width: "150px"
             },
             {
                 field: "YearOfPublishing",
@@ -54,13 +48,13 @@ $(document).ready(function () {
                 width: "100px",
                 template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             },
-            {
-                template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
-                title: "&nbsp;"
-            }, {
-                template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-                title: "&nbsp;"
-            },
+            //{
+            //    template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
+            //    title: "&nbsp;"
+            //}, {
+            //    template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+            //    title: "&nbsp;"
+            //},
             {
                 command: { text: "View Details", click: showDetails },
                 title: "&nbsp;",
@@ -94,10 +88,10 @@ $(document).ready(function () {
         }
     }).data("kendoGrid");
 
-    booksGrid.element.on('click', '.DestroyButton', function () {
-        var dataItem = booksGrid.dataItem($(this).closest('tr'));
-        deleteData(dataItem);
-    });
+    //booksGrid.element.on('click', '.DestroyButton', function () {
+    //    var dataItem = booksGrid.dataItem($(this).closest('tr'));
+    //    deleteData(dataItem);
+    //});
 
     booksGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = booksGrid.dataItem($(e.target).closest("tr"));
@@ -126,35 +120,18 @@ function showDetails(e) {
     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
     wnd.content(detailsTemplate(dataItem));
     wnd.center().open();
-
-}
-//function GetElement() {
-
-//    return 
-//}
-//function deleteRowIfAdmin() {
-//    wnd.content.on('click', '#destroyButton', function (e) {
-
-//    })
-//}
-
-function destroyLibrary() {
-    var element1 = wnd.content.dataItem;
-    alert(element1 + ' was Delited!!!');
 }
 
-function toolbarAddClick() {
-    console.log("Toolbar command add is clicked!");
-    addBook();
-    return false;
+function destroyBook() {
+    var id = $('#objectId').val();
+    deleteData(id);
+    wnd.destroy();
 }
 
-function editBook(id) {
+function editBook() {
+    var id = $('#objectId').val();
     window.location.href = 'EditBook/' + id;
-}
-
-function addBook() {
-    window.location.href = 'AddBook';
+    wnd.destroy();
 }
 
 function getData(e) {
@@ -175,22 +152,19 @@ function getData(e) {
     });
 }
 
-function deleteData(dataItem) {
+function deleteData(id) {
 
     $.ajax({
-        url: "DestroyBook?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyBook?id=" + id,
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        success: function (dataItem) {
-            console.log(dataItem.id);
-            alert(dataItem.id + ' was Delited!!!');
-            console.log("ssD");
+        success: function () {
             refreshGrid();
         },
-        error: function (data) {
-            console.log(data);
-            console.log("errD" + dataItem);
+        error: function () {
+            console.log();
+            console.log("errD");
         }
     });
 }

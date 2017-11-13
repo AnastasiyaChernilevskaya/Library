@@ -9,6 +9,7 @@ using System.IO;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class NewspaperController : Controller
     {
         private NewspaperService _newspaperService;

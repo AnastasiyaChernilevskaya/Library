@@ -29,6 +29,12 @@ legend {
     border: none;
     float: left;
 }
+#addButton {
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+
+}
 
 .uploadButton {
     margin-top: 10px;

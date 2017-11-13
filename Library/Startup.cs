@@ -27,23 +27,6 @@ namespace Library
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            ////if (!roleManager.RoleExists("Admin"))
-            ////{
-            ////var role = new IdentityRole();
-            ////    role.Name = "Admin";
-
-            ////    roleManager.Create(role);
-
-            //    var user = new ApplicationUser { UserName = "UserAdmin", Email = "Admin1@test.com" };
-            //    string userPWD = "Test1Admin";
-
-            //    var chkUser = UserManager.Create(user, userPWD);
-
-            //    if (chkUser.Succeeded)
-            //    {
-            //        var result1 = UserManager.AddToRole(user.Id, "Admin");
-            //    }
-            ////}
             if (!roleManager.RoleExists("Admin"))
             {
                 var role1 = new IdentityRole { Name = "Admin" };
@@ -57,7 +40,6 @@ namespace Library
                 if (result.Succeeded)
                 {
                     userManager.AddToRole(Admin.Id, role1.Name);
-
                 }
             }
 

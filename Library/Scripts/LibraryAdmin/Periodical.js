@@ -1,19 +1,22 @@
-﻿$(document).ready(function () {
+﻿var wnd,
+    detailsTemplate;
+
+$(document).ready(function () {
 
     var periodicalsGrid = $("#PeriodicalsGrid").kendoGrid({
 
         height: 550,
-        sortable: true,
-        toolbar: [
-            {
-                template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            }
-        ],
+        sortable: true, columnResizeHandleWidth: 20,
+        resizable: true,       
         pageable: {
             refresh: true,
             buttonCount: 5
         },
         columns: [
+            {
+                field: "Id",
+                hidden: true
+            },
             {
                 field: "IncludeToPage",
                 title: "Include",
@@ -24,33 +27,32 @@
                 field: "LibraryType",
                 title: "Library Type",
                 template: '<span  > #= LibraryType ==0 ? \'Book\' : ( LibraryType == 1? \'Newspaper\':  \'Periodical\')  # </span>'
-
             },
             {
-                field: "Id",
-                hidden: true
-            }, {
                 field: "Name",
                 title: "Name",
-                width: "250"
+                width: "150"
+            }, {
+                field: "Publisher",
+                title: "Publisher",
+                width: "150px"
             }, {
                 field: "YearOfPublishing",
                 title: "Date of publishing",
                 width: "100px",
                 template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
-            }, {
-                field: "Publisher",
-                title: "Publisher",
-                width: "250px"
             },
+            //{
+            //    template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
+            //    title: "&nbsp;"
+            //}, {
+            //    template: "<a class='EditButton k-button' onclick=\"editPeriodical('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+            //    title: "&nbsp;"
+            //}
             {
-                template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
+                command: { text: "View Details", click: showDetails },
                 title: "&nbsp;",
-                width: "100px"
-            }, {
-                template: "<a class='EditButton k-button' onclick=\"editPeriodical('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-                title: "&nbsp;",
-                width: "100px"
+                width: "180px"
             }
         ],
 
@@ -81,11 +83,11 @@
 
     }).data("kendoGrid");
 
-    periodicalsGrid.element.on('click', '.DestroyButton', function () {
-        var dataItem = periodicalsGrid.dataItem($(this).closest('tr'));
-        alert(dataItem.id + ' was clicked!!!');
-        deleteData(dataItem);
-    });
+    //periodicalsGrid.element.on('click', '.DestroyButton', function () {
+    //    var dataItem = periodicalsGrid.dataItem($(this).closest('tr'));
+    //    alert(dataItem.id + ' was clicked!!!');
+    //    deleteData(dataItem);
+    //});
 
     periodicalsGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = periodicalsGrid.dataItem($(e.target).closest("tr"));
@@ -93,20 +95,38 @@
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
     });
+
+    wnd = $("#details")
+        .kendoWindow({
+            actions: ["Close"],
+            title: "Details",
+            modal: false,
+            visible: false,
+            resizable: false,
+            width: 300
+        }).data("kendoWindow");
+
+    detailsTemplate = kendo.template($("#template").html());
 });
 
-function toolbarAddClick() {
-    console.log("Toolbar command add is clicked!");
-    addPeriodical();
-    return false;
+function showDetails(e) {
+    e.preventDefault();
+
+    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    wnd.content(detailsTemplate(dataItem));
+    wnd.center().open();
 }
 
-function editPeriodical(id) {
+function destroyPeriodical() {
+    var id = $('#objectId').val();
+    deleteData(id);
+    wnd.destroy();
+}
+
+function editPeriodical() {
+    var id = $('#objectId').val();
     window.location.href = 'EditPeriodical/' + id;
-}
-
-function addPeriodical() {
-    window.location.href = 'AddPeriodical';
+    wnd.destroy();
 }
 
 function getData(e) {
@@ -127,21 +147,19 @@ function getData(e) {
     });
 }
 
-function deleteData(dataItem) {
+function deleteData(id) {
 
     $.ajax({
-        url: "DestroyPeriodical?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyPeriodical?id=" + id,
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        success: function (dataItem) {
-            console.log(dataItem);
-            alert(dataItem.id + ' was Delited!!!');
-            console.log("ssD");
+        success: function (id) {
+            console.log("ssD" +id);
             refreshGrid();
         },
-        error: function (dataItem) {
-            console.log(dataItem);
+        error: function (id) {
+            console.log();
             console.log("errD" + id);
         }
     });

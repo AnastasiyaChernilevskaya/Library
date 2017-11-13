@@ -1,17 +1,14 @@
-﻿$(document).ready(function () {
+﻿var wnd,
+    detailsTemplate;
+
+$(document).ready(function () {
 
     var newspapersGrid = $("#NewspapersGrid").kendoGrid({
 
         height: 550,
         sortable: true,
-        toolbar: [
-            {
-                template: "<a class='addButton k-button' onclick='return toolbarAddClick()'><span class='k-icon k-add'></span>Add new record</a>"
-            }
-            //{
-            //    template: "<a class='fileButton k-button' href='#myPopup'><span class='k-icon k-add'></span>Add book to XML file</a>"
-            //}
-        ],
+        columnResizeHandleWidth: 20,
+        resizable: true,       
         pageable: {
             refresh: true,
             buttonCount: 5
@@ -51,14 +48,19 @@
                 template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             },          
             
+            //{
+            //    template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
+            //    title: "&nbsp;",
+            //    width: "100px"
+            //}, {
+            //    template: "<a class='EditButton k-button' onclick=\"editNewspaper('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
+            //    title: "&nbsp;",
+            //    width: "100px"
+            //}
             {
-                template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
+                command: { text: "View Details", click: showDetails },
                 title: "&nbsp;",
-                width: "100px"
-            }, {
-                template: "<a class='EditButton k-button' onclick=\"editNewspaper('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-                title: "&nbsp;",
-                width: "100px"
+                width: "180px"
             }
         ],
 
@@ -89,10 +91,10 @@
 
     }).data("kendoGrid");
 
-    newspapersGrid.element.on('click', '.DestroyButton', function () {
-        var dataItem = newspapersGrid.dataItem($(this).closest('tr'));
-        deleteData(dataItem);
-    });
+    //newspapersGrid.element.on('click', '.DestroyButton', function () {
+    //    var dataItem = newspapersGrid.dataItem($(this).closest('tr'));
+    //    deleteData(dataItem);
+    //});
 
     newspapersGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = newspapersGrid.dataItem($(e.target).closest("tr"));
@@ -100,20 +102,38 @@
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
     });
+
+    wnd = $("#details")
+        .kendoWindow({
+            actions: ["Close"],
+            title: "Details",
+            modal: false,
+            visible: false,
+            resizable: false,
+            width: 300
+        }).data("kendoWindow");
+
+    detailsTemplate = kendo.template($("#template").html());
 });
 
-function toolbarAddClick() {
-    console.log("Toolbar command add is clicked!");
-    addNewspaper();
-    return false;
+function showDetails(e) {
+    e.preventDefault();
+
+    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    wnd.content(detailsTemplate(dataItem));
+    wnd.center().open();
 }
 
-function editNewspaper(id) {
+function destroyNewspaper() {
+    var id = $('#objectId').val();
+    deleteData(id);
+    wnd.destroy();
+}
+
+function editNewspaper() {
+    var id = $('#objectId').val();
     window.location.href = 'EditNewspaper/' + id;
-}
-
-function addNewspaper() {
-    window.location.href = 'AddNewspaper';
+    wnd.destroy();
 }
 
 function getData(e) {
@@ -134,16 +154,15 @@ function getData(e) {
     });
 }
 
-function deleteData(dataItem) {
+function deleteData(id) {
 
     $.ajax({
-        url: "DestroyNewspaper?id=" + JSON.stringify(dataItem.id),
+        url: "DestroyNewspaper?id=" + id,
         type: "GET",
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
-        success: function (dataItem) {
-            console.log(dataItem);
-            alert(dataItem.id + ' was Delited!!!');
+        success: function (id) {
+            alert(id + ' was Delited!!!');
             console.log("ssD");
             refreshGrid();
         },
