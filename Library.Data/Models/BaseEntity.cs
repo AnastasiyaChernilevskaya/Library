@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data
 {
+    [Serializable]
     public class BaseEntity
     {
         [Key]

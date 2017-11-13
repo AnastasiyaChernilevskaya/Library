@@ -173,7 +173,7 @@ function addToFile(format) {
 
     //location.href = 'GetFile?format=' + format;
     var data = $("#BooksGrid").data("kendoGrid").dataSource.data();
-    location.href = '/MyLibrary/GetFile?data=' + JSON.stringify(data) + '&format=' + format;
+    location.href = '/Book/GetFile?format=' + format;
 }
 
 $(document).ready(function () {

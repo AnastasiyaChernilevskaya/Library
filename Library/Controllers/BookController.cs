@@ -7,6 +7,7 @@ using Library.Data;
 using Library.Services;
 using System.IO;
 using Library.ViewModels;
+using System.Net.Http.Formatting;
 
 namespace Library.Controllers
 {
@@ -90,16 +91,16 @@ namespace Library.Controllers
 
             //byte[] bytesInStream = memoryStream.ToArray();
             //memoryStream.Close();
+            var xml = new XmlMediaTypeFormatter();
+            var str = FileManager.Serialize(xml, books);
 
-            FileManager.Serialize<List<Book>>(format, books);
-
-            Response.Clear();
-            Response.ContentType = "application/" + format;
-            Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
-            Response.BinaryWrite(bytesInStream);
-            Response.Flush();
-            Response.Close();
-            Response.End();
+            //Response.Clear();
+            //Response.ContentType = "application/" + format;
+            //Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
+            //Response.BinaryWrite(bytesInStream);
+            //Response.Flush();
+            //Response.Close();
+            //Response.End();
         }
 
         [HttpPost]

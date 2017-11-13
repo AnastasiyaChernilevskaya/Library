@@ -10,9 +10,9 @@ using System.Net.Http.Formatting;
 
 namespace Library
 {
-    public class FileManager
+    public static class FileManager
     {
-        public string Serialize<T>(MediaTypeFormatter formatter, T value)
+        public static string Serialize<T>(MediaTypeFormatter formatter, T value)
         {
             // Create a dummy HTTP Content.
             Stream stream = new MemoryStream();
@@ -24,7 +24,7 @@ namespace Library
             return content.ReadAsStringAsync().Result;
         }
 
-        T Deserialize<T>(MediaTypeFormatter formatter, string str) where T : class
+        public static T Deserialize<T>(MediaTypeFormatter formatter, string str) where T : class
         {
             // Write the serialized string to a memory stream.
             Stream stream = new MemoryStream();
