@@ -39,7 +39,6 @@ namespace Library.Services
             return _bookRepository.GetBook(id);
         }
 
-        //http://www.c-sharpcorner.com/UploadFile/75a48f/how-to-use-xml-file-to-store-data-and-retrieve-data-using-as/
         //https://stackoverflow.com/questions/6115721/how-to-save-restore-serializable-object-to-from-file
 
         public T DeSerializeObject<T>(string fileName)

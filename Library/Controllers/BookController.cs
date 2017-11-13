@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Library.Data;
 using Library.Services;
 using System.IO;
-using Library.ViewModels.Book;
+using Library.ViewModels;
 
 namespace Library.Controllers
 {
@@ -36,12 +36,6 @@ namespace Library.Controllers
             _bookService.DestroyBook(id);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
-        //public JsonResult GetBooK(int id)
-        //{
-        //    var book = _bookService.GetBook(id);
-        //    return Json(book, JsonRequestBehavior.AllowGet);
-        //}
 
         public JsonResult UpdateBook(Book book)
         {
@@ -87,15 +81,17 @@ namespace Library.Controllers
             var books = new List<Book>();
             books = _bookService.GetCheckedBooks();
 
-            var booksString = _bookService.SerializeToXml(books);
+            //var booksString = _bookService.SerializeToXml(books);
 
-            MemoryStream memoryStream = new MemoryStream();
-            TextWriter textWriter = new StreamWriter(memoryStream);
-            textWriter.WriteLine(booksString);
-            textWriter.Flush();
+            //MemoryStream memoryStream = new MemoryStream();
+            //TextWriter textWriter = new StreamWriter(memoryStream);
+            //textWriter.WriteLine(booksString);
+            //textWriter.Flush();
 
-            byte[] bytesInStream = memoryStream.ToArray();
-            memoryStream.Close();
+            //byte[] bytesInStream = memoryStream.ToArray();
+            //memoryStream.Close();
+
+            FileManager.Serialize<List<Book>>(format, books);
 
             Response.Clear();
             Response.ContentType = "application/" + format;
@@ -109,22 +105,18 @@ namespace Library.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength > 0)
-                try
-                {
-                    file.InputStream.Position = 0;
-                    var books = new List<Book>();
-                    //books = FileManager.FromFile<List<Book>>(file);
-                    var model = new UploadedBooksViewModel
-                    {
-                        Books = Json(books)
-                    };
-                    return RedirectToAction("UploadedBooks", new { model = model });
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
-                }
+            //if (file != null && file.ContentLength > 0)
+            //    try
+            //    {
+            //        file.InputStream.Position = 0;
+            //        var books = new List<Book>();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ViewBag.Message = "ERROR:" + ex.Message.ToString();
+            //    }
+            
 
             ViewBag.Message = "You have not specified a file.";
             return View();
@@ -140,7 +132,5 @@ namespace Library.Controllers
             return View(model);
         }
         //________________________________________________________
-        
-
     }
 }

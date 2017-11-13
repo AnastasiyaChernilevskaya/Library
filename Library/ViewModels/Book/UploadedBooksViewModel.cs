@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Library.Data;
 
-namespace Library.ViewModels.Book
+namespace Library.ViewModels
 {
     public class UploadedBooksViewModel
     {
-        public JsonResult Books { get; set; }
+        public List<Book> Books { get; set; }
     }
 }
