@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Library.Data;
 using Library.Services;
 using System.IO;
-using Library.ViewModels;
-using System.Net.Http.Formatting;
+
 
 namespace Library.Controllers
 {
@@ -31,7 +29,7 @@ namespace Library.Controllers
             return Json(books, JsonRequestBehavior.AllowGet);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public JsonResult DestroyBook(int id)
         {
             _bookService.DestroyBook(id);
@@ -44,6 +42,7 @@ namespace Library.Controllers
             return Json(true, JsonRequestBehavior.DenyGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddBook()
         {
             return View();
@@ -56,6 +55,7 @@ namespace Library.Controllers
             return RedirectToAction("Book");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditBook(int id = 0)
         {
             Book book = _bookService.GetBook(id);
@@ -77,49 +77,49 @@ namespace Library.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "Admin")]
         public void GetFile(string format)
         {
             var books = new List<Book>();
             books = _bookService.GetCheckedBooks();
 
-            //var booksString = _bookService.SerializeToXml(books);
+            byte[] bytesInStream = LibraryService.SerializeToXml(books);
 
-            //MemoryStream memoryStream = new MemoryStream();
-            //TextWriter textWriter = new StreamWriter(memoryStream);
-            //textWriter.WriteLine(booksString);
-            //textWriter.Flush();
-
-            //byte[] bytesInStream = memoryStream.ToArray();
-            //memoryStream.Close();
-            var xml = new XmlMediaTypeFormatter();
-            var str = FileManager.Serialize(xml, books);
-
-            //Response.Clear();
-            //Response.ContentType = "application/" + format;
-            //Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
-            //Response.BinaryWrite(bytesInStream);
-            //Response.Flush();
-            //Response.Close();
-            //Response.End();
+            Response.Clear();
+            Response.ContentType = "application/" + format;
+            Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
+            Response.BinaryWrite(bytesInStream);
+            Response.Flush();
+            Response.Close();
+            Response.End();
         }
 
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file)
         {
-            //if (file != null && file.ContentLength > 0)
-            //    try
-            //    {
-            //        file.InputStream.Position = 0;
-            //        var books = new List<Book>();
+            if (file != null && file.ContentLength > 0)
+            {
+                var books = new List<Book>();
+                var str = "";
+                try
+                {
+                    using (var binaryReader = new StreamReader(Request.Files[0].InputStream))
+                    {
+                        str = binaryReader.ReadToEnd().ToString();
+                    }
+                    books = LibraryService.DeserializeFromXml<List<Book>>(str);
 
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        ViewBag.Message = "ERROR:" + ex.Message.ToString();
-            //    }
-            
-
-            ViewBag.Message = "You have not specified a file.";
+                    foreach (var book in books)
+                    {
+                        _bookService.CreateBook(book);
+                    }
+                    return RedirectToAction("Book");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            }
             return View();
         }
 
@@ -127,11 +127,5 @@ namespace Library.Controllers
         {
             return View();
         }
-
-        public ActionResult UploadedBooks(UploadedBooksViewModel model)
-        {
-            return View(model);
-        }
-        //________________________________________________________
     }
 }

@@ -42,13 +42,6 @@ $(document).ready(function () {
                 width: "100px",
                 template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             },
-            //{
-            //    template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
-            //    title: "&nbsp;"
-            //}, {
-            //    template: "<a class='EditButton k-button' onclick=\"editPeriodical('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-            //    title: "&nbsp;"
-            //}
             {
                 command: { text: "View Details", click: showDetails },
                 title: "&nbsp;",
@@ -83,12 +76,6 @@ $(document).ready(function () {
 
     }).data("kendoGrid");
 
-    //periodicalsGrid.element.on('click', '.DestroyButton', function () {
-    //    var dataItem = periodicalsGrid.dataItem($(this).closest('tr'));
-    //    alert(dataItem.id + ' was clicked!!!');
-    //    deleteData(dataItem);
-    //});
-
     periodicalsGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = periodicalsGrid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
@@ -120,13 +107,13 @@ function showDetails(e) {
 function destroyPeriodical() {
     var id = $('#objectId').val();
     deleteData(id);
-    wnd.destroy();
+    wnd.close();
 }
 
 function editPeriodical() {
     var id = $('#objectId').val();
     window.location.href = 'EditPeriodical/' + id;
-    wnd.destroy();
+    wnd.close();
 }
 
 function getData(e) {

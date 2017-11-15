@@ -231,12 +231,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CommonLibraryController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyLibraryController.cs" />
     <Compile Include="Controllers\NewspaperController.cs" />
     <Compile Include="Controllers\PeriodicalController.cs" />
-    <Compile Include="FileManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,7 +247,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="ViewModels\Account\ManageViewModels.cs" />
-    <Compile Include="ViewModels\Book\UploadedBooksViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -310,10 +307,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\MyLibrary\MyLibrary.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Book\EditBook.cshtml" />
     <Content Include="Views\Book\AddBook.cshtml" />
-    <Content Include="Views\Book\Upload.cshtml" />
+    <Content Include="Views\Book\UploadBook.cshtml" />
     <Content Include="Views\Book\Book.cshtml" />
     <Content Include="Views\Newspaper\Newspaper.cshtml" />
     <Content Include="Views\Periodical\Periodical.cshtml" />
@@ -342,8 +338,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\CommonLibrary\CommonLibrary.cshtml" />
-    <Content Include="Views\Book\UploadedBooks.cshtml" />
     <Content Include="Views\CommonGrid.cshtml" />
+    <Content Include="Views\Newspaper\UploadNewspaper.cshtml" />
+    <Content Include="Views\Periodical\UploadPeriodical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

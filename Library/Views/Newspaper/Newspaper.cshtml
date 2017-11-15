@@ -22,7 +22,6 @@
     <button id="addButton" onclick="location.href='@Url.Action("AddNewspaper", "Newspaper")'">Add new record</button>
 }
 
-
 <div id="NewspapersGrid"></div>
 <div id="details"></div>
 
@@ -31,23 +30,23 @@
 <fieldset>
     <legend>To upload/download file:</legend>
 
-    @*<button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Book")'">Upload file</button>*@
-@if (User.IsInRole("Admin"))
-{
-    <form id="typeForm" class="ridge">
-        <div class="round">
+    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Newspaper")'">Upload file</button>
+    @if (User.IsInRole("Admin"))
+    {
+        <form id="typeForm" class="ridge">
+            <div class="round">
 
-            <input type="radio" id="XMLFile"
-                   name="filetype" value="xml" checked>
-            <label for="XMLFile">File.xml</label>
-            <br />
-            <input type="radio" id="TXTFile"
-                   name="filetype" value="txt">
-            <label for="TXTFile">File.txt</label>
-            <p>
-                <button id="submitButton" class="submitButton" type="submit">Save file</button>
-            </p>
-        </div>
-    </form>
-}
+                <input type="radio" id="XMLFile"
+                       name="filetype" value="xml" checked>
+                <label for="XMLFile">File.xml</label>
+                <br />
+                <input type="radio" id="TXTFile"
+                       name="filetype" value="txt">
+                <label for="TXTFile">File.txt</label>
+                <p>
+                    <button id="submitButton" class="submitButton" type="submit">Save file</button>
+                </p>
+            </div>
+        </form>
+    }
 </fieldset>

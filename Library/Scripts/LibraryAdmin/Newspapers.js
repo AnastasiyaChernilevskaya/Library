@@ -46,17 +46,7 @@ $(document).ready(function () {
                 title: "Date of publishing",
                 width: "100px",
                 template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
-            },          
-            
-            //{
-            //    template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
-            //    title: "&nbsp;",
-            //    width: "100px"
-            //}, {
-            //    template: "<a class='EditButton k-button' onclick=\"editNewspaper('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-            //    title: "&nbsp;",
-            //    width: "100px"
-            //}
+            },           
             {
                 command: { text: "View Details", click: showDetails },
                 title: "&nbsp;",
@@ -91,11 +81,6 @@ $(document).ready(function () {
 
     }).data("kendoGrid");
 
-    //newspapersGrid.element.on('click', '.DestroyButton', function () {
-    //    var dataItem = newspapersGrid.dataItem($(this).closest('tr'));
-    //    deleteData(dataItem);
-    //});
-
     newspapersGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = newspapersGrid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
@@ -127,13 +112,13 @@ function showDetails(e) {
 function destroyNewspaper() {
     var id = $('#objectId').val();
     deleteData(id);
-    wnd.destroy();
+    wnd.close();
 }
 
 function editNewspaper() {
     var id = $('#objectId').val();
     window.location.href = 'EditNewspaper/' + id;
-    wnd.destroy();
+    wnd.close();
 }
 
 function getData(e) {

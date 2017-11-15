@@ -32,6 +32,4 @@ namespace Library.Controllers
             return Json(entity, JsonRequestBehavior.AllowGet);
         }
     }
-
-
 }

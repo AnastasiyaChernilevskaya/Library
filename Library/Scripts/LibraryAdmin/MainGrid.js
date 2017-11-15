@@ -117,38 +117,6 @@ function deleteData(dataItem) {
     });
 }
 
-//function addToFile(format) {
-
-//    location.href = '/MyLibrary/GetFile?format=' + format;
-//}
-
-//$(document).ready(function () {
-//    $("#typeForm").submit(function (event) {
-//        event.preventDefault();
-//        var filetype = $('input[name=filetype]:checked').val();
-//        if (filetype === "xml") {
-//            format = "xml";
-//        }
-//        if (filetype === "txt") {
-//            format = "txt";
-//        }
-//        addToFile(format);
-//    })
-//})
-
-//function getChecked() {
-//    var books = [];
-//    $("input[type='checkbox']").each(function (index, element) {
-//        if ($(element).prop("checked") !== false) {
-//            var grid = $("#grid").data("kendoGrid");
-//            var dataItem = grid.dataItem($(element).closest('tr'));
-//            books.push(dataItem.id);
-//        }
-//    })
-//    console.log(books);
-//    Test(books);
-//}
-
 function refreshGrid() {
     $('#grid').data('kendoGrid').dataSource.read();
     $('#grid').data('kendoGrid').refresh();
@@ -173,5 +141,4 @@ function updateData(dataItem) {
             console.log("errU");
         }
     });
-
 }

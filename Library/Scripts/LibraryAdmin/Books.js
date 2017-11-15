@@ -48,13 +48,6 @@ $(document).ready(function () {
                 width: "100px",
                 template: "#= kendo.toString(kendo.parseDate(YearOfPublishing, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             },
-            //{
-            //    template: "<a class='DestroyButton k-button'\"><span class='k-icon k-delete'></span>Delete</a>",
-            //    title: "&nbsp;"
-            //}, {
-            //    template: "<a class='EditButton k-button' onclick=\"editBook('#=Id#')\"><span class='k-icon k-edit'></span>Edit</a>",
-            //    title: "&nbsp;"
-            //},
             {
                 command: { text: "View Details", click: showDetails },
                 title: "&nbsp;",
@@ -88,11 +81,6 @@ $(document).ready(function () {
         }
     }).data("kendoGrid");
 
-    //booksGrid.element.on('click', '.DestroyButton', function () {
-    //    var dataItem = booksGrid.dataItem($(this).closest('tr'));
-    //    deleteData(dataItem);
-    //});
-
     booksGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = booksGrid.dataItem($(e.target).closest("tr"));
         console.log(dataItem + "   " + e.target);
@@ -125,13 +113,13 @@ function showDetails(e) {
 function destroyBook() {
     var id = $('#objectId').val();
     deleteData(id);
-    wnd.destroy();
+    wnd.close();
 }
 
 function editBook() {
     var id = $('#objectId').val();
     window.location.href = 'EditBook/' + id;
-    wnd.destroy();
+    wnd.close();
 }
 
 function getData(e) {
@@ -171,7 +159,6 @@ function deleteData(id) {
 
 function addToFile(format) {
 
-    //location.href = 'GetFile?format=' + format;
     var data = $("#BooksGrid").data("kendoGrid").dataSource.data();
     location.href = '/Book/GetFile?format=' + format;
 }

@@ -29,6 +29,7 @@ namespace Library.Controllers
             return Json(newspapers, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles ="Admin")]
         public JsonResult DestroyNewspaper(int id)
         {
             _newspaperService.DestroyNewspaper(id);
@@ -41,6 +42,7 @@ namespace Library.Controllers
             return Json(true, JsonRequestBehavior.DenyGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddNewspaper()
         {
             return View();
@@ -53,6 +55,7 @@ namespace Library.Controllers
             return RedirectToAction("Newspaper");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditNewspaper(int id = 0)
         {
             Newspaper newspaper = _newspaperService.GetNewspaper(id);
@@ -74,20 +77,13 @@ namespace Library.Controllers
             return View(newspaper);
         }
 
+        [Authorize(Roles = "Admin")]
         public void GetFile(string format)
         {
             var newspapers = new List<Newspaper>();
             newspapers = _newspaperService.GetCheckedNewspapers();
 
-            var newspapersString = _newspaperService.SerializeToXml(newspapers);
-
-            MemoryStream memoryStream = new MemoryStream();
-            TextWriter textWriter = new StreamWriter(memoryStream);
-            textWriter.WriteLine(newspapersString);
-            textWriter.Flush();
-
-            byte[] bytesInStream = memoryStream.ToArray();
-            memoryStream.Close();
+            byte[] bytesInStream = LibraryService.SerializeToXml(newspapers);
 
             Response.Clear();
             Response.ContentType = "application/" + format;
@@ -96,6 +92,40 @@ namespace Library.Controllers
             Response.Flush();
             Response.Close();
             Response.End();
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var newspapers = new List<Newspaper>();
+                var str = "";
+                try
+                {
+                    using (var binaryReader = new StreamReader(Request.Files[0].InputStream))
+                    {
+                        str = binaryReader.ReadToEnd().ToString();
+                    }
+                    newspapers = LibraryService.DeserializeFromXml<List<Newspaper>>(str);
+
+                    foreach (var newspaper in newspapers)
+                    {
+                        _newspaperService.CreateNewspaper(newspaper);
+                    }
+                    return RedirectToAction("Newspaper");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            }
+            return View();
+        }
+
+        public ActionResult Upload()
+        {
+            return View();
         }
     }
 }

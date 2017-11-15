@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Library.Data;
 using Library.Data.Repositories;
 using System.Xml;
@@ -35,19 +34,37 @@ namespace Library.Services
             return _libraryRepository.GetCheckedEntitys();
         }
 
-        public string SerializeToXml<T>(List<T> books)
+        public static byte[] SerializeToXml<T>(List<T> items)
         {
-            XmlSerializer ser = new XmlSerializer(books.GetType());
+            XmlSerializer ser = new XmlSerializer(items.GetType());
             string result = string.Empty;
 
             using (MemoryStream memStream = new MemoryStream())
             {
-                ser.Serialize(memStream, books);
+                ser.Serialize(memStream, items);
 
                 memStream.Position = 0;
                 result = new StreamReader(memStream).ReadToEnd();
             }
-            return result;
+            
+            var memoryStream = new MemoryStream();
+            TextWriter textWriter = new StreamWriter(memoryStream);
+            textWriter.WriteLine(result);
+            textWriter.Flush();
+            byte[] bytesInStream = memoryStream.ToArray();
+            memoryStream.Close();
+            return bytesInStream;
+        }
+
+        public static T DeserializeFromXml<T>(string str)
+        {
+
+            var stringReader = new StringReader(str);
+            var xmlTextReader = new XmlTextReader(stringReader);
+
+            var ser = new XmlSerializer(typeof(T));
+            var items = (T)ser.Deserialize(xmlTextReader);
+            return items;
         }
 
     }

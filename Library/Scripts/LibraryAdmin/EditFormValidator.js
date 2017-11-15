@@ -40,6 +40,3 @@ function validateBookAuthorEditForm() {
     }
     return true;
 }
-
-
-//https://stackoverflow.com/questions/16250915/how-to-call-two-functions-on-a-form-submit
