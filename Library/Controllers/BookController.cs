@@ -95,7 +95,7 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult UploadBook(HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
             {
@@ -123,7 +123,7 @@ namespace Library.Controllers
             return View();
         }
 
-        public ActionResult Upload()
+        public ActionResult UploadBook()
         {
             return View();
         }

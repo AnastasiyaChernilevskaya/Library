@@ -7,7 +7,6 @@ namespace Library.Data
     {
         public ApplicationDbContext() : base("DefaultConnection", false)
         {
-            //Database.SetInitializer(new EntityDbInitializer());
         }
 
         public DbSet<Book> Books { get; set; }

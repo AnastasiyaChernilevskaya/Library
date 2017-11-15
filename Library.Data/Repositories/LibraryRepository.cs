@@ -24,26 +24,12 @@ namespace Library.Data.Repositories
             return result;
         }
 
-        //public void CreateEntity(BaseEntity libraryEntity)
-        //{
-        //    var entity = new BaseEntity(); //ask Lesha!
-
-        //    entity.Name = libraryEntity.Name;
-        //    entity.Publisher = libraryEntity.Publisher;
-        //    entity.IncludeToPage = libraryEntity.IncludeToPage;
-
-        //    entity.LibraryType = libraryEntity.LibraryType;
-
-        //    //_context.LibraryEntitys.Add(entity);
-        //    _context.SaveChanges();
-        //}
-
         public void UpdateEntityChack(int id, Type entityType)
         {
             var entity = GetEntitys().Where(x => x.Id == id).FirstOrDefault();
             if (entityType == Type.Book)
             {
-                BookRepository _repository = new BookRepository();
+                var _repository = new BookRepository();
                 var book = _repository.GetBook(id);
                 book.IncludeToPage = !book.IncludeToPage;
                 if(book != null)
@@ -54,7 +40,7 @@ namespace Library.Data.Repositories
             }
             if (entityType == Type.Newspaper)
             {
-                NewspaperRepository _repository = new NewspaperRepository();
+                var _repository = new NewspaperRepository();
                 var newspaper = _repository.GetNewspaper(id);
                 newspaper.IncludeToPage = !newspaper.IncludeToPage;
                 if (newspaper != null)
@@ -65,7 +51,7 @@ namespace Library.Data.Repositories
             }
             if (entityType == Type.Periodical)
             {
-                PeriodicalRepository _repository = new PeriodicalRepository();
+                var _repository = new PeriodicalRepository();
                 var periodical = _repository.GetPeriodical(id);
                 periodical.IncludeToPage = periodical.IncludeToPage;
                 if (periodical != null)
@@ -79,17 +65,17 @@ namespace Library.Data.Repositories
         {
             if (entityType == Type.Book)
             {
-                BookRepository _repository = new BookRepository();
+                var _repository = new BookRepository();
                 _repository.DestroyBook(id);
             }
             if(entityType == Type.Newspaper)
             {
-                NewspaperRepository _repository = new NewspaperRepository();
+                var _repository = new NewspaperRepository();
                 _repository.DestroyNewspaper(id);
             }
             if(entityType == Type.Periodical)
             {
-                PeriodicalRepository _repository = new PeriodicalRepository();
+                var _repository = new PeriodicalRepository();
                 _repository.DestroyPeriodical(id);
             }
         }
@@ -98,17 +84,17 @@ namespace Library.Data.Repositories
         {
             if (entityType == Type.Book)
             {
-                BookRepository _repository = new BookRepository();
+                var _repository = new BookRepository();
                 return _repository.GetBook(id);
             }
             if (entityType == Type.Newspaper)
             {
-                NewspaperRepository _repository = new NewspaperRepository();
+                var _repository = new NewspaperRepository();
                 return _repository.GetNewspaper(id);
             }
             if (entityType == Type.Periodical)
             {
-                PeriodicalRepository _repository = new PeriodicalRepository();
+                var _repository = new PeriodicalRepository();
                 return _repository.GetPeriodical(id);
             }
             return null;

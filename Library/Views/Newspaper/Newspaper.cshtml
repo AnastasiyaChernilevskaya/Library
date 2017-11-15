@@ -30,7 +30,7 @@
 <fieldset>
     <legend>To upload/download file:</legend>
 
-    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("Upload","Newspaper")'">Upload file</button>
+    <button id="uploadButton" class="uploadButton" onclick="location.href='@Url.Action("UploadNewspaper","Newspaper")'">Upload file</button>
     @if (User.IsInRole("Admin"))
     {
         <form id="typeForm" class="ridge">

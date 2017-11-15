@@ -62,25 +62,5 @@ namespace Library.Controllers
             _libraryService.UpdateLibrary(id, entityType);
             return Json(true, JsonRequestBehavior.DenyGet);
         }
-
-        [Authorize(Roles = "Admin")]
-        public void GetFile(string data, string format)
-        {
-            var obj = new JavaScriptSerializer().DeserializeObject(data);
-            //byte[] bytesInStream = FileManager.ToByteArray(obj);
-            //Response.Clear();
-            //Response.ContentType = "application/" + format;
-            //Response.AddHeader("Content-Disposition", "attachment; filename=file." + format);
-            //Response.BinaryWrite(bytesInStream);
-            Response.Flush();
-            Response.Close();
-            Response.End();
-        }
-
-
-        //public List<T> GetChecked<T>()
-        //{
-        //    return _libraryService.GetChacked();
-        //}
     }
 }

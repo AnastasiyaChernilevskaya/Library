@@ -78,7 +78,6 @@ $(document).ready(function () {
 
     periodicalsGrid.element.on('click', ".chkbx", function (e) {
         var dataItem = periodicalsGrid.dataItem($(e.target).closest("tr"));
-        console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
     });
@@ -123,13 +122,9 @@ function getData(e) {
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
-            console.log(data);
-            console.log("ssget");
             e.success(data);
         },
         error: function (data) {
-            console.log(data);
-            console.log("errget");
         }
     });
 }
@@ -142,12 +137,9 @@ function deleteData(id) {
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (id) {
-            console.log("ssD" +id);
             refreshGrid();
         },
         error: function (id) {
-            console.log();
-            console.log("errD" + id);
         }
     });
 }
@@ -185,14 +177,8 @@ function updateData(data) {
         data: JSON.stringify(data),
         datatype: 'json',
         success: function (data) {
-            console.log(data);
-            console.log(JSON.stringify(data));
-            console.log("ssU");
         },
         error: function (data) {
-            console.log(data);
-            console.log(JSON.stringify(data));
-            console.log("errU");
         }
     });
 }

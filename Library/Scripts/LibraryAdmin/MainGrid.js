@@ -74,7 +74,6 @@
 
     grid.element.on('click', ".chkbx", function (e) {
         var dataItem = grid.dataItem($(e.target).closest("tr"));
-        console.log(dataItem + "   " + e.target);
         $(e.target).prop("checked") === true ? dataItem.IncludeToPage = true : dataItem.IncludeToPage = false;
         updateData(dataItem);
     });
@@ -87,13 +86,9 @@ function getData(e) {
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
-            console.log(data);
-            console.log("ssget");
             e.success(data);
         },
         error: function (data) {
-            console.log(data);
-            console.log("errget");
         }
     });
 }
@@ -106,13 +101,9 @@ function deleteData(dataItem) {
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
-            console.log(data);
-            console.log("ssD");
             refreshGrid();
         },
         error: function (data) {
-            console.log(data);
-            console.log("errD" + id);
         }
     });
 }
@@ -131,14 +122,8 @@ function updateData(dataItem) {
         data: JSON.stringify(dataItem),
         datatype: 'json',
         success: function (data) {
-            console.log(data);
-            console.log(JSON.stringify(dataItem));
-            console.log("ssU");
         },
         error: function (dataItem) {
-            console.log(dataItem);
-            console.log(JSON.stringify(dataItem));
-            console.log("errU");
         }
     });
 }

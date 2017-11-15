@@ -34,7 +34,7 @@
             <input type="text" name="Publisher" value="@Model.Publisher"><br>
 
             Year of publishing:<br>
-            <input type="date" name="YearOfPublishing" value="@Model.YearOfPublishing.GetDateTimeFormats()" min="1700-01-01" max="2017-11-02" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
+            <input type="date" name="YearOfPublishing" value="@Model.YearOfPublishing.GetDateTimeFormats()" min="1700-01-01" max="@DateTime.Now.ToString("yyyy-mm-dd")" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><br>
 
             Include to the Page:<br>
             <input type="checkbox" id="check" name="IncludeToPage" value="@Model.IncludeToPage" @check ><br>

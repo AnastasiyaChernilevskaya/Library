@@ -2,7 +2,7 @@
 
 <h2>Basic File Upload</h2>
 <p>
-    @using (Html.BeginForm("Upload", "Newspaper", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("UploadNewspaper", "Newspaper", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="file" />
                     <input type="submit" value="Upload file" />

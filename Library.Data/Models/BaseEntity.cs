@@ -14,7 +14,6 @@ namespace Library.Data
         [Key]
         public int Id { get; set; }
 
-        [IgnoreDataMember]
         public bool IncludeToPage { get; set; }
 
         public string Name { get; set; }

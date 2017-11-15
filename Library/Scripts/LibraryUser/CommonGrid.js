@@ -56,13 +56,9 @@ function getData(e) {
         contentType: "application/json; charset =utf-8",
         datatype: 'json',
         success: function (data) {
-            console.log(data);
-            console.log("ssget");
             e.success(data);
         },
         error: function (data) {
-            console.log(data);
-            console.log("errget");
         }
     });
 }
