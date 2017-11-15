@@ -43,20 +43,5 @@ namespace Library.Services
         {
             return _periodicalRepository.GetCheckedPeriodicals();
         }
-
-        public string SerializeToXml(List<Periodical> periodical)
-        {
-            XmlSerializer ser = new XmlSerializer(periodical.GetType());
-            string result = string.Empty;
-
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                ser.Serialize(memStream, periodical);
-
-                memStream.Position = 0;
-                result = new StreamReader(memStream).ReadToEnd();
-            }
-            return result;
-        }
     }
 }

@@ -47,20 +47,5 @@ namespace Library.Services
         {
             return _newspaperRepository.GetCheckedNewspapers();
         }
-
-        public string SerializeToXml(List<Newspaper> newspapers)
-        {
-            XmlSerializer ser = new XmlSerializer(newspapers.GetType());
-            string result = string.Empty;
-
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                ser.Serialize(memStream, newspapers);
-
-                memStream.Position = 0;
-                result = new StreamReader(memStream).ReadToEnd();
-            }
-            return result;
-        }
     }
 }

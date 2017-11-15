@@ -1,14 +1,8 @@
-﻿using System;
-using Library.Data;
+﻿using Library.Data;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
-using Microsoft.Owin.Security.Cookies;
-using System.Web;
-using System.IO;
-using Microsoft.Owin.Extensions;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 [assembly: OwinStartup(typeof(Library.Startup))]
 namespace Library
